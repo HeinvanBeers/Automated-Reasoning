@@ -100,18 +100,17 @@ public class Processes {
         
     // Check if the process can start
     public static boolean canStart(int process) {
+       
         // Check for special cases
-        if (specials.contains(process) && !runningProcesses.isEmpty()) {
-            return false;
-        }
-        
-        // Check if a special case is currently running
-        for (Integer special: specials) {
-            if (runningProcesses.containsKey(special)) {
-                return false;
+        if (specials.contains(process)) {
+            // Check if a special case is currently running
+            for (Integer special: specials) {
+                if (runningProcesses.containsKey(special)) {
+                    return false;
+                }
             }
         }
-               
+                       
         // Check if all dependencies are finished
         for(int dependency : getDependencies(process)) {
             if (!finishedProcesses.contains(dependency)) {
