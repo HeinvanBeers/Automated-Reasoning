@@ -78,7 +78,11 @@ public class Processes {
             
             if (remainingProcesses.isEmpty() && runningProcesses.isEmpty()) {
                 // Show final time
-                if (time < bestRun) bestRun = time;
+                if (time < bestRun) {
+                    bestRun = time;
+                    System.out.println("Best run: " + bestRun);
+                    System.out.println("Log: " + log);
+                }
             } else {
                 // Continue recursion
                 determineBestRun();
@@ -91,77 +95,21 @@ public class Processes {
         // This line gets printed too much. Needs to be fixed. 
         // Could not find out why it happens.
         // The log variable should be able how the best run was achieved.
-        System.out.println("Best run: " + bestRun);
+        
     }
-    
-    // Test run 1
-    public static void testRun() {
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("> Starting 1.");
-        if (canStart(1)) start(1);
-        System.out.println("> Starting 2.");
-        if (canStart(2)) start(2);
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("Remaining processes: " + remainingProcesses.toString());
-        System.out.println("Running processes: " + runningProcesses.toString());
-        System.out.println("Finished processes: " + finishedProcesses.toString());
-        System.out.println("> Terminate next");
-        terminateNext();
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("Remaining processes: " + remainingProcesses.toString());
-        System.out.println("Running processes: " + runningProcesses.toString());
-        System.out.println("Finished processes: " + finishedProcesses.toString());
-        System.out.println("> Terminate next");
-        terminateNext();
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("Remaining processes: " + remainingProcesses.toString());
-        System.out.println("Running processes: " + runningProcesses.toString());
-        System.out.println("Finished processes: " + finishedProcesses.toString());
-        System.out.println("Execution time: " + time);
-    }
-    
-    // Test run 2
-    public static void testRun2() {
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("> Start process 8 and include all that cost less time as well and are bootable after 8 started.");
-        startAll(8);
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("Running processes: " + runningProcesses.toString());
-        System.out.println("> Terminate next");
-        terminateNext();
-        System.out.println("> Terminate next");
-        terminateNext();
-        System.out.println("> Terminate next");
-        terminateNext();
-        System.out.println("> Terminate next");
-        terminateNext();
-        System.out.println("> Terminate next");
-        terminateNext();
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("Remaining processes: " + remainingProcesses.toString());
-        System.out.println("Running processes: " + runningProcesses.toString());
-        System.out.println("Finished processes: " + finishedProcesses.toString());
-        System.out.println("Execution time: " + time);
-    }
-    
-    // Test run 3
-    public static void testRun3() {
-        System.out.println("> Start process 8 and include all that cost less time as well and are bootable after 8 started.");
-        startAll(8);
-        System.out.println("> Keep terminating processes until we discover a new bootable.");
-        terminateUntilNewBootable();
-        System.out.println("Bootable: " + getBootable().toString());
-        System.out.println("Remaining processes: " + remainingProcesses.toString());
-        System.out.println("Running processes: " + runningProcesses.toString());
-        System.out.println("Finished processes: " + finishedProcesses.toString());
-        System.out.println("Execution time: " + time);
-    }
-    
+        
     // Check if the process can start
     public static boolean canStart(int process) {
         // Check for special cases
         if (specials.contains(process) && !runningProcesses.isEmpty()) {
             return false;
+        }
+        
+        // Check if a special case is currently running
+        for (Integer special: specials) {
+            if (runningProcesses.containsKey(special)) {
+                return false;
+            }
         }
                
         // Check if all dependencies are finished
@@ -177,7 +125,7 @@ public class Processes {
     public static void start(int process) {
         remainingProcesses.remove((Integer) process);
         runningProcesses.put((Integer) process, process);
-        log += "start " + process + "@" + time + " ";
+        log += "start " + process + "@" + time + "| ";
     }
     
     // Start given process and all processes that cost less time 
@@ -221,7 +169,7 @@ public class Processes {
         forwardTime(shortestLife);
         
         // Update log
-        log += "terminate " + firstToTerminate + "@" + time + " ";
+        log += "terminate " + firstToTerminate + "@" + time + "| ";
     }
     
     // Terminate until a new bootable is found.
@@ -258,7 +206,7 @@ public class Processes {
     }
     
     private static State saveState() {
-        return new State(runningProcesses, finishedProcesses, remainingProcesses, time);
+        return new State(runningProcesses, finishedProcesses, remainingProcesses, time, log);
     }
     
     private static void resetState(State state) {
@@ -266,6 +214,7 @@ public class Processes {
         finishedProcesses = new ArrayList<>(state.finishedProcesses);
         remainingProcesses = new ArrayList<>(state.remainingProcesses);
         time = state.time;
+        log = state.log;
     }
 }
 
@@ -277,6 +226,8 @@ class State {
     public List<Integer> finishedProcesses;
     
     public List<Integer> remainingProcesses;
+    
+    public String log;
         
     // Clock
     public int time;
@@ -284,10 +235,11 @@ class State {
     State(HashMap<Integer, Integer> runningProcesses, 
           List<Integer> finishedProcesses, 
           List<Integer> remainingprocesses,
-          int time) {
+          int time, String log) {
         this.runningProcesses = new HashMap<> (runningProcesses);
         this.finishedProcesses = new ArrayList<>(finishedProcesses);
         this.remainingProcesses = new ArrayList<>(remainingprocesses);
         this.time = time;
+        this.log = log;
     }
 }
