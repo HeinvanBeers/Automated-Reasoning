@@ -41,8 +41,8 @@
 (= e_ly (ite e_turned 20 4))
 
 ; X-Y for F
-(= f_lx (ite e_turned 6 10))
-(= f_ly (ite e_turned 10 6))
+(= f_lx (ite f_turned 6 10))
+(= f_ly (ite f_turned 10 6))
 
 ; X-Y for G
 (= g_lx (ite g_turned 6 8))
