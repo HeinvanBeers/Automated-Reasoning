@@ -14,6 +14,7 @@ public class Processes {
     // List of finished processes
     static List<Integer> finishedProcesses = new ArrayList();
     
+    // List of remaining processes
     static List<Integer> remainingProcesses;
     
     // List of special processes
