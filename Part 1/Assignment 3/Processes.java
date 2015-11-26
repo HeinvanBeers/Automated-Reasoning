@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package processes;
 
 import java.util.ArrayList;
@@ -11,10 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author jeroen
- */
 public class Processes {
     
     // List of running processes and their time until termination
@@ -34,11 +25,10 @@ public class Processes {
     // Clock
     static int time = 0;
     
+    // Keep a log of what happened
     static String log = "";
 
-    /**
-     * @param args the command line arguments
-     */
+    // Main method
     public static void main(String[] args) {
         // Setup dependencies
         dependencies.put(1, new int[0]);
@@ -63,23 +53,33 @@ public class Processes {
         Integer[] processes = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         remainingProcesses = new ArrayList(Arrays.asList(processes));
         
+        // Recursively determine the best run
         determineBestRun();
     }
     
+    // Initialize the best run to a very large number
     static int bestRun = Integer.MAX_VALUE;
     
+    // Determine the best run
     public static void determineBestRun() {
         for (Integer bootable : getBootable()) {
             // Save state
             State save = saveState();
             
+            // Start current process in the loop, 
+            // and also start all processes that do not cost less time, i.e. no additional time.
             startAll(bootable);
+
+            // Keep terminating processes, until we find a new bootable, or until everything is terminated.
             terminateUntilNewBootable();
             
+            // When all processes are finished
             if (remainingProcesses.isEmpty() && runningProcesses.isEmpty()) {
-                // Show final time
+                // Check if we found a new best time
                 if (time < bestRun) {
                     bestRun = time;
+
+                    // Print the best time and the log of what happened.
                     System.out.println("Best run: " + bestRun);
                     System.out.println("Log: " + log);
                 }
@@ -91,11 +91,6 @@ public class Processes {
             // Reset state
             resetState(save);
         }
-        
-        // This line gets printed too much. Needs to be fixed. 
-        // Could not find out why it happens.
-        // The log variable should be able how the best run was achieved.
-        
     }
         
     // Check if the process can start
@@ -138,6 +133,7 @@ public class Processes {
         }
     }
     
+    // Get a list of all processes that are able to start
     public static List<Integer> getBootable() {
         List<Integer> bootable = new ArrayList();
         for (Integer process: remainingProcesses) {
@@ -204,10 +200,12 @@ public class Processes {
         return dependencies.get(process);
     }
     
+    // Save a state to which we can return
     private static State saveState() {
         return new State(runningProcesses, finishedProcesses, remainingProcesses, time, log);
     }
     
+    // Return to a previous state
     private static void resetState(State state) {
         runningProcesses = new HashMap<> (state.runningProcesses);
         finishedProcesses = new ArrayList<>(state.finishedProcesses);
@@ -224,13 +222,16 @@ class State {
     // List of finished processes
     public List<Integer> finishedProcesses;
     
+    // List of remaining processes
     public List<Integer> remainingProcesses;
     
+    // Keep a log of what happened
     public String log;
         
     // Clock
     public int time;
     
+    // Constructor
     State(HashMap<Integer, Integer> runningProcesses, 
           List<Integer> finishedProcesses, 
           List<Integer> remainingprocesses,
