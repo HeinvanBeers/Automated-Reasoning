@@ -437,46 +437,6 @@
 (or (not p682) (not p683)) (or (not p682) (not p684)) (or (not p682) (not p685))
 (or (not p683) (not p684)) (or (not p683) (not p685))
 (or (not p684) (not p685))
-
-
-
-;Not more than 48 pallets can be delivered (6 trucks x 8 pallet positions = 48 pallet positions in total)
-;Nuzzles
-(<= (+ (ite p111 1 0) (ite p121 1 0) (ite p131 1 0) (ite p141 1 0) (ite p151 1 0) (ite p161 1 0) (ite p171 1 0) (ite p181 1 0)
-	  (ite p211 1 0) (ite p221 1 0) (ite p231 1 0) (ite p241 1 0) (ite p251 1 0) (ite p261 1 0) (ite p271 1 0) (ite p281 1 0)
-	  (ite p311 1 0) (ite p321 1 0) (ite p331 1 0) (ite p341 1 0) (ite p351 1 0) (ite p361 1 0) (ite p371 1 0) (ite p381 1 0)
-	  (ite p411 1 0) (ite p421 1 0) (ite p431 1 0) (ite p441 1 0) (ite p451 1 0) (ite p461 1 0) (ite p471 1 0) (ite p481 1 0)
-	  (ite p511 1 0) (ite p521 1 0) (ite p531 1 0) (ite p541 1 0) (ite p551 1 0) (ite p561 1 0) (ite p571 1 0) (ite p581 1 0)
-	  (ite p611 1 0) (ite p621 1 0) (ite p631 1 0) (ite p641 1 0) (ite p651 1 0) (ite p661 1 0) (ite p671 1 0) (ite p681 1 0)
-;Prittles	
-	  (ite p112 1 0) (ite p122 1 0) (ite p132 1 0) (ite p142 1 0) (ite p152 1 0) (ite p162 1 0) (ite p172 1 0) (ite p182 1 0)
-	  (ite p212 1 0) (ite p222 1 0) (ite p232 1 0) (ite p242 1 0) (ite p252 1 0) (ite p262 1 0) (ite p272 1 0) (ite p282 1 0)
-	  (ite p312 1 0) (ite p322 1 0) (ite p332 1 0) (ite p342 1 0) (ite p352 1 0) (ite p362 1 0) (ite p372 1 0) (ite p382 1 0)
-	  (ite p412 1 0) (ite p422 1 0) (ite p432 1 0) (ite p442 1 0) (ite p452 1 0) (ite p462 1 0) (ite p472 1 0) (ite p482 1 0)
-	  (ite p512 1 0) (ite p522 1 0) (ite p532 1 0) (ite p542 1 0) (ite p552 1 0) (ite p562 1 0) (ite p572 1 0) (ite p582 1 0)
-	  (ite p612 1 0) (ite p622 1 0) (ite p632 1 0) (ite p642 1 0) (ite p652 1 0) (ite p662 1 0) (ite p672 1 0) (ite p682 1 0)
-;Skipples
-	  (ite p113 1 0) (ite p123 1 0) (ite p133 1 0) (ite p143 1 0) (ite p153 1 0) (ite p163 1 0) (ite p173 1 0) (ite p183 1 0)
-	  (ite p213 1 0) (ite p223 1 0) (ite p233 1 0) (ite p243 1 0) (ite p253 1 0) (ite p263 1 0) (ite p273 1 0) (ite p283 1 0)
-	  (ite p313 1 0) (ite p323 1 0) (ite p333 1 0) (ite p343 1 0) (ite p353 1 0) (ite p363 1 0) (ite p373 1 0) (ite p383 1 0)
-	  (ite p413 1 0) (ite p423 1 0) (ite p433 1 0) (ite p443 1 0) (ite p453 1 0) (ite p463 1 0) (ite p473 1 0) (ite p483 1 0)
-	  (ite p513 1 0) (ite p523 1 0) (ite p533 1 0) (ite p543 1 0) (ite p553 1 0) (ite p563 1 0) (ite p573 1 0) (ite p583 1 0)
-	  (ite p613 1 0) (ite p623 1 0) (ite p633 1 0) (ite p643 1 0) (ite p653 1 0) (ite p663 1 0) (ite p673 1 0) (ite p683 1 0)
-;Crottles
-	  (ite p114 1 0) (ite p124 1 0) (ite p134 1 0) (ite p144 1 0) (ite p154 1 0) (ite p164 1 0) (ite p174 1 0) (ite p184 1 0)
-	  (ite p214 1 0) (ite p224 1 0) (ite p234 1 0) (ite p244 1 0) (ite p254 1 0) (ite p264 1 0) (ite p274 1 0) (ite p284 1 0)
-	  (ite p314 1 0) (ite p324 1 0) (ite p334 1 0) (ite p344 1 0) (ite p354 1 0) (ite p364 1 0) (ite p374 1 0) (ite p384 1 0)
-	  (ite p414 1 0) (ite p424 1 0) (ite p434 1 0) (ite p444 1 0) (ite p454 1 0) (ite p464 1 0) (ite p474 1 0) (ite p484 1 0)
-	  (ite p514 1 0) (ite p524 1 0) (ite p534 1 0) (ite p544 1 0) (ite p554 1 0) (ite p564 1 0) (ite p574 1 0) (ite p584 1 0)
-	  (ite p614 1 0) (ite p624 1 0) (ite p634 1 0) (ite p644 1 0) (ite p654 1 0) (ite p664 1 0) (ite p674 1 0) (ite p684 1 0)
-;Dupples
-	  (ite p115 1 0) (ite p125 1 0) (ite p135 1 0) (ite p145 1 0) (ite p155 1 0) (ite p165 1 0) (ite p175 1 0) (ite p185 1 0)
-	  (ite p215 1 0) (ite p225 1 0) (ite p235 1 0) (ite p245 1 0) (ite p255 1 0) (ite p265 1 0) (ite p275 1 0) (ite p285 1 0)
-	  (ite p315 1 0) (ite p325 1 0) (ite p335 1 0) (ite p345 1 0) (ite p355 1 0) (ite p365 1 0) (ite p375 1 0) (ite p385 1 0)
-	  (ite p415 1 0) (ite p425 1 0) (ite p435 1 0) (ite p445 1 0) (ite p455 1 0) (ite p465 1 0) (ite p475 1 0) (ite p485 1 0)
-	  (ite p515 1 0) (ite p525 1 0) (ite p535 1 0) (ite p545 1 0) (ite p555 1 0) (ite p565 1 0) (ite p575 1 0) (ite p585 1 0)
-	  (ite p615 1 0) (ite p625 1 0) (ite p635 1 0) (ite p645 1 0) (ite p655 1 0) (ite p665 1 0) (ite p675 1 0) (ite p685 1 0)
-    ) 48 )
 	
 	
 

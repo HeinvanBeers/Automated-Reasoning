@@ -1,14 +1,54 @@
-(= p113 true)(= p123 true)(= p133 true)(= p141 true)(= p155 true)(= p163 true)(= p174 true)(= p184 true)  7800
+(= p113 true)(= p125 true)(= p134 true)(= p143 true)(= p153 true)(= p163 true)(= p173 true)(= p183 true)
 
-(= p212 true)(= p223 true)(= p232 true)(= p243 true)(= p252 true)(= p262 true)(= p273 true)(= p283 true)  7200
+(= p213 true)(= p222 true)(= p233 true)(= p242 true)(= p255 true)(= p262 true)(= p272 true)(= p282 true)
 
-(= p312 true)(= p322 true)(= p332 true)(= p342 true)(= p352 true)(= p362 true)(= p375 true)(= p382 true)  5700
+(= p312 true)(= p322 true)(= p332 true)(= p342 true)(= p352 true)(= p362 true)(= p372 true)(= p382 true)
 
-(= p412 true)(= p422 true)(= p432 true)(= p442 true)(= p452 true)(= p465 true)(= p472 true)(= p482 true)  5700
+(= p414 true)(= p424 true)(= p444 true)(= p464 true)(= p474 true)(= p485 true)
 
-(= p514 true)(= p521 true)(= p534 true)(= p544 true)(= p554 true)(= p565 true)(= p571 true)				  7500
+(= p512 true)(= p525 true)(= p531 true)(= p541 true)(= p552 true)(= p562 true)(= p572 true)(= p582 true)
 
-(= p615 true)(= p621 true)(= p634 true)(= p644 true)(= p674 true)(= p684 true)							  6800
+(= p611 true)(= p621 true)(= p634 true)(= p644 true)(= p665 true)(= p674 true)(= p684 true)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
