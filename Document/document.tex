@@ -1,7 +1,7 @@
 \documentclass[a4paper]{article}
 \usepackage{graphicx}
 \usepackage{float}
-\author{Hein van Beers, Jeroen van Hoof}
+\author{Hein van Beers \qquad Student number: 0765658 \\{\tt h.a.v.beers@student.tue.nl}\\ \\ Jeroen van Hoof \qquad Student number: 0778486 \\{\tt j.m.a.p.v.hoof@student.tue.nl}}
 \title{Automated Reasoning\\
 	 \large Practical assignment, Part I}
 \begin{document}
@@ -11,7 +11,7 @@
 	Satisfying all constraints, find the maximum number of pallets of prittles that can be delivered, and show how for that number all pallets may be divided over the six trucks.
 
 	
-	\section*{Solution:}
+	\subsection*{Solution:}
 	We generalize this problem to $n$ trucks. For each pallet place in a truck we introduce five variables, one for each type of building block. We have eight pallet places per truck, so we introduce $8*5*n = 40*n$ variables $p_{ijk}$ for $i = 1,\ldots,n$, $j = 1,\ldots,8$ and $k = 1,\ldots,5$ where for every $i,j,k$ the value of $p_{ijk}$ will be true if and only if a pallet of building block type $k$ will be put on pallet position $j$ in truck $i$.
 	
 	As the weight of each of the $n$ trucks may not exceed the capacity of 7800 kg, we express this by the formula
