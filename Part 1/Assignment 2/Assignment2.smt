@@ -1,7 +1,7 @@
 (benchmark Assignment1.smt
 :logic QF_LIA
 :extrapreds (
-(a_turned) (b_turned) (c_turned) (d_turned) (e_turned) (f_turned) (g_turned) (h_turned) (i_turned) (j_turned) (k_turned) (l_turned)
+(a_turned) (b_turned) (c_turned) (d_turned) (e_turned) (f_turned) (g_turned) (h_turned) (i_turned) (j_turned) (k_turned)
 )
 :extrafuns (
 (a_ox Int) (a_oy Int) (a_lx Int) (a_ly Int)
@@ -15,7 +15,6 @@
 (i_ox Int) (i_oy Int) (i_lx Int) (i_ly Int)
 (j_ox Int) (j_oy Int) (j_lx Int) (j_ly Int)
 (k_ox Int) (k_oy Int) (k_lx Int) (k_ly Int)
-(l_ox Int) (l_oy Int) (l_lx Int) (l_ly Int)
 )
 :formula
 (and
@@ -63,12 +62,6 @@
 ; X-Y for K (powerchip)
 (= k_lx (ite k_turned 2 4))
 (= k_ly (ite k_turned 4 2))
-
-; X-Y for L (powerchip)
-(= l_lx (ite l_turned 2 4))
-(= l_ly (ite l_turned 4 2))
-
-
 
 ; A is within chip
 (<= (+ a_lx a_ox) 29)
@@ -147,14 +140,6 @@
 (<= (+ k_ly k_oy) 22)
 (>= k_oy 0)
 
-; L is within chip
-(<= (+ l_lx l_ox) 29)
-(>= l_ox 0)
-
-(<= (+ l_ly l_oy) 22)
-(>= l_oy 0)
-
-
 
 ;A does not overlap
 (or (>= a_ox (+ b_ox b_lx)) (>= b_ox (+ a_ox a_lx)) (>= a_oy (+ b_oy b_ly)) (>= b_oy (+ a_oy a_ly)) )
@@ -167,7 +152,6 @@
 (or (>= a_ox (+ i_ox i_lx)) (>= i_ox (+ a_ox a_lx)) (>= a_oy (+ i_oy i_ly)) (>= i_oy (+ a_oy a_ly)) )
 (or (>= a_ox (+ j_ox j_lx)) (>= j_ox (+ a_ox a_lx)) (>= a_oy (+ j_oy j_ly)) (>= j_oy (+ a_oy a_ly)) )
 (or (>= a_ox (+ k_ox k_lx)) (>= k_ox (+ a_ox a_lx)) (>= a_oy (+ k_oy k_ly)) (>= k_oy (+ a_oy a_ly)) )
-(or (>= a_ox (+ l_ox l_lx)) (>= l_ox (+ a_ox a_lx)) (>= a_oy (+ l_oy l_ly)) (>= l_oy (+ a_oy a_ly)) )
 
 ;B does not overlap
 (or (>= b_ox (+ c_ox c_lx)) (>= c_ox (+ b_ox b_lx)) (>= b_oy (+ c_oy c_ly)) (>= c_oy (+ b_oy b_ly)) )
@@ -179,7 +163,6 @@
 (or (>= b_ox (+ i_ox i_lx)) (>= i_ox (+ b_ox b_lx)) (>= b_oy (+ i_oy i_ly)) (>= i_oy (+ b_oy b_ly)) )
 (or (>= b_ox (+ j_ox j_lx)) (>= j_ox (+ b_ox b_lx)) (>= b_oy (+ j_oy j_ly)) (>= j_oy (+ b_oy b_ly)) )
 (or (>= b_ox (+ k_ox k_lx)) (>= k_ox (+ b_ox b_lx)) (>= b_oy (+ k_oy k_ly)) (>= k_oy (+ b_oy b_ly)) )
-(or (>= b_ox (+ l_ox l_lx)) (>= l_ox (+ b_ox b_lx)) (>= b_oy (+ l_oy l_ly)) (>= l_oy (+ b_oy b_ly)) )
 
 ;C does not overlap
 (or (>= c_ox (+ d_ox d_lx)) (>= d_ox (+ c_ox c_lx)) (>= c_oy (+ d_oy d_ly)) (>= d_oy (+ c_oy c_ly)) )
@@ -190,7 +173,6 @@
 (or (>= c_ox (+ i_ox i_lx)) (>= i_ox (+ c_ox c_lx)) (>= c_oy (+ i_oy i_ly)) (>= i_oy (+ c_oy c_ly)) )
 (or (>= c_ox (+ j_ox j_lx)) (>= j_ox (+ c_ox c_lx)) (>= c_oy (+ j_oy j_ly)) (>= j_oy (+ c_oy c_ly)) )
 (or (>= c_ox (+ k_ox k_lx)) (>= k_ox (+ c_ox c_lx)) (>= c_oy (+ k_oy k_ly)) (>= k_oy (+ c_oy c_ly)) )
-(or (>= c_ox (+ l_ox l_lx)) (>= l_ox (+ c_ox c_lx)) (>= c_oy (+ l_oy l_ly)) (>= l_oy (+ c_oy c_ly)) )
 
 ;D does not overlap
 (or (>= d_ox (+ e_ox e_lx)) (>= e_ox (+ d_ox d_lx)) (>= d_oy (+ e_oy e_ly)) (>= e_oy (+ d_oy d_ly)) )
@@ -200,7 +182,6 @@
 (or (>= d_ox (+ i_ox i_lx)) (>= i_ox (+ d_ox d_lx)) (>= d_oy (+ i_oy i_ly)) (>= i_oy (+ d_oy d_ly)) )
 (or (>= d_ox (+ j_ox j_lx)) (>= j_ox (+ d_ox d_lx)) (>= d_oy (+ j_oy j_ly)) (>= j_oy (+ d_oy d_ly)) )
 (or (>= d_ox (+ k_ox k_lx)) (>= k_ox (+ d_ox d_lx)) (>= d_oy (+ k_oy k_ly)) (>= k_oy (+ d_oy d_ly)) )
-(or (>= d_ox (+ l_ox l_lx)) (>= l_ox (+ d_ox d_lx)) (>= d_oy (+ l_oy l_ly)) (>= l_oy (+ d_oy d_ly)) )
 
 ;E does not overlap
 (or (>= e_ox (+ f_ox f_lx)) (>= f_ox (+ e_ox e_lx)) (>= e_oy (+ f_oy f_ly)) (>= f_oy (+ e_oy e_ly)) )
@@ -209,7 +190,6 @@
 (or (>= e_ox (+ i_ox i_lx)) (>= i_ox (+ e_ox e_lx)) (>= e_oy (+ i_oy i_ly)) (>= i_oy (+ e_oy e_ly)) )
 (or (>= e_ox (+ j_ox j_lx)) (>= j_ox (+ e_ox e_lx)) (>= e_oy (+ j_oy j_ly)) (>= j_oy (+ e_oy e_ly)) )
 (or (>= e_ox (+ k_ox k_lx)) (>= k_ox (+ e_ox e_lx)) (>= e_oy (+ k_oy k_ly)) (>= k_oy (+ e_oy e_ly)) )
-(or (>= e_ox (+ l_ox l_lx)) (>= l_ox (+ e_ox e_lx)) (>= e_oy (+ l_oy l_ly)) (>= l_oy (+ e_oy e_ly)) )
 
 ;F does not overlap
 (or (>= f_ox (+ g_ox g_lx)) (>= g_ox (+ f_ox f_lx)) (>= f_oy (+ g_oy g_ly)) (>= g_oy (+ f_oy f_ly)) )
@@ -217,35 +197,24 @@
 (or (>= f_ox (+ i_ox i_lx)) (>= i_ox (+ f_ox f_lx)) (>= f_oy (+ i_oy i_ly)) (>= i_oy (+ f_oy f_ly)) )
 (or (>= f_ox (+ j_ox j_lx)) (>= j_ox (+ f_ox f_lx)) (>= f_oy (+ j_oy j_ly)) (>= j_oy (+ f_oy f_ly)) )
 (or (>= f_ox (+ k_ox k_lx)) (>= k_ox (+ f_ox f_lx)) (>= f_oy (+ k_oy k_ly)) (>= k_oy (+ f_oy f_ly)) )
-(or (>= f_ox (+ l_ox l_lx)) (>= l_ox (+ f_ox f_lx)) (>= f_oy (+ l_oy l_ly)) (>= l_oy (+ f_oy f_ly)) )
 
 ;G does not overlap
 (or (>= g_ox (+ h_ox h_lx)) (>= h_ox (+ g_ox g_lx)) (>= g_oy (+ h_oy h_ly)) (>= h_oy (+ g_oy g_ly)) )
 (or (>= g_ox (+ i_ox i_lx)) (>= i_ox (+ g_ox g_lx)) (>= g_oy (+ i_oy i_ly)) (>= i_oy (+ g_oy g_ly)) )
 (or (>= g_ox (+ j_ox j_lx)) (>= j_ox (+ g_ox g_lx)) (>= g_oy (+ j_oy j_ly)) (>= j_oy (+ g_oy g_ly)) )
 (or (>= g_ox (+ k_ox k_lx)) (>= k_ox (+ g_ox g_lx)) (>= g_oy (+ k_oy k_ly)) (>= k_oy (+ g_oy g_ly)) )
-(or (>= g_ox (+ l_ox l_lx)) (>= l_ox (+ g_ox g_lx)) (>= g_oy (+ l_oy l_ly)) (>= l_oy (+ g_oy g_ly)) )
 
 ;H does not overlap
 (or (>= h_ox (+ i_ox i_lx)) (>= i_ox (+ h_ox h_lx)) (>= h_oy (+ i_oy i_ly)) (>= i_oy (+ h_oy h_ly)) )
 (or (>= h_ox (+ j_ox j_lx)) (>= j_ox (+ h_ox h_lx)) (>= h_oy (+ j_oy j_ly)) (>= j_oy (+ h_oy h_ly)) )
 (or (>= h_ox (+ k_ox k_lx)) (>= k_ox (+ h_ox h_lx)) (>= h_oy (+ k_oy k_ly)) (>= k_oy (+ h_oy h_ly)) )
-(or (>= h_ox (+ l_ox l_lx)) (>= l_ox (+ h_ox h_lx)) (>= h_oy (+ l_oy l_ly)) (>= l_oy (+ h_oy h_ly)) )
 
 ;I does not overlap
 (or (>= i_ox (+ j_ox j_lx)) (>= j_ox (+ i_ox i_lx)) (>= i_oy (+ j_oy j_ly)) (>= j_oy (+ i_oy i_ly)) )
 (or (>= i_ox (+ k_ox k_lx)) (>= k_ox (+ i_ox i_lx)) (>= i_oy (+ k_oy k_ly)) (>= k_oy (+ i_oy i_ly)) )
-(or (>= i_ox (+ l_ox l_lx)) (>= l_ox (+ i_ox i_lx)) (>= i_oy (+ l_oy l_ly)) (>= l_oy (+ i_oy i_ly)) )
 
 ;J does not overlap
 (or (>= j_ox (+ k_ox k_lx)) (>= k_ox (+ j_ox j_lx)) (>= j_oy (+ k_oy k_ly)) (>= k_oy (+ j_oy j_ly)) )
-(or (>= j_ox (+ l_ox l_lx)) (>= l_ox (+ j_ox j_lx)) (>= j_oy (+ l_oy l_ly)) (>= l_oy (+ j_oy j_ly)) )
-
-;K does not overlap
-(or (>= k_ox (+ l_ox l_lx)) (>= l_ox (+ k_ox k_lx)) (>= k_oy (+ l_oy l_ly)) (>= l_oy (+ k_oy k_ly)) )
-
-
-
 
 ;A is adjacent to Powerchip
 (or
@@ -264,11 +233,6 @@
 	(and (= k_ox (+ a_ox a_lx)) (>= k_oy (- a_oy k_ly)) (<= k_oy (+ a_oy a_ly)))
 	(and (= a_oy (+ k_oy k_ly)) (>= a_ox (- k_ox a_lx)) (<= a_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ a_oy a_ly)) (>= k_ox (- a_ox k_lx)) (<= k_ox (+ a_ox a_lx)))
-;A next to L
-	(and (= a_ox (+ l_ox l_lx)) (>= a_oy (- l_oy a_ly)) (<= a_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ a_ox a_lx)) (>= l_oy (- a_oy l_ly)) (<= l_oy (+ a_oy a_ly)))
-	(and (= a_oy (+ l_oy l_ly)) (>= a_ox (- l_ox a_lx)) (<= a_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ a_oy a_ly)) (>= l_ox (- a_ox l_lx)) (<= l_ox (+ a_ox a_lx)))
 )
 
 ;B is adjacent to Powerchip
@@ -288,11 +252,6 @@
 	(and (= k_ox (+ b_ox b_lx)) (>= k_oy (- b_oy k_ly)) (<= k_oy (+ b_oy b_ly)))
 	(and (= b_oy (+ k_oy k_ly)) (>= b_ox (- k_ox b_lx)) (<= b_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ b_oy b_ly)) (>= k_ox (- b_ox k_lx)) (<= k_ox (+ b_ox b_lx)))
-;B next to L
-	(and (= b_ox (+ l_ox l_lx)) (>= b_oy (- l_oy b_ly)) (<= b_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ b_ox b_lx)) (>= l_oy (- b_oy l_ly)) (<= l_oy (+ b_oy b_ly)))
-	(and (= b_oy (+ l_oy l_ly)) (>= b_ox (- l_ox b_lx)) (<= b_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ b_oy b_ly)) (>= l_ox (- b_ox l_lx)) (<= l_ox (+ b_ox b_lx)))
 )
 
 ;C is adjacent to Powerchip
@@ -312,11 +271,6 @@
 	(and (= k_ox (+ c_ox c_lx)) (>= k_oy (- c_oy k_ly)) (<= k_oy (+ c_oy c_ly)))
 	(and (= c_oy (+ k_oy k_ly)) (>= c_ox (- k_ox c_lx)) (<= c_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ c_oy c_ly)) (>= k_ox (- c_ox k_lx)) (<= k_ox (+ c_ox c_lx)))
-;C next to L
-	(and (= c_ox (+ l_ox l_lx)) (>= c_oy (- l_oy c_ly)) (<= c_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ c_ox c_lx)) (>= l_oy (- c_oy l_ly)) (<= l_oy (+ c_oy c_ly)))
-	(and (= c_oy (+ l_oy l_ly)) (>= c_ox (- l_ox c_lx)) (<= c_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ c_oy c_ly)) (>= l_ox (- c_ox l_lx)) (<= l_ox (+ c_ox c_lx)))
 )
 
 ;D is adjacent to Powerchip
@@ -336,11 +290,6 @@
 	(and (= k_ox (+ d_ox d_lx)) (>= k_oy (- d_oy k_ly)) (<= k_oy (+ d_oy d_ly)))
 	(and (= d_oy (+ k_oy k_ly)) (>= d_ox (- k_ox d_lx)) (<= d_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ d_oy d_ly)) (>= k_ox (- d_ox k_lx)) (<= k_ox (+ d_ox d_lx)))
-;D next to L
-	(and (= d_ox (+ l_ox l_lx)) (>= d_oy (- l_oy d_ly)) (<= d_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ d_ox d_lx)) (>= l_oy (- d_oy l_ly)) (<= l_oy (+ d_oy d_ly)))
-	(and (= d_oy (+ l_oy l_ly)) (>= d_ox (- l_ox d_lx)) (<= d_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ d_oy d_ly)) (>= l_ox (- d_ox l_lx)) (<= l_ox (+ d_ox d_lx)))
 )
 
 ;E is adjacent to Powerchip
@@ -360,11 +309,6 @@
 	(and (= k_ox (+ e_ox e_lx)) (>= k_oy (- e_oy k_ly)) (<= k_oy (+ e_oy e_ly)))
 	(and (= e_oy (+ k_oy k_ly)) (>= e_ox (- k_ox e_lx)) (<= e_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ e_oy e_ly)) (>= k_ox (- e_ox k_lx)) (<= k_ox (+ e_ox e_lx)))
-;E next to L
-	(and (= e_ox (+ l_ox l_lx)) (>= e_oy (- l_oy e_ly)) (<= e_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ e_ox e_lx)) (>= l_oy (- e_oy l_ly)) (<= l_oy (+ e_oy e_ly)))
-	(and (= e_oy (+ l_oy l_ly)) (>= e_ox (- l_ox e_lx)) (<= e_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ e_oy e_ly)) (>= l_ox (- e_ox l_lx)) (<= l_ox (+ e_ox e_lx)))
 )
 
 ;F is adjacent to Powerchip
@@ -384,11 +328,6 @@
 	(and (= k_ox (+ f_ox f_lx)) (>= k_oy (- f_oy k_ly)) (<= k_oy (+ f_oy f_ly)))
 	(and (= f_oy (+ k_oy k_ly)) (>= f_ox (- k_ox f_lx)) (<= f_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ f_oy f_ly)) (>= k_ox (- f_ox k_lx)) (<= k_ox (+ f_ox f_lx)))
-;F next to L
-	(and (= f_ox (+ l_ox l_lx)) (>= f_oy (- l_oy f_ly)) (<= f_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ f_ox f_lx)) (>= l_oy (- f_oy l_ly)) (<= l_oy (+ f_oy f_ly)))
-	(and (= f_oy (+ l_oy l_ly)) (>= f_ox (- l_ox f_lx)) (<= f_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ f_oy f_ly)) (>= l_ox (- f_ox l_lx)) (<= l_ox (+ f_ox f_lx)))
 )
 
 ;G is adjacent to Powerchip
@@ -408,11 +347,6 @@
 	(and (= k_ox (+ g_ox g_lx)) (>= k_oy (- g_oy k_ly)) (<= k_oy (+ g_oy g_ly)))
 	(and (= g_oy (+ k_oy k_ly)) (>= g_ox (- k_ox g_lx)) (<= g_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ g_oy g_ly)) (>= k_ox (- g_ox k_lx)) (<= k_ox (+ g_ox g_lx)))
-;G next to L
-	(and (= g_ox (+ l_ox l_lx)) (>= g_oy (- l_oy g_ly)) (<= g_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ g_ox g_lx)) (>= l_oy (- g_oy l_ly)) (<= l_oy (+ g_oy g_ly)))
-	(and (= g_oy (+ l_oy l_ly)) (>= g_ox (- l_ox g_lx)) (<= g_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ g_oy g_ly)) (>= l_ox (- g_ox l_lx)) (<= l_ox (+ g_ox g_lx)))
 )
 
 ;H is adjacent to Powerchip
@@ -432,11 +366,6 @@
 	(and (= k_ox (+ h_ox h_lx)) (>= k_oy (- h_oy k_ly)) (<= k_oy (+ h_oy h_ly)))
 	(and (= h_oy (+ k_oy k_ly)) (>= h_ox (- k_ox h_lx)) (<= h_ox (+ k_ox k_lx)))
 	(and (= k_oy (+ h_oy h_ly)) (>= k_ox (- h_ox k_lx)) (<= k_ox (+ h_ox h_lx)))
-;H next to L
-	(and (= h_ox (+ l_ox l_lx)) (>= h_oy (- l_oy h_ly)) (<= h_oy (+ l_oy l_ly)))
-	(and (= l_ox (+ h_ox h_lx)) (>= l_oy (- h_oy l_ly)) (<= l_oy (+ h_oy h_ly)))
-	(and (= h_oy (+ l_oy l_ly)) (>= h_ox (- l_ox h_lx)) (<= h_ox (+ l_ox l_lx)))
-	(and (= l_oy (+ h_oy h_ly)) (>= l_ox (- h_ox l_lx)) (<= l_ox (+ h_ox h_lx)))
 )
 
 
@@ -452,24 +381,9 @@
 	(>= (ite (>= (- (+ i_oy (* 0.5 i_ly)) (+ k_oy (* 0.5 k_ly))) 0) (- (+ i_oy (* 0.5 i_ly)) (+ k_oy (* 0.5 k_ly))) (- (+ k_oy (* 0.5 k_ly)) (+ i_oy (* 0.5 i_ly)))) 17)
 )
 
-;Powerchip center I and L
-(or (>= (ite (>= (- (+ i_ox (* 0.5 i_lx)) (+ l_ox (* 0.5 l_lx))) 0) (- (+ i_ox (* 0.5 i_lx)) (+ l_ox (* 0.5 l_lx))) (- (+ l_ox (* 0.5 l_lx)) (+ i_ox (* 0.5 i_lx)))) 17)
-	(>= (ite (>= (- (+ i_oy (* 0.5 i_ly)) (+ l_oy (* 0.5 l_ly))) 0) (- (+ i_oy (* 0.5 i_ly)) (+ l_oy (* 0.5 l_ly))) (- (+ l_oy (* 0.5 l_ly)) (+ i_oy (* 0.5 i_ly)))) 17)
-)
-
 ;Powerchip center J and K
 (or (>= (ite (>= (- (+ j_ox (* 0.5 j_lx)) (+ k_ox (* 0.5 k_lx))) 0) (- (+ j_ox (* 0.5 j_lx)) (+ k_ox (* 0.5 k_lx))) (- (+ k_ox (* 0.5 k_lx)) (+ j_ox (* 0.5 j_lx)))) 17)
 	(>= (ite (>= (- (+ j_oy (* 0.5 j_ly)) (+ k_oy (* 0.5 k_ly))) 0) (- (+ j_oy (* 0.5 j_ly)) (+ k_oy (* 0.5 k_ly))) (- (+ k_oy (* 0.5 k_ly)) (+ j_oy (* 0.5 j_ly)))) 17)
-)
-
-;Powerchip center J and L
-(or (>= (ite (>= (- (+ j_ox (* 0.5 j_lx)) (+ l_ox (* 0.5 l_lx))) 0) (- (+ j_ox (* 0.5 j_lx)) (+ l_ox (* 0.5 l_lx))) (- (+ l_ox (* 0.5 l_lx)) (+ j_ox (* 0.5 j_lx)))) 17)
-	(>= (ite (>= (- (+ j_oy (* 0.5 j_ly)) (+ l_oy (* 0.5 l_ly))) 0) (- (+ j_oy (* 0.5 j_ly)) (+ l_oy (* 0.5 l_ly))) (- (+ l_oy (* 0.5 l_ly)) (+ j_oy (* 0.5 j_ly)))) 17)
-)
-
-;Powerchip center K and L
-(or (>= (ite (>= (- (+ k_ox (* 0.5 k_lx)) (+ l_ox (* 0.5 l_lx))) 0) (- (+ k_ox (* 0.5 k_lx)) (+ l_ox (* 0.5 l_lx))) (- (+ l_ox (* 0.5 l_lx)) (+ k_ox (* 0.5 k_lx)))) 17)
-	(>= (ite (>= (- (+ k_oy (* 0.5 k_ly)) (+ l_oy (* 0.5 l_ly))) 0) (- (+ k_oy (* 0.5 k_ly)) (+ l_oy (* 0.5 l_ly))) (- (+ l_oy (* 0.5 l_ly)) (+ k_oy (* 0.5 k_ly)))) 17)
 )
 
 ))
