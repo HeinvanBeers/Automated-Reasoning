@@ -177,12 +177,12 @@ within a fraction of a second:
 $\cdots \cdots$ }
 
 The values that are are true for each truck are 
-\[p113, p123, p133, p141, p155, p163, p174, p184 \]
-\[p212, p223, p232, p243, p252, p262, p273, p283 \]
-\[p312, p322, p332, p342, p352, p362, p375, p382 \]
-\[p412, p422, p432, p442, p452, p465, p472, p482 \]
-\[p514, p521, p534, p544, p554, p565, p571 \]
-\[p615, p621, p634, p644, p674, p684 \]
+\[p113, p125, p134, p143, p153, p163, p173, p183 \]
+\[p213, p222, p233, p242, p255, p262, p272, p282 \]
+\[p312, p322, p332, p342, p352, p362, p372, p382 \]
+\[p414, p424, p444, p464, p474, p485 \]
+\[p512, p525, p531, p541, p552, p562, p572, p582 \]
+\[p611, p621, p634, p644, p665, p674, p684 \]
 Expressed in a picture this yields
 
 \begin{figure}[H]
@@ -193,35 +193,16 @@ Expressed in a picture this yields
 
 We check that indeed all requirements are satisfied and we also see that the amount of pallets of prittles we can deliver is 18, since the program does not yield a solution for 19 pallets of prittles.
 
-{\bf Remark:} 
-
-Our formula contains some redundancy: the requirement that every
-row contains exactly one queen implies that there are exactly $n$
-queens in total. By expressing that every column contains at least
-one queen, from this property one concludes that also every column
-contains at most one queen. We chose for this redundancy for
-keeping the symmetry in the solution, and also following the
-general strategy that introducing redundancy is often good for
-efficiency.
+{\bf Remark:}
+After doing exercise 2 of this assignment, we discovered that we could also use integers for the amount pallets of each type of building block per truck. In that way we would not need to determine each pallet place exactly, but only restrict the amount of pallets per truck to not exceed the maximum amount of pallets per truck. We would then only need one variable for each pallet type for each truck, which is $5*6=35$ variables. This is much less than the amount of variables we have now, so this implementation would greatly decrease the size of our requirements and increase the efficiency of our program. However, the solution will still be the same and since we did not have sufficient time to redo/rewrite the whole first exercise, we have chosen to not implement it in this way. But keep it in mind for future exercises and leave it here as an improvement.
 
 \vspace{3mm}
 
 {\bf Generalization:} 
-
-As we generalized our approach for $n$ rather than 8, it is
+As we generalized our approach for $n$ trucks rather than 6, it is
 interesting to see what happens for other values of $n$. For $n
-> 10$ we have to take care of the notation: if we keep the
-notation then it is not clear whether {\tt p111} represents 
-$p_{1,11}$ or $p_{11,1}$. This is solved by putting an extra 
-symbol between the two numbers. 
+> 10$ we can still represent clearly what truck, pallet position and pallet type we want to indicate, since the pallet position cannot take on a value higher than eight and the pallet type cannot take on a value higher than 5. So if we keep the notation then it is still clear that {\tt p1111} represents truck 11, pallet position 1 and pallet type 1, which is nuzzles.
 
-For $n=3$ the resulting formula is unsatisfiable, showing that
-there is no solution. For $n = 4,5,6,\ldots$ the formula is
-satisfiable, by which is a solution of the problem is found.
-Efficiency is not a problem: for $n = 60$ there are 3600
-variables and the formula consists of over 350,000 clauses, but 
-still {\tt yices} succeeds in finding a solution within a few
-seconds.
 	\section*{Problem 2: Placing components on a power grid}
 	To identify each component, we have named them $a, b, ... h$, with sizes $9 \times 7$, $12 \times 6$, $10 \times 7$, $18 \times 5$, $20 \times 4$, $10 \times 6$, $8 \times 6$ and $10 \times 8$. Furthermore, we named the power components $i, j, k$. 
 	The specification that each component can be turned to $90^{\circ}$, can be simplified to swapping the x and y dimensions of a component with each other. For each component, we introduce predicates $a\_turned, b\_turned, ..., k\_turned$ to indicate rotation, and $a\_lx, a\_ly, b\_lx, b\_ly, ..., k\_lx, k\_ly,$ for the lengths and widths of $a, b, ..., k$. So the dimensions of each component are determined as follows:
