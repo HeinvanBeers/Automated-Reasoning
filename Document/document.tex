@@ -222,8 +222,67 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 	
 	{\tt ...}
 	
-	\noindent We must also make sure that none of the components overlap.\\
-	\textbf{[Insert fancy formulas here]}
+	\noindent We must also make sure that none of the components overlap. To make sure that two components, a and b, do not overlap, one of four statements must hold:
+	\begin{itemize}
+		\item \textbf{b} is right of \textbf{a} $\Leftrightarrow a\_ox >= b\_x + b\_lx$
+		\item \textbf{b} is left of \textbf{a} $\Leftrightarrow b\_ox >= a\_ox + a_lx$
+		\item \textbf{b} is below \textbf{a} $\Leftrightarrow a\_oy >= b\_oy + b\_ly$
+		\item \textbf{b} is above \textbf{a} $\Leftrightarrow b\_oy >= a\_oy + a\_ly$
+	\end{itemize}
+	In SMT:
+	
+	{\tt (or (>= a\_ox (+ b\_ox b\_lx)) (>= b\_ox (+ a\_ox a\_lx)) (>= a\_oy (+ b\_oy b\_ly)) (>= b\_oy (+ a\_oy a\_ly)) )}\\
+	\noindent We need to repeat this statement for every pair, in order to make sure no two components overlap each other.\\
+	
+	\noindent The next requirement is that every component needs to be adjacent to a power component. More formally, when we have $n$ regular components and $m$ power components, we have for each regular component $c$ and power component $p$:
+	
+	$$\bigwedge_{c=1}^n \bigvee_{p=1}^m c\ adjacent\ to\ p $$
+	
+	\noindent where $c\ adjacent\ to\ p $ is defined as:
+	\begin{itemize}
+	\item If side $p$ is left or right of $c$, then $p\_oy + p\_ly <= c\_oy >= p\_oy - c\_ly$
+	\item If side $p$ is above or below $c$, then $p\_ox + p\_lx <= c\_ox >= p\_ox - c\_lx$
+	\end{itemize}
+	
+	\noindent In SMT:
+	
+	{\tt ; B is adjacent to a Powerchip}
+	
+	{\tt (or}
+	
+	{\tt ; A adjacent to I}
+	
+	{\tt (and}
+	
+	{\tt (= a\_ox (+ i\_ox i\_lx)) (>= a\_oy (- i\_oy a\_ly)) (<= a\_oy (+ i\_oy i\_ly)))}
+	
+	{\tt (and}
+	
+	{\tt (= i\_ox (+ a\_ox a\_lx)) (>= i\_oy (- a\_oy i\_ly)) (<= i\_oy (+ a\_oy a\_ly)))}
+	
+	{\tt (and }
+	
+	{\tt (= a\_oy (+ i\_oy i\_ly)) (>= a\_ox (- i\_ox a\_lx)) (<= a\_ox (+ i\_ox i\_lx)))}
+	
+	{\tt (and}
+	
+	{\tt (= i\_oy (+ a\_oy a\_ly)) (>= i\_ox (- a\_ox i\_lx)) (<= i\_ox (+ a\_ox a\_lx)))}
+	
+	{\tt ; A next to J}
+	
+	{\tt ...}
+	
+	{\tt )}
+
+	{\tt ; B is adjacent to a Powerchip}
+
+	{\tt ...}\\
+	
+	\noindent The last requirement was that the centers of any two power components should differ at least 17 in either the x direction or the y direction (or both).\\
+	Take arbitrary power components $i$ and $j$, then we have:
+	
+	$$\mid(i\_ox + 0.5 * i\_lx) - (j\_ox + 0.5 * j\_lx)\mid\ >= 17\ \vee$$
+	$$\mid(i\_oy + 0.5 * i\_ly) - (j\_oy + 0.5 * j\_ly)\mid\ >= 17 $$
 	
 	\begin{figure}[H]
 		\centering
@@ -376,7 +435,7 @@ Expressed in a picture this yields
 \begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.7]{timeline.png}
-		\caption{Time-line of process execution. Connected processes depend on each other, special processes are marked with a sign.}
+		\caption{Time-line of process execution. Connected and horizontal adjacent processes depend on each other, special processes are marked with a sign.}
 	\end{figure}
 
 We check that indeed all requirements are satisfied and we also see that the total running time is 36, which is minimal.\\
