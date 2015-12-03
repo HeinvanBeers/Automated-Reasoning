@@ -190,12 +190,10 @@ Expressed in a picture this yields
 			\caption{Placement of pallets on truck. The first two trucks have facility for cooling skipples.}
 		\end{figure}
 
-We check that indeed all requirements are satisfied and we also see that the amount of pallets of prittles we can deliver is 18, since the program does not yield a solution for 19 pallets of prittles.
+We check that indeed all requirements are satisfied and we also see that the amount of pallets of prittles we can deliver is 18, since the program does not yield a solution for 19 pallets of prittles.\\
 
 {\bf Remark:}
-After doing exercise 2 of this assignment, we discovered that we could also use integers for the amount pallets of each type of building block per truck. In that way we would not need to determine each pallet place exactly, but only restrict the amount of pallets per truck to not exceed the maximum amount of pallets per truck. We would then only need one variable for each pallet type for each truck, which is $5*6=35$ variables. This is much less than the amount of variables we have now, so this implementation would greatly decrease the size of our requirements and increase the efficiency of our program. However, the solution will still be the same and since we did not have sufficient time to redo/rewrite the whole first exercise, we have chosen to not implement it in this way. But keep it in mind for future exercises and leave it here as an improvement.
-
-\vspace{3mm}
+After doing exercise 2 of this assignment, we discovered that we could also use integers for the amount pallets of each type of building block per truck. In that way we would not need to determine each pallet place exactly, but only restrict the amount of pallets per truck to not exceed the maximum amount of pallets per truck. We would then only need one variable for each pallet type for each truck, which is $5*6=35$ variables. This is much less than the amount of variables we have now, so this implementation would greatly decrease the size of our requirements and increase the efficiency of our program. However, the solution will still be the same and since we did not have sufficient time to redo/rewrite the whole first exercise, we have chosen to not implement it in this way. But keep it in mind for future exercises and leave it here as an improvement.\\
 
 {\bf Generalization:} 
 As we generalized our approach for $n$ trucks rather than 6, it is interesting to see what happens for other values of $n$. For $n > 10$ we can still represent clearly what truck, pallet position and pallet type we want to indicate, since the pallet position cannot take on a value higher than eight and the pallet type cannot take on a value higher than 5. So if we keep the notation then it is still clear that {\tt p1111} represents truck 11, pallet position 1 and pallet type 1, which is nuzzles.
@@ -443,9 +441,7 @@ We check that indeed all requirements are satisfied and we also see that the tot
 {\bf Remark:}
 Our variables contain some redundancy: the end time of each variable can already be derived from the start time and the duration of the job. We chose for this redundancy for keeping the symmetry in the solution, and also following the general strategy that introducing redundancy is often good for efficiency.\\
 
-Note that with these constraints several different solutions are possible, since most of the smaller jobs can easily be shifted a bit in time.
-
-\vspace{3mm}
+Note that with these constraints several different solutions are possible, since most of the smaller jobs can easily be shifted a bit in time.\\
 
 {\bf Generalization:} 
 As we generalized our approach for $n$ jobs rather than 12, it is interesting to see what happens for other values of $n$. For $n > 100$ we can still represent each job clearly, since we have no trouble with other integers that are near the job number. So if we keep the notation then it is still clear that {\tt j111\_s} represents the start time of job number 111.
