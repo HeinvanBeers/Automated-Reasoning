@@ -62,9 +62,9 @@ Dupples              & 5                        & 5
 \end{tabular}
 \end{table}
 
-For getting the answer to the maximization problem, we just try different values for the amount of pallets of prittles that need to be delivered and see if we get a solution. When we find a solution for a value $x$ for the amount of prittles that we deliver and we cannot find a solution for value $x+1$, we know that $x$ is the maximum number of pallets of prittles that can be delivered.
+For getting the answer to the maximization problem, we just try different values for the amount of pallets of prittles that need to be delivered and see if we get a solution. When we find a solution for a value $x$ for the amount of prittles that we deliver and we cannot find a solution for value $x+1$, we know that $x$ is the maximum number of pallets of prittles that can be delivered.\\
 
-After trying several values, we found that 18 pallets of prittles is the maximum amount we can deliver, since the program does not yield a solution for 19 pallets of prittles.
+After trying several values, we found that 18 pallets of prittles is the maximum amount we can deliver, since the program does not yield a solution for 19 pallets of prittles.\\
 
 The total formula now consists of the conjunction of all these ingredients, that is,
 \[ \bigwedge_{i=1}^n (\sum_{k=1}^5 (\sum_{j=1}^8 (p_{ijk}*w_k)) \leq 7800) \;\; \wedge \]
@@ -75,8 +75,7 @@ The total formula now consists of the conjunction of all these ingredients, that
 \[ \bigwedge_{k=1}^5 ( \sum_{i=1}^n ( \sum_{j=1}^8 p_{ijk} ) = a_k) \]
 
 
-This formula is easily expressed in SMT syntax, for instance, for
-$n=6$ one can generate
+This formula is easily expressed in SMT syntax, for instance, for $n=6$ one can generate
 
 {\footnotesize
 
@@ -191,17 +190,13 @@ Expressed in a picture this yields
 			\caption{Placement of pallets on truck. The first two trucks have facility for cooling skipples.}
 		\end{figure}
 
-We check that indeed all requirements are satisfied and we also see that the amount of pallets of prittles we can deliver is 18, since the program does not yield a solution for 19 pallets of prittles.
+We check that indeed all requirements are satisfied and we also see that the amount of pallets of prittles we can deliver is 18, since the program does not yield a solution for 19 pallets of prittles.\\
 
 {\bf Remark:}
-After doing exercise 2 of this assignment, we discovered that we could also use integers for the amount pallets of each type of building block per truck. In that way we would not need to determine each pallet place exactly, but only restrict the amount of pallets per truck to not exceed the maximum amount of pallets per truck. We would then only need one variable for each pallet type for each truck, which is $5*6=35$ variables. This is much less than the amount of variables we have now, so this implementation would greatly decrease the size of our requirements and increase the efficiency of our program. However, the solution will still be the same and since we did not have sufficient time to redo/rewrite the whole first exercise, we have chosen to not implement it in this way. But keep it in mind for future exercises and leave it here as an improvement.
-
-\vspace{3mm}
+After doing exercise 2 of this assignment, we discovered that we could also use integers for the amount pallets of each type of building block per truck. In that way we would not need to determine each pallet place exactly, but only restrict the amount of pallets per truck to not exceed the maximum amount of pallets per truck. We would then only need one variable for each pallet type for each truck, which is $5*6=35$ variables. This is much less than the amount of variables we have now, so this implementation would greatly decrease the size of our requirements and increase the efficiency of our program. However, the solution will still be the same and since we did not have sufficient time to redo/rewrite the whole first exercise, we have chosen to not implement it in this way. But keep it in mind for future exercises and leave it here as an improvement.\\
 
 {\bf Generalization:} 
-As we generalized our approach for $n$ trucks rather than 6, it is
-interesting to see what happens for other values of $n$. For $n
-> 10$ we can still represent clearly what truck, pallet position and pallet type we want to indicate, since the pallet position cannot take on a value higher than eight and the pallet type cannot take on a value higher than 5. So if we keep the notation then it is still clear that {\tt p1111} represents truck 11, pallet position 1 and pallet type 1, which is nuzzles.
+As we generalized our approach for $n$ trucks rather than 6, it is interesting to see what happens for other values of $n$. For $n > 10$ we can still represent clearly what truck, pallet position and pallet type we want to indicate, since the pallet position cannot take on a value higher than eight and the pallet type cannot take on a value higher than 5. So if we keep the notation then it is still clear that {\tt p1111} represents truck 11, pallet position 1 and pallet type 1, which is nuzzles.
 
 	\section*{Problem 2: Placing components on a power grid}
 	To identify each component, we have named them $a, b, ... h$, with sizes $9 \times 7$, $12 \times 6$, $10 \times 7$, $18 \times 5$, $20 \times 4$, $10 \times 6$, $8 \times 6$ and $10 \times 8$. Furthermore, we named the power components $i, j, k$. 
@@ -292,11 +287,163 @@ interesting to see what happens for other values of $n$. For $n
 			\includegraphics[scale=0.7]{power-grid-3.png}
 		\caption{Placement of components on chip.}
 	\end{figure}
-	\section{Problem 3}
-	\begin{figure}[H]
+	
+	\section*{Problem 3: Ordering jobs}
+	Satisfying all constraints, find a solution of this scheduling problem for which the total running time is minimal.
+
+
+	\subsection*{Solution:}
+	We generalize this problem to $n$ jobs. We have one variable {\tt running\_time} that we want to minimize and also for each job we introduce three variables, one for the start time, one for the end time and one for the duration of the job. So in total we introduce $3*n + 1$ variables. $ji\_s$ for $i = 1,\ldots,n$, denotes the start time of job $i$. $ji\_e$ for $i = 1,\ldots,n$, denotes the end time of job $i$. $ji\_d$ for $i = 1,\ldots,n$, denotes the duration of job $i$.
+	
+	As the jobs cannot start before a time of 0, we can express this by the formula
+\[ \bigwedge_{i=1}^n (ji\_s \geq 0).\]
+
+	Similarly, jobs cannot end after the total running time, which can be expressed by the formula
+\[ \bigwedge_{i=1}^n (ji\_e \leq {\tt running\_time}).\]
+
+	Next, we consider the duration of each job, which is given and can be expressed by the formula
+\[ \bigwedge_{i=1}^n (ji\_d = i).\]
+
+	As the jobs run without interruption, need to express that the end time of each job is equal to the start time plus the duration of that job. This can be expressed by the formula
+\[ \bigwedge_{i=1}^n (ji\_e = (ji\_s + ji\_d)).\]
+
+	Some jobs may not start before others have finished, so for each job $k \in K_i$, where $K_i$ is the set of jobs that need to be finished before job $i$ can start, we introduce a formula
+\[ ji\_s \geq jk\_e.\]
+
+	Finally, we also have some jobs that cannot run at the same time. So for every two distinct jobs $i,k \in D$, where $D$ is the set of jobs that are not allowed to run at the same time, either job $i$ needs to end before job $k$ can start, or job $k$ needs to end before job $i$ can start. For every two distinct jobs $i,k \in D$ this can be expressed with the formula
+\[ (ji\_e \leq jk\_s) \vee (ji\_s \geq jk\_e).\]
+	
+For getting the answer to the minimization problem, we just try different values for the value of the variable {\tt running\_time} and see if we get a solution. When we find a solution for a value $x$ for {\tt running\_time} and we cannot find a solution for value $x-1$, we know that $x$ is the minimum amount of time we need to execute all the jobs.\\
+
+After trying several values, we found that 36 is the minimal value for the running time of the jobs, since the program does not yield a solution for a running time of 35.\\
+
+The total formula now consists of the conjunction of all these ingredients, that is,
+\[ \bigwedge_{i=1}^n (ji\_s \geq 0) \;\; \wedge \]
+\[ \bigwedge_{i=1}^n (ji\_e \leq {\tt running\_time}) \;\; \wedge \]
+\[ \bigwedge_{i=1}^n (ji\_d = i) \;\; \wedge \]
+\[ \bigwedge_{i=1}^n (ji\_e = (ji\_s + ji\_d)) \;\; \wedge \]
+\[ \bigwedge_{k \in K_i} (ji\_s \geq jk\_e) \;\; \wedge \]
+\[ \bigwedge_{i,k \in D; i \neq k} (ji\_e \leq jk\_s) \vee (ji\_s \geq jk\_e) \]
+
+
+This formula is easily expressed in SMT syntax, for instance, for $n=12$ one can generate
+
+{\footnotesize
+
+{\tt (benchmark Assignment3.smt}
+
+{\tt :logic QF\_LIA}
+
+{\tt :extrafuns (}
+
+{\tt ;Total running time }
+
+{\tt (running\_time Int) }
+
+{\tt ;Jobs, each with a duration, a start and an end }
+
+{\tt (j1\_d Int) (j1\_s Int) (j1\_e Int) }
+ 
+{\tt (j2\_d Int) (j2\_s Int) (j2\_e Int) }
+ 
+$\cdots \cdots$
+ 
+{\tt (j12\_d Int) (j12\_s Int) (j12\_e Int) }
+
+{\tt )}
+
+{\tt :formula}
+
+{\tt   (and}
+
+{\tt (>= j1\_s 0) (>= j2\_s 0) $\cdots$ (>= j12\_s 0) }
+
+{\tt (<= j1\_e running\_time) }
+
+{\tt (<= j2\_e running\_time) }
+
+$\cdots \cdots$
+
+{\tt (<= j12\_e running\_time) }
+
+$\cdots \cdots$
+
+{\tt )) }
+}
+
+Applying {\tt yices -m -smt Assignment3.smt} yields the following result
+within a fraction of a second:
+
+{\footnotesize
+
+{\tt sat }
+
+{\tt (= j7\_e 36) }
+
+{\tt (= j12\_d 12) }
+
+{\tt (= running\_time 36) }
+
+{\tt (= j1\_e 7) }
+
+{\tt (= j5\_d 5) }
+
+{\tt (= j2\_s 5) }
+
+{\tt (= j2\_d 2) }
+
+{\tt (= j6\_e 29) }
+
+{\tt (= j7\_d 7) }
+
+{\tt (= j8\_s 7) }
+
+{\tt (= j4\_e 10) }
+
+$\cdots \cdots$ }
+
+The start times of all the jobs are 
+
+{\tt j1\_s = 6 }
+
+{\tt j2\_s = 5 }
+
+{\tt j3\_s = 7 }
+
+{\tt j4\_s = 6 }
+
+{\tt j5\_s = 10 }
+
+{\tt j6\_s = 23 }
+
+{\tt j7\_s = 29 }
+
+{\tt j8\_s = 7 }
+
+{\tt j9\_s = 15 }
+
+{\tt j10\_s = 0 }
+
+{\tt j11\_s = 13 }
+
+{\tt j12\_s = 24 }
+
+Expressed in a picture this yields
+
+\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.7]{timeline.png}
 		\caption{Time-line of process execution. Connected and horizontal adjacent processes depend on each other, special processes are marked with a sign.}
 	\end{figure}
-	
+
+We check that indeed all requirements are satisfied and we also see that the total running time is 36, which is minimal.\\
+
+{\bf Remark:}
+Our variables contain some redundancy: the end time of each variable can already be derived from the start time and the duration of the job. We chose for this redundancy for keeping the symmetry in the solution, and also following the general strategy that introducing redundancy is often good for efficiency.\\
+
+Note that with these constraints several different solutions are possible, since most of the smaller jobs can easily be shifted a bit in time.\\
+
+{\bf Generalization:} 
+As we generalized our approach for $n$ jobs rather than 12, it is interesting to see what happens for other values of $n$. For $n > 100$ we can still represent each job clearly, since we have no trouble with other integers that are near the job number. So if we keep the notation then it is still clear that {\tt j111\_s} represents the start time of job number 111.
+
 \end{document}
