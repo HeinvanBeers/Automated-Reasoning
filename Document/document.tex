@@ -200,7 +200,7 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 
 	\section*{Problem 2: Placing components on a power grid}
 	To identify each component, we have named them $a, b, ... h$, with sizes $9 \times 7$, $12 \times 6$, $10 \times 7$, $18 \times 5$, $20 \times 4$, $10 \times 6$, $8 \times 6$ and $10 \times 8$. Furthermore, we named the power components $i, j, k$. 
-	The specification that each component can be turned to $90^{\circ}$, can be simplified to swapping the x and y dimensions of a component with each other. For each component, we introduce predicates $a\_turned, b\_turned, ..., k\_turned$ to indicate rotation, and $a\_lx, a\_ly, b\_lx, b\_ly, ..., k\_lx, k\_ly,$ for the lengths and widths of $a, b, ..., k$. So the dimensions of each component are determined as follows:
+	The specification that each component can be turned to $90^{\circ}$, can be simplified to swapping the x and y dimensions of a component with each other. For each component, we introduce predicates $a\_turned, b\_turned, ..., k\_turned$ to indicate rotation, and\\ $a\_lx, a\_ly, b\_lx, b\_ly, ..., k\_lx, k\_ly,$ for the lengths and widths of $a, b, ..., k$. So the dimensions of each component are determined as follows:
 
 	{\tt (= a\_lx (ite a\_turned 7 9))}
 	
@@ -208,7 +208,7 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 	
 	{\tt ...}
 	
-	\noindent We identify the origin of each component, with predicates $a\_ox, a\_oy, b\_ox, b\_oy, ..., k\_ox, k\_oy$ to denote x-origins and y-origins. To specify the size of the chip, we have to make sure that all components are within the limits of the length and width:
+	\noindent We identify the origin of each component, with predicates \\$a\_ox, a\_oy, b\_ox, b\_oy, ..., k\_ox, k\_oy$ to denote x-origins and y-origins. To specify the size of the chip, we have to make sure that all components are within the limits of the length and width:
 	
 	{\tt (<= (+ a\_lx a\_ox) 29)}
 	
