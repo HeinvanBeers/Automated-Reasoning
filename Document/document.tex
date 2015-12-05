@@ -282,9 +282,60 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 	$$\mid(i\_ox + 0.5 * i\_lx) - (j\_ox + 0.5 * j\_lx)\mid\ >= 17\ \vee$$
 	$$\mid(i\_oy + 0.5 * i\_ly) - (j\_oy + 0.5 * j\_ly)\mid\ >= 17 $$
 	
+	The placement of components on the chip are:
+	
+	{\tt (= a\_turned true)}
+	
+	{\tt (= b\_turned false)}
+	
+	{\tt (= c\_turned true)}
+	
+	{\tt (= d\_turned false)}
+	
+	{\tt (= e\_turned true)}
+	
+	{\tt (= f\_turned false)}
+	
+	{\tt (= g\_turned false)}
+	
+	{\tt (= h\_turned true)}
+	
+	{\tt (= i\_turned true)}
+	
+	{\tt (= j\_turned false)}
+	
+	{\tt (= k\_turned true)}
+	
+	{\tt (= l\_turned false)}
+	
+	{\tt (= a\_ox 0)(= a\_oy 11)(= a\_lx 7)(= a\_ly 9)}
+	
+	{\tt (= b\_ox 12)(= b\_oy 0)(= b\_lx 12)(= b\_ly 6)}
+	
+	{\tt (= c\_ox 18)(= c\_oy 6)(= c\_lx 7)(= c\_ly 10)}
+	
+	{\tt (= d\_ox 0)(= d\_oy 6)(= d\_lx 18)(= d\_ly 5)}
+	
+	{\tt (= e\_ox 25)(= e\_oy 2)(= e\_lx 4)(= e\_ly 20)}
+	
+	{\tt (= f\_ox 2)(= f\_oy 0)(= f\_lx 10)(= f\_ly 6)}
+	
+	{\tt (= g\_ox 15)(= g\_oy 16)(= g\_lx 8)(= g\_ly 6)}
+	
+	{\tt (= h\_ox 7)(= h\_oy 12)(= h\_lx 8)(= h\_ly 10)}
+	
+	{\tt (= i\_ox 23)(= i\_oy 16)(= i\_lx 2)(= i\_ly 4)}
+	
+	{\tt (= j\_ox 24)(= j\_oy 0)(= j\_lx 4)(= j\_ly 2)}
+	
+	{\tt (= k\_ox 0)(= k\_oy 2)(= k\_lx 2)(= k\_ly 4)}
+	
+	{\tt (= l\_ox 3)(= l\_oy 20)(= l\_lx 4)(= l\_ly 2)}\\
+	
+	The placement visualized in a picture yields
 	\begin{figure}[H]
 		\centering
-			\includegraphics[scale=0.7]{power-grid-3.png}
+		\includegraphics[scale=0.7]{power-grid-3.png}
 		\caption{Placement of components on chip.}
 	\end{figure}
 	
@@ -439,7 +490,7 @@ Expressed in a picture this yields
 \begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.7]{timeline.png}
-		\caption{A more organized solution. Connected and horizontal adjacent processes depend on each other, special processes are marked with a sign.}
+		\caption{A more organized solution to show that processes can be shifted. Connected and horizontal adjacent processes depend on each other, special processes are marked with a sign.}
 \end{figure}
 
 We check that indeed all requirements are satisfied and we also see that the total running time is 36, which is minimal.\\
