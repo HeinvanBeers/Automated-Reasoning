@@ -9,7 +9,6 @@
 	
 	\section*{Problem 1: Delivery for magic factory}
 	Satisfying all constraints, find the maximum number of pallets of prittles that can be delivered, and show how for that number all pallets may be divided over the six trucks.
-
 	
 	\subsection*{Solution:}
 	We generalize this problem to $n$ trucks. For each pallet place in a truck we introduce five variables, one for each type of building block. We have eight pallet places per truck, so we introduce $8*5*n = 40*n$ variables $p_{ijk}$ for $i = 1,\ldots,n$, $j = 1,\ldots,8$ and $k = 1,\ldots,5$ where for every $i,j,k$ the value of $p_{ijk}$ will be true if and only if a pallet of building block type $k$ will be put on pallet position $j$ in truck $i$.
@@ -199,8 +198,12 @@ After doing exercise 2 of this assignment, we discovered that we could also use 
 As we generalized our approach for $n$ trucks rather than 6, it is interesting to see what happens for other values of $n$. For $n > 10$ we can still represent clearly what truck, pallet position and pallet type we want to indicate, since the pallet position cannot take on a value higher than eight and the pallet type cannot take on a value higher than 5. So if we keep the notation then it is still clear that {\tt p1111} represents truck 11, pallet position 1 and pallet type 1, which is nuzzles.
 
 	\section*{Problem 2: Placing components on a power grid}
-	To identify each component, we have named them $a, b, ... h$, with sizes $9 \times 7$, $12 \times 6$, $10 \times 7$, $18 \times 5$, $20 \times 4$, $10 \times 6$, $8 \times 6$ and $10 \times 8$. Furthermore, we named the power components $i, j, k$. 
-	The specification that each component can be turned to $90^{\circ}$, can be simplified to swapping the x and y dimensions of a component with each other. For each component, we introduce predicates $a\_turned, b\_turned, ..., k\_turned$ to indicate rotation, and\\ $a\_lx, a\_ly, b\_lx, b\_ly, ..., k\_lx, k\_ly,$ for the lengths and widths of $a, b, ..., k$. So the dimensions of each component are determined as follows:
+	Satisfying all constraints, give a chip design containing three power components and eight regular components.
+
+	\subsection*{Solution:}
+	To identify each regular component, we have named them $a, b, ... h$, with sizes $9 \times 7$, $12 \times 6$, $10 \times 7$, $18 \times 5$, $20 \times 4$, $10 \times 6$, $8 \times 6$ and $10 \times 8$, respectively. Furthermore, we named the power components $i, j, k$.\\
+	
+	The requirement that each component can be turned $90^{\circ}$, can be realized by swapping the x and y dimensions of a component. For this, we introduce a predicate for each component $a\_turned, b\_turned, ..., k\_turned$ to indicate rotation. So $a\_turned$ is true only if component $a$ is turned and false if it is in its normal orientation. We also introduce variables $a\_lx, a\_ly, b\_lx, b\_ly, ..., k\_lx, k\_ly,$ for the lengths and widths of components $a, b, ..., k$, respectively. So the dimensions of each component are determined as follows:
 
 	{\tt (= a\_lx (ite a\_turned 7 9))}
 	
@@ -208,7 +211,9 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 	
 	{\tt ...}
 	
-	\noindent We identify the origin of each component, with predicates \\$a\_ox, a\_oy, b\_ox, b\_oy, ..., k\_ox, k\_oy$ to denote x-origins and y-origins. To specify the size of the chip, we have to make sure that all components are within the limits of the length and width:
+	\noindent We identify the origin of each component, with variables\\ $a\_ox, a\_oy, b\_ox, b\_oy, ..., k\_ox, k\_oy$ to denote the x- and y-coordinates of each of the components.\\
+	
+	To specify that all components are placed on the chip, we have to make sure that all components are placed within the boundaries of the chip. We realize this by making sure that all x-coordinates are between 0 and 29 and that all y-coordinates are between 0 and 22, in the following way:
 	
 	{\tt (<= (+ a\_lx a\_ox) 29)}
 	
@@ -220,17 +225,17 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 	
 	{\tt ...}
 	
-	\noindent We must also make sure that none of the components overlap. To make sure that two components, a and b, do not overlap, one of four statements must hold:
+	\noindent We must also ensure that none of the components overlap with each other. To make sure that two components, a and b, do not overlap, one of the following four statements must hold:
 	\begin{itemize}
-		\item \textbf{b} is right of \textbf{a} $\Leftrightarrow a\_ox >= b\_x + b\_lx$
-		\item \textbf{b} is left of \textbf{a} $\Leftrightarrow b\_ox >= a\_ox + a_lx$
-		\item \textbf{b} is below \textbf{a} $\Leftrightarrow a\_oy >= b\_oy + b\_ly$
-		\item \textbf{b} is above \textbf{a} $\Leftrightarrow b\_oy >= a\_oy + a\_ly$
+		\item \textbf{a} is right of \textbf{b} $\Leftrightarrow a\_ox >= b\_x + b\_lx$
+		\item \textbf{a} is left of \textbf{b} $\Leftrightarrow b\_ox >= a\_ox + a_lx$
+		\item \textbf{a} is above \textbf{b} $\Leftrightarrow a\_oy >= b\_oy + b\_ly$
+		\item \textbf{a} is below \textbf{b} $\Leftrightarrow b\_oy >= a\_oy + a\_ly$
 	\end{itemize}
-	In SMT:
+	In SMT syntax this can be expressed in the following way:
 	
 	{\tt (or (>= a\_ox (+ b\_ox b\_lx)) (>= b\_ox (+ a\_ox a\_lx)) (>= a\_oy (+ b\_oy b\_ly)) (>= b\_oy (+ a\_oy a\_ly)) )}\\
-	\noindent We need to repeat this statement for every pair, in order to make sure no two components overlap each other.\\
+	\noindent We need to repeat this statement for every pair of components, in order to make sure no two components overlap each other.\\
 	
 	\noindent The next requirement is that every component needs to be adjacent to a power component. More formally, when we have $n$ regular components and $m$ power components, we have for each regular component $c$ and power component $p$:
 	
@@ -238,11 +243,15 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 	
 	\noindent where $c\ adjacent\ to\ p $ is defined as:
 	\begin{itemize}
-	\item If side $p$ is left or right of $c$, then $p\_oy + p\_ly <= c\_oy >= p\_oy - c\_ly$
-	\item If side $p$ is above or below $c$, then $p\_ox + p\_lx <= c\_ox >= p\_ox - c\_lx$
+	\item If the x-coordinates of the left side of $p$ and the right side of $c$ are equal, then the y-coordinates are chosen in such a range, that the left side of $p$ touches the right side of $c$.
+	\item If the x-coordinates of the right side of $p$ and the left side of $c$ are equal, then the y-coordinates are chosen in such a range, that the right side of $p$ touches the left side of $c$.
+	\item If the y-coordinates of the bottom side of $p$ and the top side of $c$ are equal, then the x-coordinates are chosen in such a range, that the bottom side of $p$ touches the top side of $c$.
+	\item If the y-coordinates of the top side of $p$ and the bottom side of $c$ are equal, then the x-coordinates are chosen in such a range, that the top side of $p$ touches the bottom side of $c$.
 	\end{itemize}
 	
-	\noindent In SMT:
+	Note that for each regular component $c$ at least one of these four statements has to hold, in order to be placed next to a power component $p$.\\
+	
+	\noindent In SMT syntax this can be expressed in the following way:
 	
 	{\tt ; B is adjacent to a Powerchip}
 	
@@ -276,13 +285,13 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 
 	{\tt ...}\\
 	
-	\noindent The last requirement was that the centers of any two power components should differ at least 17 in either the x direction or the y direction (or both).\\
-	Take arbitrary power components $i$ and $j$, then we have:
+	\noindent The last requirement is that the centers of any two power components should differ at least 17 in either the x-direction or the y-direction (or both). To realize this, we have two restrictions for each combination of power components. One restriction for the x-coordinates and one restriction for the y-coordinates.\\
 	
-	$$\mid(i\_ox + 0.5 * i\_lx) - (j\_ox + 0.5 * j\_lx)\mid\ >= 17\ \vee$$
-	$$\mid(i\_oy + 0.5 * i\_ly) - (j\_oy + 0.5 * j\_ly)\mid\ >= 17 $$
+	The coordinates of the centers can easily be calculated by adding half of the length in the x-direction to the value of the x-coordinate, and half of the length in the y-direction to the value of the y-coordinate. If we now subtract the x-coordinates of two power components and restrict the absolute value of the result to have a value of at least 17 and we do the same for the y-coordinates, then we have ensured that the centers of those two power components differ at least 17 in at least one of the dimensions. This can more easily be understood with the following equations for arbitrary power components $i$ and $j$, for which it holds that $i \neq j$.	
+	$$(\mid(i\_ox + 0.5 * i\_lx) - (j\_ox + 0.5 * j\_lx)\mid\ \geq 17)\ \vee$$
+	$$(\mid(i\_oy + 0.5 * i\_ly) - (j\_oy + 0.5 * j\_ly)\mid\ \geq 17) $$
 	
-	The placement of components on the chip are:
+	Applying {\tt yices -m -smt Assignment2.smt} yields the following placement of components on the chip:
 	
 	{\tt (= a\_turned true)}
 	
@@ -338,6 +347,9 @@ As we generalized our approach for $n$ trucks rather than 6, it is interesting t
 		\includegraphics[scale=0.7]{power-grid-3.png}
 		\caption{Placement of components on chip.}
 	\end{figure}
+	
+	{\bf Generalization:} 
+As we have chosen to represent the regular components by the letters $a..h$ and the power components by the letters $i..k$, which in the alphabet directly follow after the letters of the regular components, it is not really possible with this representation to generalize the problem to a problem with $m$ regular components and $n$ power components. Therefore, if we would have chosen for another representation, such as $r1\_ox, r1\_oy, r1\_lx, r1\_ly, r2\_ox,..., rm\_lx, rm\_ly$ for $m$ regular components and $p1\_ox, p1\_oy, p1\_lx, p1\_ly, p2\_ox,..., pn\_lx, pn\_ly$ for $n$ power components, then the problem is easily generalizable.
 	
 	\section*{Problem 3: Ordering jobs}
 	Satisfying all constraints, find a solution of this scheduling problem for which the total running time is minimal.
@@ -487,18 +499,18 @@ Expressed in a picture this yields
 	\caption{Time-line of process execution.}
 \end{figure}
 
-\begin{figure}[H]
-		\centering
-			\includegraphics[scale=0.7]{timeline.png}
-		\caption{A more organized solution to show that processes can be shifted. Connected and horizontal adjacent processes depend on each other, special processes are marked with a sign.}
-\end{figure}
-
 We check that indeed all requirements are satisfied and we also see that the total running time is 36, which is minimal.\\
 
 {\bf Remark:}
 Our variables contain some redundancy: the end time of each variable can already be derived from the start time and the duration of the job. We chose for this redundancy for keeping the symmetry in the solution, and also following the general strategy that introducing redundancy is often good for efficiency.\\
 
-Note that with these constraints several different solutions are possible, since most of the smaller jobs can easily be shifted a bit in time.\\
+Note that with these constraints several different solutions are possible, since most of the smaller jobs can easily be shifted a bit in time. This can be seen in Figure 4.\\
+
+\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.7]{timeline.png}
+		\caption{A more organized solution to show that processes can be shifted. Connected and horizontal adjacent processes depend on each other, special processes are marked with a sign.}
+\end{figure}
 
 {\bf Generalization:} 
 As we generalized our approach for $n$ jobs rather than 12, it is interesting to see what happens for other values of $n$. For $n > 100$ we can still represent each job clearly, since we have no trouble with other integers that are near the job number. So if we keep the notation then it is still clear that {\tt j111\_s} represents the start time of job number 111.
