@@ -1,64 +1,74 @@
 MODULE main
-VAR
-t : 0..300;
-a : 0..120;
-b : 0..120;
-c : 0..200;
-tp : 0..3;
-tc : 1..3;
-time : 0..1000;
-total_a : 0..10000;
-total_b : 0..10000;
-total_c : 0..10000;
-delivered : 0..200;
-loaded : 0..300;
-INIT
-t = 300 & a = 40 & total_a = 40 & b = 30 & total_b = 30 & c = 145 & total_c = 145 & tp = 0
-TRANS
-case tp = 0 & tc = 1 : next(tp) = 1 & next(time) = time + 29;
-	 tp = 0 & tc = 2 : next(tp) = 2 & next(time) = time + 21;
-	 
-	 tp = 1 & tc = 1 : next(tp) = 0 & next(time) = time + 29;
-	 tp = 1 & tc = 2 : next(tp) = 2 & next(time) = time + 17;
-	 tp = 1 & tc = 3 : next(tp) = 3 & next(time) = time + 32;
-	 
-	 tp = 2 & tc = 1 : next(tp) = 0 & next(time) = time + 21;
-	 tp = 2 & tc = 2 : next(tp) = 1 & next(time) = time + 17;
-	 tp = 2 & tc = 3 : next(tp) = 3 & next(time) = time + 37;
-	 
-	 tp = 3 & tc = 1 : next(tp) = 1 & next(time) = time + 32;
-	 tp = 3 & tc = 2 : next(tp) = 2 & next(time) = time + 37;
-	 TRUE : next(tp) = tp & next(time) = time;
-esac
-&
-case tp = 0 : next(a) = total_a - time &
-			  next(b) = total_b - time &
-			  next(c) = total_c - time &
-			  next(total_a) = total_a &
-			  next(total_b) = total_b &
-			  next(total_c) = total_c &
-			  next(t) = t + loaded;
-	 tp = 1 : next(a) = total_a - time + delivered &
-			  next(b) = total_b - time &
-			  next(c) = total_c - time &
-			  next(total_a) = total_a + delivered &
-			  next(total_b) = total_b &
-			  next(total_c) = total_c &
-			  next(t) = t - delivered;
-	 tp = 2 : next(b) = total_b - time + delivered &
-			  next(a) = total_a - time &
-			  next(c) = total_c - time &
-			  next(total_b) = total_b + delivered &
-			  next(total_a) = total_a &
-			  next(total_c) = total_c &
-			  next(t) = t - delivered;
-	 tp = 3 : next(c) = total_c - time + delivered &
-			  next(a) = total_a - time &
-			  next(b) = total_b - time &
-			  next(total_c) = total_c + delivered &
-			  next(total_a) = total_a &
-			  next(total_b) = total_b &
-			  next(t) = t - delivered;
-esac
 
-LTLSPEC G (a >= 0 & b >= 0 & c >= 0)
+VAR
+truck : 0..300;
+storage_a: 0..120;
+storage_b: 0..120;
+storage_c: 0..200;
+position: {s, a, b, c};
+time: 0..37;
+delivered: 0..200;
+
+INIT
+storage_a = 40 & storage_b = 30 & storage_c = 145 & position = s & time = 0 & truck = 300;
+
+ASSIGN
+    next(position) :=
+        case
+            position = s: {a, b};
+            position = a: {s, b, c};
+            position = b: {s, a, c};
+            position = c: {a, b};
+            TRUE: position;
+        esac;
+
+    next(time) :=
+        case
+            position = a & next(position) = b: 17;
+            position = a & next(position) = c: 32;
+            position = a & next(position) = s: 29;
+            position = b & next(position) = a: 17;
+            position = b & next(position) = c: 37;
+            position = b & next(position) = s: 21;
+            position = c & next(position) = a: 32;
+            position = c & next(position) = b: 37;
+            position = s & next(position) = a: 29;
+            position = s & next(position) = b: 21;
+            TRUE: 0;
+        esac;
+
+    next(storage_a) :=
+        case
+			next(position) = a & storage_a >= next(time) & storage_a + delivered  - next(time) <= 120 : storage_a + delivered - next(time);
+			next(position) = b & storage_a >= next(time) : storage_a - next(time);
+			next(position) = c & storage_a >= next(time) : storage_a - next(time);
+			next(position) = s & storage_a >= next(time) : storage_a - next(time);
+			TRUE : storage_a;
+		esac;
+
+    next(storage_b) :=
+        case
+			next(position) = a & storage_b >= next(time) : storage_b - next(time);
+			next(position) = b & storage_b >= next(time) & storage_b + delivered - next(time) <= 120 : storage_b + delivered - next(time);
+			next(position) = c & storage_b >= next(time) : storage_b - next(time);
+			next(position) = s & storage_b >= next(time) : storage_b - next(time);
+			TRUE : storage_b;
+		esac;
+
+    next(storage_c) :=
+        case
+			next(position) = b & storage_c >= next(time) : storage_c - next(time);
+			next(position) = a & storage_c >= next(time) : storage_c - next(time);
+			next(position) = c & storage_c >= next(time) & storage_c + delivered - next(time) <= 200 : storage_c + delivered - next(time);
+			next(position) = s & storage_c >= next(time) : storage_c - next(time);
+			TRUE : storage_c;
+		esac;
+	
+	next(truck) :=
+		case
+			next(position) = s : 300;
+			next(position) != s & truck - delivered >= 0 : truck - delivered;
+			TRUE : truck;
+		esac;
+
+LTLSPEC G !(storage_a = 0 | storage_b = 0 | storage_c = 0)
