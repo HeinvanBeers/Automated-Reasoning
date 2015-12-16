@@ -1,0 +1,55 @@
+MODULE main
+VAR
+t : 0..300;
+a : 0..120;
+b : 0..120;
+c : 0..200;
+tp : 0..3;
+tc : 1..3;
+time : 0..1000;
+total_a : 0..10000;
+total_b : 0..10000;
+total_c : 0..10000;
+delivered : 0..200;
+INIT
+t = 300 & a = 40 & total_a = 40 & b = 30 & total_b = 30 & c = 145 & total_c = 145 & tp = 0
+TRANS
+case tp = 0 & tc = 1 : next(tp) = 1 & next(time) = time + 29;
+	 tp = 0 & tc = 2 : next(tp) = 2 & next(time) = time + 21;
+	 
+	 tp = 1 & tc = 1 : next(tp) = 0 & next(time) = time + 29;
+	 tp = 1 & tc = 2 : next(tp) = 2 & next(time) = time + 17;
+	 tp = 1 & tc = 3 : next(tp) = 3 & next(time) = time + 32;
+	 
+	 tp = 2 & tc = 1 : next(tp) = 0 & next(time) = time + 21;
+	 tp = 2 & tc = 2 : next(tp) = 1 & next(time) = time + 17;
+	 tp = 2 & tc = 3 : next(tp) = 3 & next(time) = time + 37;
+	 
+	 tp = 3 & tc = 1 : next(tp) = 1 & next(time) = time + 32;
+	 tp = 3 & tc = 2 : next(tp) = 2 & next(time) = time + 37;
+	 TRUE : next(tp) = tp & next(time) = time;
+esac
+&
+case tp = 1 : next(a) = total_a - time + delivered &
+			  next(b) = total_b - time &
+			  next(c) = total_c - time &
+			  next(total_a) = total_a + delivered &
+			  next(total_b) = total_b &
+			  next(total_c) = total_c;
+	 tp = 2 : next(b) = total_b - time + delivered &
+			  next(a) = total_a - time &
+			  next(c) = total_c - time &
+			  next(total_b) = total_b + delivered &
+			  next(total_a) = total_a &
+			  next(total_c) = total_c;
+	 tp = 3 : next(c) = total_c - time + delivered &
+			  next(a) = total_a - time &
+			  next(b) = total_b - time &
+			  next(total_c) = total_c + delivered &
+			  next(total_a) = total_a &
+			  next(total_b) = total_b;
+esac
+&
+next(t) = t - delivered;
+
+LTLSPEC G !(tp = 0)
