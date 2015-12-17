@@ -1,7 +1,7 @@
 MODULE main
 
 VAR
-truck : 0..300;
+truck : 0..318;
 storage_a: 0..120;
 storage_b: 0..120;
 storage_c: 0..200;
@@ -10,7 +10,7 @@ time: 0..37;
 delivered: 0..200;
 
 INIT
-storage_a = 40 & storage_b = 30 & storage_c = 145 & position = s & time = 0 & truck = 300;
+storage_a = 40 & storage_b = 30 & storage_c = 145 & position = s & time = 0 & truck = 318;
 
 ASSIGN
     next(position) :=
@@ -24,7 +24,6 @@ ASSIGN
 
     next(time) :=
         case
-			next(position) = position : 0;
             position = a & next(position) = b: 17;
             position = a & next(position) = c: 32;
             position = a & next(position) = s: 29;
@@ -40,7 +39,6 @@ ASSIGN
 
     next(storage_a) :=
         case
-			next(time) = 0 : storage_a;
 			next(position) = a & storage_a >= next(time) & storage_a + delivered  - next(time) <= 120 : storage_a + delivered - next(time);
 			next(position) = b & storage_a >= next(time) : storage_a - next(time);
 			next(position) = c & storage_a >= next(time) : storage_a - next(time);
@@ -50,7 +48,6 @@ ASSIGN
 
     next(storage_b) :=
         case
-			next(time) = 0 : storage_b;
 			next(position) = a & storage_b >= next(time) : storage_b - next(time);
 			next(position) = b & storage_b >= next(time) & storage_b + delivered - next(time) <= 120 : storage_b + delivered - next(time);
 			next(position) = c & storage_b >= next(time) : storage_b - next(time);
@@ -60,7 +57,6 @@ ASSIGN
 
     next(storage_c) :=
         case
-			next(time) = 0 : storage_c;
 			next(position) = b & storage_c >= next(time) : storage_c - next(time);
 			next(position) = a & storage_c >= next(time) : storage_c - next(time);
 			next(position) = c & storage_c >= next(time) & storage_c + delivered - next(time) <= 200 : storage_c + delivered - next(time);
@@ -70,8 +66,7 @@ ASSIGN
 	
 	next(truck) :=
 		case
-			next(time) = 0 : truck;
-			next(position) = s : 300;
+			next(position) = s : 318;
 			next(position) != s & truck - delivered >= 0 : truck - delivered;
 			TRUE : truck;
 		esac;
