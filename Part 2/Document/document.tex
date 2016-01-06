@@ -11,27 +11,21 @@
 	Three non-self-supporting villages A, B and C in the middle of nowhere consume one food package each per time unit. The required food packages are delivered by a truck, having a capacity of 300 food packages. The locations of the villages are given, together with the number of time units it takes the truck to travel from one village to another, including loading or delivering. The truck has to pick up its food packages at location S containing an unbounded supply. The villages only have a limited capacity to store food packages: for A and B this capacity is 120, for C it is 200.
 	
 	\subsection*{Solution:}
-	We generalize this problem to $n$ villages and a truck capacity of $C$. We also have a variable $m$ which represents the amount of steps we perform in the model. Each step corresponds to a change in the position of the truck. For each village we then introduce $n * (m+1)$ integer variables $vi\_j$ for $i=1,...,n$ and $j=0,...,m+1$, where $i$ indicates the number of each village and $j$ is the number of steps that have been performed. So now we have a variable $vi\_j$ that represents the amount of food packages in village $i$ after $j$ steps have been performed.
+	We generalize this problem to $n$ villages and a truck capacity of $C$. We also have a variable $m$ which represents the amount of steps we perform in the model. Each step corresponds to a change in the position of the truck. For each village we then introduce $n * (m+2)$ integer variables $vi\_j$ for $i=1,...,n$ and $j=0,...,m+1$, where $i$ indicates the number of each village and $j$ is the number of steps that have been performed. So now we have a variable $vi\_j$ that represents the amount of food packages in village $i$ after $j$ steps have been performed. Next, we also introduce $m+2$ integer variables $p_j$, $t_j$ and $d_j$ for $j=0,...,m+1$, where $p_j$ represents the position of the truck after $j$ number of steps have been performed, $t_j$ represents the load of the truck after $j$ number of steps have been performed, and $d_j$ represents the amount of food packages that are being delivered at step $j$.\\
 	
-	We introduce $n\times (m+1)$ integer variables $a_{ij}$ for $i=1,...,n$ and $j=0,...,m$, where $m$ is the number of travels that the truck has performed, and $a_{ij}$ represents the number of food packages in the village $i$ after performing $j$ number of travels. We also introduce $m+1$ integer variables $p_j$, $t_j$ and $d_j$ for $j=0,...,m$, where $p_j$ and $t_j$ represent the position of the truck and the number of food packages in it respectively after $j$ number of travels. Finally, $d_j$ depicts the amount of food packages that are delivered to a village just after performing $j$ number of travels.
-	
-	 place in a truck we introduce five variables, one for each type of building block. We have eight pallet places per truck, so we introduce $8*5*n = 40*n$ variables $p_{ijk}$ for $i = 1,\ldots,n$, $j = 1,\ldots,8$ and $k = 1,\ldots,5$ where for every $i,j,k$ the value of $p_{ijk}$ will be true if and only if a pallet of building block type $k$ will be put on pallet position $j$ in truck $i$.
-	
-	As the weight of each of the $n$ trucks may not exceed the capacity of 7800 kg, we express this by the formula
-\[ \bigwedge_{i=1}^n (\sum_{k=1}^5 (\sum_{j=1}^8 (f(p_{ijk})*w_k)) \leq 7800).\]
-Where $f(p_{ijk}) = 1$ if $p_{ijk}$ is equal to true and 0 otherwise. Also $w_k$ is the weight of a pallet of type $k$. In the table below you can see the weights of the different types of pallets.
+	Since for each village $i$ the food capacity $vi\_j$ may not exceed its maximum capacity $max_i$, neither may get below zero for any step $j$, we introduce the following formula
+\[ \bigwedge_{j=0}^{m+1} \bigwedge_{i=1}^n (vi\_j >= 0) \wedge (vi\_j <= max_i).\]
+Where $max_i$ is the maximum capacity of village $i$. In the table below you can see the maximum capacities of villages A, B and C, together with their corresponding integer values.
 
 \begin{table}[H]
 \centering
-\caption{Weights of the different types of pallets}
+\caption{Maximum capacities of each village}
 \label{my-label}
 \begin{tabular}{c|c|c}
-\textbf{Pallet type} & \textbf{Corresponding k} & \textbf{Weight (kg)} \\ \hline
-Nuzzles              & 1                        & 700                  \\ \hline
-Prittles             & 2                        & 800                  \\ \hline
-Skipples             & 3                        & 1000                 \\ \hline
-Crottles             & 4                        & 1500                 \\ \hline
-Dupples              & 5                        & 100                 
+\textbf{Village} & \textbf{Corresponding $i$} & \textbf{Maximum capacity} \\ \hline
+A	&	1	&	120\\ \hline
+B	&	2	&	120\\ \hline
+C	&	3	&	200
 \end{tabular}
 \end{table}
 
