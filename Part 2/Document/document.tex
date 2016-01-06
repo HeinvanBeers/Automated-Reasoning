@@ -145,8 +145,23 @@ $\cdots \cdots$
 	We need to show that it is impossible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
 	
 	\subsection*{Problem 1b}
-	For this question we need to show that with a truck capacity of 320 food packages, it is possible to deliver food packages in such a way that the villages consume each one food package per time unit forever.
 
+		%Als er een loop is en we vinden binnen aantal stappen een en in die loop is het mogelijk om te blijven deliveren en je komt in precies dezelfde states weer terug, dan kunnen we oneindig doorgaan.
+	For this question we need to show that with a truck capacity of 320 food packages, it is possible to deliver food packages in such a way that the villages consume each one food package per time unit forever.
+	
+	To solve problems \textbf{b} and \textbf{c}, we need to find a loop that includes a finite amount of legal states. Once we find such a loop, we can repeat it infinitely, and conclude that it is possible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
+	
+	Take two states $i$ and $j$, and take $n$ as the number of villages. Then two states are similar if and only if:
+	$$p\_i = p\_j \wedge t\_i = t\_j \wedge \forall (k: 1 \leq k \leq n : vk\_i = vk\_j)$$
+	
+	A loop is defined as a set of succeeding states with a first state $S_i$ and last state $S_j$, where $S_i$ and $S_j$ are similar and $j > i$.
+	
+	So, if we take $m$ as the number of steps, a solution that holds a cycle, can be defined with:
+	$$\exists (i, j: 0 \leq i,j \leq m \wedge j > i: p\_i = p\_j \wedge t\_i = t\_j \wedge \forall (k: 1 \leq k \leq n : vk\_i = vk\_j))$$
+	
+	We define a cycle in smt as follows. For all $0 \leq i, j \leq m$ with $j > i$ we have {\tt (= p\_$i$ p\_$j$) (= t\_$i$ t\_$j$)}, and for each village $n$, we have: {\tt (= v$n$\_$i$ v$n$\_$j$)}.
+	
+	
 	\subsection*{Problem 1c}
 	Finally, we also need to check the same as for question 1b, but now with a truck capacity of 318 food packages.
 
