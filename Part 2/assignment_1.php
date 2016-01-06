@@ -67,8 +67,8 @@
 
     if ($REQUIRE_CYCLE) {
         echo "\t(or \n";
-        for ($i = 0; $i <= $STEPS + 1; $i++) {
-            for ($j = 0; $j <= $STEPS + 1; $j++) {
+        for ($i = 0; $i <= $STEPS; $i++) {
+            for ($j = 0; $j <= $STEPS; $j++) {
                 echo "\t\t\t(and (= v1_$i v1_$j) (= v2_$i v2_$j) (= v3_$i v3_$j) (= p_$i p_$j) (= t_$i t_$j) )\n";
             }
         }
