@@ -1,13 +1,13 @@
 <?php
 
     // Number of steps
-    $STEPS = 25;
+    $STEPS = $argv[1];
 
     // Truck load
-    $TRUCK_LOAD = 300;
+    $TRUCK_LOAD = $argv[2];
 
     // Whether or not to find cycle for satisfiability
-    $REQUIRE_CYCLE = false;
+    $REQUIRE_CYCLE = $argv[3];
 
     // Header
     echo "(benchmark assignment\n:logic QF_UFLIA\n:extrafuns\n";
