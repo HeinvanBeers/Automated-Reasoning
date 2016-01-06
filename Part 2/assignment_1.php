@@ -69,6 +69,7 @@
         echo "\t(or \n";
         for ($i = 0; $i <= $STEPS; $i++) {
             for ($j = 0; $j <= $STEPS; $j++) {
+                if ($j <= $i) continue;
                 echo "\t\t\t(and (= v1_$i v1_$j) (= v2_$i v2_$j) (= v3_$i v3_$j) (= p_$i p_$j) (= t_$i t_$j) )\n";
             }
         }
