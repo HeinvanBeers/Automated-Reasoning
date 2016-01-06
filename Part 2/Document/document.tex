@@ -152,14 +152,16 @@ $\cdots \cdots$
 	To solve problems \textbf{b} and \textbf{c}, we need to find a loop that includes a finite amount of legal states. Once we find such a loop, we can repeat it infinitely, and conclude that it is possible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
 	
 	Take two states $i$ and $j$, and take $n$ as the number of villages. Then two states are similar if and only if:
-	$$p\_i = p\_j \wedge t\_i = t\_j \wedge \forall (k: 1 \leq k \leq n : vk\_i = vk\_j)$$
+	$$similar(i, j) \Leftrightarrow p\_i = p\_j \wedge t\_i = t\_j \wedge \forall (k: 1 \leq k \leq n : vk\_i = vk\_j)$$
 	
 	A loop is defined as a set of succeeding states with a first state $S_i$ and last state $S_j$, where $S_i$ and $S_j$ are similar and $j > i$.
 	
-	So, if we take $m$ as the number of steps, a solution that holds a cycle, can be defined with:
-	$$\exists (i, j: 0 \leq i,j \leq m \wedge j > i: p\_i = p\_j \wedge t\_i = t\_j \wedge \forall (k: 1 \leq k \leq n : vk\_i = vk\_j))$$
+	So, if we take $m$ as the number of steps, a solution that holds a loop, can be defined with:
+	%$$\exists (i, j: 0 \leq i,j \leq m \wedge j > i: similar(i, j))$$
 	
-	We define a cycle in smt as follows. For all $0 \leq i, j \leq m$ with $j > i$ we have {\tt (= p\_$i$ p\_$j$) (= t\_$i$ t\_$j$)}, and for each village $n$, we have: {\tt (= v$n$\_$i$ v$n$\_$j$)}.
+	$$\bigvee_{i, j}^m j > i \wedge similar(i, j)$$
+	
+	We define a loop in smt as follows. For all $0 \leq i, j \leq m$ with $j > i$ we have {\tt (= p\_$i$ p\_$j$) (= t\_$i$ t\_$j$)}, and for each village $n$, we have: {\tt (= v$n$\_$i$ v$n$\_$j$)}.
 	
 	
 	\subsection*{Problem 1c}
