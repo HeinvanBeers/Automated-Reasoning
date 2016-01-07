@@ -341,7 +341,8 @@ is poured, otherwise the pouring stops when the other bottle is full.
 \end{itemize}
 
 	\subsection*{Solution:}
-
+	We generalize this problem to $n$ bottles each having a maximum capacity of $max(i)$ for bottle $i$. For each bottle we then introduce one integer variables for $i=1,...,n$ and $j=0,...,m+1$, where $i$ indicates the number of each village and $j$ is the number of steps that have been performed. So now we have a variable $v_{i\_j}$ that represents the amount of food packages in village $i$ after $j$ steps have been performed. Next, we also introduce $m+2$ integer variables $p_j$, $t_j$ and $d_j$ for $j=0,...,m+1$, where $p_j$ represents the position of the truck after $j$ number of steps have been performed, $t_j$ represents the load of the truck after $j$ number of steps have been performed, and $d_j$ represents the amount of food packages that are being delivered at step $j$.\\
+	
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
 		B1 & B2 & B3 & bottle\_option & action\_option & pour\_in &
