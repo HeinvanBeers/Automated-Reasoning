@@ -1,6 +1,10 @@
 \documentclass[a4paper]{article}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{color, colortbl}
+\definecolor{Highlight}{rgb}{0.3, 0.76, 0.97}
 \author{Hein van Beers \qquad Student number: 0765658 \\{\tt h.a.v.beers@student.tue.nl}\\ \\ Jeroen van Hoof \qquad Student number: 0778486 \\{\tt j.m.a.p.v.hoof@student.tue.nl}}
 \title{Automated Reasoning\\
 	 \large Practical assignment, Part II}
@@ -185,9 +189,42 @@ $\cdots \cdots$
 	\subsection*{Problem 1a}
 	We need to show that it is impossible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
 	
+	First, we show up until which point it is still possible to deliver food packages. See table \ref{tab:1a}. Any step after step 21 will result in a food shortage.
+	\begin{table}[!htb]
+		\begin{longtable}[c]{@{}|l|l|l|l|l|l|l|@{}}
+			\toprule
+			step & p & t & d & v1 & v2 & v3\tabularnewline
+			\midrule
+			\endhead
+			0 & 0 & 300 & 0 & 40 & 30 & 145\tabularnewline
+			1 & 2 & 189 & 111 & 19 & 9 & 124\tabularnewline
+			2 & 1 & 71 & 118 & 2 & 103 & 107\tabularnewline
+			3 & 0 & 300 & 0 & 91 & 74 & 78\tabularnewline
+			4 & 2 & 234 & 66 & 70 & 53 & 57\tabularnewline
+			5 & 3 & 66 & 168 & 33 & 82 & 20\tabularnewline
+			6 & 1 & 0 & 66 & 1 & 50 & 156\tabularnewline
+			7 & 0 & 300 & 0 & 38 & 21 & 127\tabularnewline
+			8 & 2 & 180 & 120 & 17 & 0 & 106\tabularnewline
+			9 & 1 & 60 & 120 & 0 & 103 & 89\tabularnewline
+			10 & 0 & 300 & 0 & 91 & 74 & 60\tabularnewline
+			11 & 2 & 233 & 67 & 70 & 53 & 39\tabularnewline
+			12 & 3 & 70 & 163 & 33 & 83 & 2\tabularnewline
+			13 & 1 & 4 & 66 & 1 & 51 & 133\tabularnewline
+			14 & 0 & 296 & 0 & 38 & 22 & 104\tabularnewline
+			15 & 2 & 179 & 117 & 17 & 1 & 83\tabularnewline
+			16 & 1 & 64 & 115 & 0 & 101 & 66\tabularnewline
+			17 & 3 & 15 & 49 & 83 & 69 & 34\tabularnewline
+			18 & 1 & 15 & 0 & 51 & 37 & 51\tabularnewline
+			19 & 2 & 1 & 14 & 34 & 20 & 34\tabularnewline
+			20 & 1 & 1 & 0 & 17 & 17 & 17\tabularnewline
+			\bottomrule
+		\end{longtable}
+		\caption{20 steps, 300 truck capacity}
+		\label{tab:1a}
+	\end{table}
+		
 	\subsection*{Problem 1b}
-
-		%Als er een loop is en we vinden binnen aantal stappen een en in die loop is het mogelijk om te blijven deliveren en je komt in precies dezelfde states weer terug, dan kunnen we oneindig doorgaan.
+	%Als er een loop is en we vinden binnen aantal stappen een en in die loop is het mogelijk om te blijven deliveren en je komt in precies dezelfde states weer terug, dan kunnen we oneindig doorgaan.
 	For this question we need to show that with a truck capacity of 320 food packages, it is possible to deliver food packages in such a way that the villages consume each one food package per time unit forever.
 	
 	To solve problems \textbf{b} and \textbf{c}, we need to find a loop that includes a finite amount of legal states. Once we find such a loop, we can repeat it infinitely, and conclude that it is possible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
@@ -204,9 +241,89 @@ $\cdots \cdots$
 	
 	We define a loop in smt as follows. For all $0 \leq i, j \leq m$ with $j > i$ we have {\tt (= p\_$i$ p\_$j$) (= t\_$i$ t\_$j$)}, and for each village $n$, we have: {\tt (= v$n$\_$i$ v$n$\_$j$)}.
 	
+	\begin{table}[!htb]
+		\begin{longtable}[c]{@{}|l|l|l|l|l|l|l|@{}}
+			\toprule
+			s & p & t & d & v1 & v2 & v3\tabularnewline
+			\midrule
+			\endhead
+			0 & 0 & 320 & 0 & 40 & 30 & 145\tabularnewline
+			1 & 2 & 281 & 39 & 19 & 9 & 124\tabularnewline
+			2 & 1 & 163 & 118 & 2 & 31 & 107\tabularnewline
+			3 & 2 & 57 & 106 & 103 & 14 & 90\tabularnewline
+			4 & 0 & 319 & 0 & 82 & 99 & 69\tabularnewline
+			5 & 1 & 253 & 66 & 53 & 70 & 40\tabularnewline
+			6 & 3 & 66 & 187 & 87 & 38 & 8\tabularnewline
+			7 & 2 & 0 & 66 & 50 & 1 & 158\tabularnewline
+			\rowcolor{Highlight}
+			8 & 0 & 271 & 0 & 29 & 46 & 137\tabularnewline
+			9 & 1 & 151 & 120 & 0 & 17 & 108\tabularnewline
+			10 & 2 & 32 & 119 & 103 & 0 & 91\tabularnewline
+			11 & 0 & 319 & 0 & 82 & 98 & 70\tabularnewline
+			12 & 1 & 253 & 66 & 53 & 69 & 41\tabularnewline
+			13 & 3 & 67 & 186 & 87 & 37 & 9\tabularnewline
+			14 & 2 & 0 & 67 & 50 & 0 & 158\tabularnewline
+			\rowcolor{Highlight}
+			15 & 0 & 271 & 0 & 29 & 46 & 137\tabularnewline
+			16 & 1 & 151 & 120 & 0 & 17 & 108\tabularnewline
+			17 & 2 & 32 & 119 & 103 & 0 & 91\tabularnewline
+			18 & 0 & 320 & 0 & 82 & 98 & 70\tabularnewline
+			19 & 1 & 280 & 40 & 53 & 69 & 41\tabularnewline
+			20 & 3 & 155 & 125 & 61 & 37 & 9\tabularnewline
+			21 & 2 & 110 & 45 & 24 & 0 & 97\tabularnewline
+			22 & 1 & 36 & 74 & 7 & 28 & 80\tabularnewline
+			23 & 2 & 0 & 36 & 64 & 11 & 63\tabularnewline
+			24 & 0 & 16 & 0 & 43 & 26 & 42\tabularnewline
+			25 & 2 & 0 & 16 & 22 & 5 & 21\tabularnewline
+			\bottomrule
+		\end{longtable}
+		\caption{25 steps, 320 truck capacity}
+		\label{tab:1b}
+	\end{table}
+	
 	
 	\subsection*{Problem 1c}
 	Finally, we also need to check the same as for question 1b, but now with a truck capacity of 318 food packages.
+	
+	\begin{table}[!htb]
+		\begin{longtable}[c]{@{}|l|l|l|l|l|l|l|@{}}
+			\toprule
+			s & p & t & d & v1 & v2 & v3\tabularnewline
+			\midrule
+			\endhead
+			0 & 0 & 318 & 0 & 40 & 30 & 145\tabularnewline
+			1 & 2 & 207 & 111 & 19 & 9 & 124\tabularnewline
+			2 & 1 & 89 & 118 & 2 & 103 & 107\tabularnewline
+			3 & 0 & 314 & 0 & 91 & 74 & 78\tabularnewline
+			4 & 2 & 247 & 67 & 70 & 53 & 57\tabularnewline
+			\rowcolor{Highlight}
+			5 & 3 & 68 & 179 & 33 & 83 & 20\tabularnewline
+			6 & 1 & 2 & 66 & 1 & 51 & 167\tabularnewline
+			7 & 0 & 299 & 0 & 38 & 22 & 138\tabularnewline
+			8 & 2 & 241 & 58 & 17 & 1 & 117\tabularnewline
+			9 & 1 & 121 & 120 & 0 & 42 & 100\tabularnewline
+			10 & 2 & 26 & 95 & 103 & 25 & 83\tabularnewline
+			11 & 0 & 318 & 0 & 82 & 99 & 62\tabularnewline
+			12 & 1 & 252 & 66 & 53 & 70 & 33\tabularnewline
+			13 & 3 & 67 & 185 & 87 & 38 & 1\tabularnewline
+			14 & 2 & 0 & 67 & 50 & 1 & 149\tabularnewline
+			15 & 0 & 219 & 0 & 29 & 47 & 128\tabularnewline
+			16 & 1 & 118 & 101 & 0 & 18 & 99\tabularnewline
+			17 & 2 & 0 & 118 & 84 & 1 & 82\tabularnewline
+			18 & 0 & 317 & 0 & 63 & 98 & 61\tabularnewline
+			19 & 1 & 232 & 85 & 34 & 69 & 32\tabularnewline
+			20 & 3 & 71 & 161 & 87 & 37 & 0\tabularnewline
+			21 & 2 & 4 & 67 & 50 & 0 & 124\tabularnewline
+			22 & 0 & 287 & 0 & 29 & 46 & 103\tabularnewline
+			23 & 1 & 200 & 87 & 0 & 17 & 74\tabularnewline
+			24 & 2 & 80 & 120 & 70 & 0 & 57\tabularnewline
+			\rowcolor{Highlight}
+			25 & 3 & 68 & 12 & 33 & 83 & 20\tabularnewline
+			\bottomrule
+		\end{longtable}
+		\caption{25 steps, 318 truck capacity}
+		\label{tab:1c}
+	\end{table}
 
 Applying {\tt yices -m -smt Assignment1.smt} yields the following result
 within a fraction of a second:
