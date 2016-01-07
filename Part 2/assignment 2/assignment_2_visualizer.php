@@ -95,8 +95,8 @@ function tabelize($completeContent, $markRedundant) {
         }
 
         if ($markRedundant && $e != "pour") {
-            $f = "*$f*";
-            $g = "*$g*";
+            $f = "($f)";
+            $g = "($g)";
         }
 
         echo "|\t$a\t|\t$b\t|\t$c\t|\t$d\t|\t$e\t|\t$f\t|\t$g\t|\n";
