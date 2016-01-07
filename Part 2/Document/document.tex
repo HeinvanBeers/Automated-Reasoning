@@ -187,9 +187,7 @@ $\cdots \cdots$
 }
 
 	\subsection*{Problem 1a}
-	We need to show that it is impossible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
-	
-	First, we show up until which point it is still possible to deliver food packages. See table \ref{tab:1a}. Any step after step 21 will result in a food shortage.
+	We need to show that it is impossible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever. In order to show that this is impossible, we need to find a value for the amount of steps $m$, for which one or more villages have a shortage of food packages. We just tried several cases for $m$ and discovered that with $m=20$ we can still deliver food packages, without any village coming into trouble. But with $m=21$ we see that \texttt{yices} returns \texttt{unsat}, which means that it is not possible to deliver packages for more than 20 steps and therefore also not forever. Table \ref{tab:1a} shows the steps for $m=20$ and which does not yet result in a shortage of food, while any step after step 20 will result in a food shortage.
 	\begin{table}[!htb]
 		\begin{longtable}[c]{@{}|l|l|l|l|l|l|l|@{}}
 			\toprule
@@ -227,19 +225,19 @@ $\cdots \cdots$
 	%Als er een loop is en we vinden binnen aantal stappen een en in die loop is het mogelijk om te blijven deliveren en je komt in precies dezelfde states weer terug, dan kunnen we oneindig doorgaan.
 	For this question we need to show that with a truck capacity of 320 food packages, it is possible to deliver food packages in such a way that the villages consume each one food package per time unit forever.
 	
-	To solve problems \textbf{b} and \textbf{c}, we need to find a loop that includes a finite amount of legal states. Once we find such a loop, we can repeat it infinitely, and conclude that it is possible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
+	To solve problems \textbf{b} and \textbf{c}, we need to find a loop that includes a finite amount of legal states. Once we find such a loop, we can repeat it infinitely, and conclude that it is possible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.\\
+	
+	A loop is defined as a set of succeeding states with a first state $S_i$ and last state $S_j$, where $S_i$ and $S_j$ are similar and $j > i$.
 	
 	Take two states $i$ and $j$, and take $n$ as the number of villages. Then two states are similar if and only if:
 	$$similar(i, j) \Leftrightarrow p_i = p_j \wedge t_i = t_j \wedge \forall (k: 1 \leq k \leq n : v_{k\_i} = v_{k\_j})$$
-	
-	A loop is defined as a set of succeeding states with a first state $S_i$ and last state $S_j$, where $S_i$ and $S_j$ are similar and $j > i$.
 	
 	So, if we take $m$ as the number of steps, a solution that holds a loop, can be defined with:
 	%$$\exists (i, j: 0 \leq i,j \leq m \wedge j > i: similar(i, j))$$
 	
 	$$\bigvee_{i, j}^m j > i \wedge similar(i, j)$$
 	
-	We define a loop in smt as follows. For all $0 \leq i, j \leq m$ with $j > i$ we have {\tt (= p\_$i$ p\_$j$) (= t\_$i$ t\_$j$)}, and for each village $n$, we have: {\tt (= v$n$\_$i$ v$n$\_$j$)}.
+	We define a loop in smt as follows. For all $0 \leq i, j \leq m$ with $j > i$ we have {\tt (= p\_$i$ p\_$j$) (= t\_$i$ t\_$j$)}, and for each village $n$, we have: {\tt (= v$n$\_$i$ v$n$\_$j$)}. We then include this code together with the original code from the previous part of this assignment and when we run the program with $m=25$ and a truck capacity of 320, we get the result that is shown in Table \ref{tab:1b}.\\
 	
 	\begin{table}[!htb]
 		\begin{longtable}[c]{@{}|l|l|l|l|l|l|l|@{}}
@@ -281,9 +279,10 @@ $\cdots \cdots$
 		\label{tab:1b}
 	\end{table}
 	
+	This table shows that step 8 and step 15 are exactly the same and therefore we have a loop from step 8 to step 15. We also see that we can reach state 15 from the initial state without any village going below zero food packages. This means that we can reach state 15 and then continue with state 9 again, then 10, etc. without ever having any village with a shortage of food packages. So from this we can conclude that it is possible to deliver food packages in such a way that the villages consume each one food package per time unit forever.
 	
 	\subsection*{Problem 1c}
-	Finally, we also need to check the same as for question 1b, but now with a truck capacity of 318 food packages.
+	Finally, we also need to check the same as for question 1b, but now with a truck capacity of 318 food packages. Table \ref{tab:1c} shows that step 5 and step 25 are exactly the same (what we deliver in the step does not have to be the same) and we can reach step 25 without having any village with a shortage of food packages. So this implies that with a truck capacity of 318 food packages, we can also deliver food packages in such a way that the villages consume each one food package per time unit forever.
 	
 	\begin{table}[!htb]
 		\begin{longtable}[c]{@{}|l|l|l|l|l|l|l|@{}}
@@ -325,55 +324,11 @@ $\cdots \cdots$
 		\label{tab:1c}
 	\end{table}
 
-Applying {\tt yices -m -smt Assignment1.smt} yields the following result
-within a fraction of a second:
-
-{\footnotesize
-
-{\tt sat }
-
-{\tt (= p185 false)}
-
-{\tt (= p445 false)}
-
-{\tt (= p213 true)}
-
-{\tt (= p214 false)}
-
-{\tt (= p452 false)}
-
-{\tt (= p233 true)}
-
-{\tt (= p435 false)}
-
-{\tt (= p474 true)}
-
-{\tt (= p623 false)}
-
-{\tt (= p531 true)}
-
-{\tt (= p662 false)}
-
-$\cdots \cdots$ }
-
-The values that are are true for each truck are 
-\[p113, p125, p134, p143, p153, p163, p173, p183 \]
-\[p213, p222, p233, p242, p255, p262, p272, p282 \]
-\[p312, p322, p332, p342, p352, p362, p372, p382 \]
-\[p414, p424, p444, p464, p474, p485 \]
-\[p512, p525, p531, p541, p552, p562, p572, p582 \]
-\[p611, p621, p634, p644, p665, p674, p684 \]
-Expressed in a picture this yields
-
-
-
-We check that indeed all requirements are satisfied and we also see that the amount of pallets of prittles we can deliver is 18, since the program does not yield a solution for 19 pallets of prittles.\\
-
 {\bf Remark:}
-
+We did not set the load of the truck to be equal to its maximum capacity, each time the truck comes at the supply stack, so the program can choose how much it wants to fill the truck. But if we would do this and set it to the maximum truck capacity, the program would probably be a little bit faster and therefore, more efficient. So this could be added as an improvement to our program.\\
 
 {\bf Generalization:} 
-
+As we generalized our approach for $n$ villages, $m$ steps, and a maximum truck capacity of $C$, it is interesting to see what happens for other values of $n$ (We have already shown in the above exercises that our truck capacity and our number of steps are easy to adapt). For $n > 10$ we can still represent clearly with our use of variables what village we want to indicate. So if we keep the notation then it is still clear that \texttt{v1111\_5} represents village 1111 at step 5.
 
 	\section*{Problem 2: Filling bottles}
 	
