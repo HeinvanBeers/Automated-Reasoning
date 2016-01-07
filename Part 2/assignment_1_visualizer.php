@@ -15,8 +15,9 @@
     function tupler($array) {
         ksort($array);
         $table = [];
-        echo "p\tt\td\tv1\tv2\tv3\n";
-        echo "--------------------------------------------\n";
+        echo "|\ts\t|\tp\t|\tt\t|\td\t|\tv1\t|\tv2\t|\tv3\t|\n";
+        echo "|-------|-------|-------|-------|-------|-------|-------|\n";
+        $step = 0;
         foreach ($array as $entry) {
             $tuple = [];
             foreach ($entry as $subentry) {
@@ -30,7 +31,8 @@
                 }
             }
             ksort($tuple);
-            echo "$tuple[0]\t$tuple[1]\t$tuple[2]\t$tuple[3]\t$tuple[4]\t$tuple[5]\n";
+            echo "|\t$step\t|\t$tuple[0]\t|\t$tuple[1]\t|\t$tuple[2]\t|\t$tuple[3]\t|\t$tuple[4]\t|\t$tuple[5]\t|\n";
+            $step++;
             array_push($table, $tuple);
         }
 
