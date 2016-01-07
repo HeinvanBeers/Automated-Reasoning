@@ -1,0 +1,165 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 27463 was started by jeroen on Jeroen-ThinkPad-W520,
+Thu Jan  7 15:31:25 2016
+The command was "prover9 -f input/1.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file input/1.in
+
+op(450,infix,@).
+op(410,prefix_paren,inv).
+
+formulas(assumptions).
+x @ (y @ z) = (x @ y) @ z.
+x @ I = x.
+x @ inv x = I.
+end_of_list.
+
+formulas(goals).
+I @ x = x.
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 I @ x = x # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+x @ (y @ z) = (x @ y) @ z.  [assumption].
+x @ I = x.  [assumption].
+x @ inv x = I.  [assumption].
+I @ c1 != c1.  [deny(1)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+No predicates eliminated.
+
+============================== end predicate elimination =============
+
+Auto_denials:  (no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ = ]).
+Function symbol precedence:  function_order([ I, c1, @, inv ]).
+After inverse_order: Function symbol precedence:  function_order([ I, c1, @, inv ]).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+
+Auto_process settings:  (no changes).
+
+           2 x @ (y @ z) = (x @ y) @ z.  [assumption].
+kept:      3 (x @ y) @ z = x @ (y @ z).  [copy(2),flip(a)].
+kept:      4 x @ I = x.  [assumption].
+kept:      5 x @ inv x = I.  [assumption].
+kept:      6 I @ c1 != c1.  [deny(1)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+3 (x @ y) @ z = x @ (y @ z).  [copy(2),flip(a)].
+4 x @ I = x.  [assumption].
+5 x @ inv x = I.  [assumption].
+6 I @ c1 != c1.  [deny(1)].
+end_of_list.
+
+formulas(demodulators).
+3 (x @ y) @ z = x @ (y @ z).  [copy(2),flip(a)].
+4 x @ I = x.  [assumption].
+5 x @ inv x = I.  [assumption].
+end_of_list.
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.00 seconds.
+
+given #1 (I,wt=11): 3 (x @ y) @ z = x @ (y @ z).  [copy(2),flip(a)].
+
+given #2 (I,wt=5): 4 x @ I = x.  [assumption].
+
+given #3 (I,wt=6): 5 x @ inv x = I.  [assumption].
+
+given #4 (I,wt=5): 6 I @ c1 != c1.  [deny(1)].
+
+given #5 (A,wt=9): 7 x @ (I @ y) = x @ y.  [para(4(a,1),3(a,1,1)),flip(a)].
+
+given #6 (T,wt=6): 10 x @ inv I = x.  [para(5(a,1),7(a,1,2)),rewrite([4(2)]),flip(a)].
+
+given #7 (T,wt=10): 8 x @ (inv x @ y) = I @ y.  [para(5(a,1),3(a,1,1)),flip(a)].
+
+given #8 (T,wt=7): 13 I @ inv (inv x) = x.  [para(5(a,1),8(a,1,2)),rewrite([4(2)]),flip(a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.00) seconds.
+% Length of proof is 12.
+% Level of proof is 6.
+% Maximum clause weight is 11.000.
+% Given clauses 8.
+
+1 I @ x = x # label(non_clause) # label(goal).  [goal].
+2 x @ (y @ z) = (x @ y) @ z.  [assumption].
+3 (x @ y) @ z = x @ (y @ z).  [copy(2),flip(a)].
+4 x @ I = x.  [assumption].
+5 x @ inv x = I.  [assumption].
+6 I @ c1 != c1.  [deny(1)].
+7 x @ (I @ y) = x @ y.  [para(4(a,1),3(a,1,1)),flip(a)].
+8 x @ (inv x @ y) = I @ y.  [para(5(a,1),3(a,1,1)),flip(a)].
+13 I @ inv (inv x) = x.  [para(5(a,1),8(a,1,2)),rewrite([4(2)]),flip(a)].
+15 x @ inv (inv y) = x @ y.  [para(13(a,1),3(a,2,2)),rewrite([4(2)])].
+16 I @ x = x.  [para(13(a,1),7(a,2)),rewrite([15(5),7(4)])].
+17 $F.  [resolve(16,a,6,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=8. Generated=63. Kept=14. proofs=1.
+Usable=8. Sos=4. Demods=12. Limbo=1, Disabled=4. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=49. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=12 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=500. Demod_rewrites=92.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=0.
+Megabytes=0.05.
+User_CPU=0.01, System_CPU=0.00, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 27463 exit (max_proofs) Thu Jan  7 15:31:25 2016

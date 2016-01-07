@@ -1,0 +1,28 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 27464 was started by jeroen on Jeroen-ThinkPad-W520,
+Thu Jan  7 15:31:25 2016
+The command was "prover9 -f input/2.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file input/2.in
+
+op(450,infix,@).
+op(410,prefix_paren,inv).
+
+formulas(assumptions).
+x @ (y @ z) = (x @ y) @ z.
+x @ I = x.
+x @ inv x = I.
+end_of_list.
+
+formulas(goals).
+inv (inv x).
+end_of_list.
+%%ERROR: The following symbols/arities are used as both relation and function symbols: inv/1.
+
+
+Fatal error:  The following symbols/arities are used as both relation and function symbols: inv/1
+

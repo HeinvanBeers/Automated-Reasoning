@@ -1,0 +1,113 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 27465 was started by jeroen on Jeroen-ThinkPad-W520,
+Thu Jan  7 15:31:25 2016
+The command was "prover9 -f input/3.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file input/3.in
+
+op(450,infix,@).
+op(410,prefix_paren,inv).
+
+formulas(assumptions).
+x @ (y @ z) = (x @ y) @ z.
+x @ I = x.
+x @ inv x = I.
+end_of_list.
+
+formulas(goals).
+x @ inv x = I.
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 x @ inv x = I # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+x @ (y @ z) = (x @ y) @ z.  [assumption].
+x @ I = x.  [assumption].
+x @ inv x = I.  [assumption].
+c1 @ inv c1 != I.  [deny(1)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+No predicates eliminated.
+
+============================== end predicate elimination =============
+
+Auto_denials:  (no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ = ]).
+Function symbol precedence:  function_order([ I, c1, @, inv ]).
+After inverse_order: Function symbol precedence:  function_order([ I, c1, @, inv ]).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+
+Auto_process settings:  (no changes).
+
+           2 x @ (y @ z) = (x @ y) @ z.  [assumption].
+kept:      3 (x @ y) @ z = x @ (y @ z).  [copy(2),flip(a)].
+kept:      4 x @ I = x.  [assumption].
+kept:      5 x @ inv x = I.  [assumption].
+           6 c1 @ inv c1 != I.  [deny(1)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.00 (+ 0.00) seconds.
+% Length of proof is 4.
+% Level of proof is 2.
+% Maximum clause weight is 6.000.
+% Given clauses 0.
+
+1 x @ inv x = I # label(non_clause) # label(goal).  [goal].
+5 x @ inv x = I.  [assumption].
+6 c1 @ inv c1 != I.  [deny(1)].
+7 $F.  [copy(6),rewrite([5(4)]),xx(a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=0. Generated=4. Kept=3. proofs=1.
+Usable=0. Sos=0. Demods=3. Limbo=3, Disabled=4. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=0. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=3 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=21. Demod_rewrites=1.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=0.
+Megabytes=0.03.
+User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 27465 exit (max_proofs) Thu Jan  7 15:31:25 2016
