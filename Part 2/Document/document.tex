@@ -331,6 +331,17 @@ We did not set the load of the truck to be equal to its maximum capacity, each t
 As we generalized our approach for $n$ villages, $m$ steps, and a maximum truck capacity of $C$, it is interesting to see what happens for other values of $n$ (We have already shown in the above exercises that our truck capacity and our number of steps are easy to adapt). For $n > 10$ we can still represent clearly with our use of variables what village we want to indicate. So if we keep the notation then it is still clear that \texttt{v1111\_5} represents village 1111 at step 5.
 
 	\section*{Problem 2: Filling bottles}
+	Three bottles can hold 144, 72 and 16 units (say, centiliters), respectively. Initially the
+first one contains 3 units of water, the others are empty. The following actions may be performed any number of times:
+\begin{itemize}
+\item One of the bottles is fully filled, at some water tap.
+\item One of the bottles is emptied.
+\item The content of one bottle is poured into another one. If it fits, then the full content
+is poured, otherwise the pouring stops when the other bottle is full.
+\end{itemize}
+
+	\subsection*{Solution:}
+
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
 		A & B & C & bottle\_option & action\_option & pour\_in &
@@ -435,7 +446,7 @@ As we generalized our approach for $n$ villages, $m$ steps, and a maximum truck 
 	\subsection*{Solution:}
 	
 	
-	\section*{Problem 3: Filling bottles}
+	\section*{Problem 3: Exploiting the tools}
 	For this problem we use {\tt Prover9} to automatically prove the properties, or {\tt Mace4} to generate a counter example in case {\tt Prover9} does not manage to give a proof.
 	
 	\subsection*{Problem 3a}

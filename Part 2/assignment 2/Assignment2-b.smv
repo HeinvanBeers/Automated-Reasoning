@@ -1,47 +1,47 @@
 MODULE main
 VAR
-a : 0..144;
-b : 0..80;
-c : 0..16;
+b1 : 0..144;
+b2 : 0..80;
+b3 : 0..16;
 bottle_option : 1..3;
 action_option : 1..3;
 pour_in : 1..3;
 poured : 0..144;
 INIT
-a = 3 & b = 0 & c = 0
+b1 = 3 & b2 = 0 & b3 = 0
 ASSIGN
 
-next(a) :=
+next(b1) :=
 	case
 		bottle_option = 1 & action_option = 1 : 144;
 		bottle_option = 1 & action_option = 2 : 0;
-		bottle_option = 1 & action_option = 3 & pour_in = 2 & ((b + poured = 80 & a - poured >= 0) | (b + poured < 80 & a - poured = 0)) : a - poured;
-		bottle_option = 1 & action_option = 3 & pour_in = 3 & ((c + poured = 16 & a - poured >= 0) | (c + poured < 16 & a - poured = 0)) : a - poured;
-		bottle_option = 2 & action_option = 3 & pour_in = 1 & ((a + poured = 144 & b - poured >= 0) | (a + poured < 144 & b - poured = 0)) : a + poured;
-		bottle_option = 3 & action_option = 3 & pour_in = 1 & ((a + poured = 144 & c - poured >= 0) | (a + poured < 144 & c - poured = 0)) : a + poured;
-		TRUE : a;
+		bottle_option = 1 & action_option = 3 & pour_in = 2 & ((b2 + poured = 80 & b1 - poured >= 0) | (b2 + poured < 80 & b1 - poured = 0)) : b1 - poured;
+		bottle_option = 1 & action_option = 3 & pour_in = 3 & ((b3 + poured = 16 & b1 - poured >= 0) | (b3 + poured < 16 & b1 - poured = 0)) : b1 - poured;
+		bottle_option = 2 & action_option = 3 & pour_in = 1 & ((b1 + poured = 144 & b2 - poured >= 0) | (b1 + poured < 144 & b2 - poured = 0)) : b1 + poured;
+		bottle_option = 3 & action_option = 3 & pour_in = 1 & ((b1 + poured = 144 & b3 - poured >= 0) | (b1 + poured < 144 & b3 - poured = 0)) : b1 + poured;
+		TRUE : b1;
 	esac;
 
-next(b) :=
+next(b2) :=
 	case
 		bottle_option = 2 & action_option = 1 : 80;
 		bottle_option = 2 & action_option = 2 : 0;
-		bottle_option = 2 & action_option = 3 & pour_in = 1 & ((a + poured = 144 & b - poured >= 0) | (a + poured < 144 & b - poured = 0)) : b - poured;
-		bottle_option = 2 & action_option = 3 & pour_in = 3 & ((c + poured = 16 & b - poured >= 0) | (c + poured < 16 & b - poured = 0)) : b - poured;
-		bottle_option = 1 & action_option = 3 & pour_in = 2 & ((b + poured = 80 & a - poured >= 0) | (b + poured < 80 & a - poured = 0)) : b + poured;
-		bottle_option = 3 & action_option = 3 & pour_in = 2 & ((b + poured = 80 & c - poured >= 0) | (b + poured < 80 & c - poured = 0)) : b + poured;
-		TRUE : b;
+		bottle_option = 2 & action_option = 3 & pour_in = 1 & ((b1 + poured = 144 & b2 - poured >= 0) | (b1 + poured < 144 & b2 - poured = 0)) : b2 - poured;
+		bottle_option = 2 & action_option = 3 & pour_in = 3 & ((b3 + poured = 16 & b2 - poured >= 0) | (b3 + poured < 16 & b2 - poured = 0)) : b2 - poured;
+		bottle_option = 1 & action_option = 3 & pour_in = 2 & ((b2 + poured = 80 & b1 - poured >= 0) | (b2 + poured < 80 & b1 - poured = 0)) : b2 + poured;
+		bottle_option = 3 & action_option = 3 & pour_in = 2 & ((b2 + poured = 80 & b3 - poured >= 0) | (b2 + poured < 80 & b3 - poured = 0)) : b2 + poured;
+		TRUE : b2;
 	esac;
 
-next(c) :=
+next(b3) :=
 	case
 		bottle_option = 3 & action_option = 1 : 16;
 		bottle_option = 3 & action_option = 2 : 0;
-		bottle_option = 3 & action_option = 3 & pour_in = 1 & ((a + poured = 144 & c - poured >= 0) | (a + poured < 144 & c - poured = 0)) : c - poured;
-		bottle_option = 3 & action_option = 3 & pour_in = 2 & ((b + poured = 80 & c - poured >= 0) | (b + poured < 80 & c - poured = 0)) : c - poured;
-		bottle_option = 1 & action_option = 3 & pour_in = 3 & ((c + poured = 16 & a - poured >= 0) | (c + poured < 16 & a - poured = 0)) : c + poured;
-		bottle_option = 2 & action_option = 3 & pour_in = 3 & ((c + poured = 16 & b - poured >= 0) | (c + poured < 16 & b - poured = 0)) : c + poured;
-		TRUE : c;
+		bottle_option = 3 & action_option = 3 & pour_in = 1 & ((b1 + poured = 144 & b3 - poured >= 0) | (b1 + poured < 144 & b3 - poured = 0)) : b3 - poured;
+		bottle_option = 3 & action_option = 3 & pour_in = 2 & ((b2 + poured = 80 & b3 - poured >= 0) | (b2 + poured < 80 & b3 - poured = 0)) : b3 - poured;
+		bottle_option = 1 & action_option = 3 & pour_in = 3 & ((b3 + poured = 16 & b1 - poured >= 0) | (b3 + poured < 16 & b1 - poured = 0)) : b3 + poured;
+		bottle_option = 2 & action_option = 3 & pour_in = 3 & ((b3 + poured = 16 & b2 - poured >= 0) | (b3 + poured < 16 & b2 - poured = 0)) : b3 + poured;
+		TRUE : b3;
 	esac;
 	
-LTLSPEC G !(a = 8 & b = 11)
+LTLSPEC G !(b1 = 8 & b2 = 11)
