@@ -333,38 +333,38 @@ As we generalized our approach for $n$ villages, $m$ steps, and a maximum truck 
 	\section*{Problem 2: Filling bottles}
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
-		A & B & C & bottle\_option & action\_option & pour\_in &
+		B1 & B2 & B3 & bottle\_option & action\_option & pour\_in &
 		poured\tabularnewline
 		\midrule
 		\endhead
-		3 & 0 & 0 & B & fill & (A) & (0)\tabularnewline
-		3 & 72 & 0 & B & pour & A & 72\tabularnewline
-		75 & 0 & 0 & A & pour & C & 16\tabularnewline
-		59 & 0 & 16 & C & pour & B & 16\tabularnewline
-		59 & 16 & 0 & A & pour & C & 16\tabularnewline
-		43 & 16 & 16 & C & pour & B & 16\tabularnewline
-		43 & 32 & 0 & A & pour & C & 16\tabularnewline
-		27 & 32 & 16 & C & pour & B & 16\tabularnewline
-		27 & 48 & 0 & A & pour & C & 16\tabularnewline
-		11 & 48 & 16 & C & pour & B & 16\tabularnewline
-		11 & 64 & 0 & C & fill & (A) & (1)\tabularnewline
-		11 & 64 & 16 & C & pour & B & 8\tabularnewline
-		11 & 72 & 8 & B & empty & (A) & (0)\tabularnewline
-		11 & 0 & 8 & A & pour & B & 11\tabularnewline
-		0 & 11 & 8 & C & pour & A & 8\tabularnewline
-		8 & 11 & 0 & A & fill & (A) & (0)\tabularnewline
-		144 & 11 & 0 & C & fill & (A) & (0)\tabularnewline
-		144 & 11 & 16 & A & empty & (A) & (0)\tabularnewline
-		0 & 11 & 16 & C & pour & A & 16\tabularnewline
-		16 & 11 & 0 & C & fill & (A) & (0)\tabularnewline
-		16 & 11 & 16 & C & pour & A & 16\tabularnewline
-		32 & 11 & 0 & C & fill & (A) & (0)\tabularnewline
-		32 & 11 & 16 & C & pour & A & 16\tabularnewline
-		48 & 11 & 0 & C & fill & (A) & (0)\tabularnewline
-		48 & 11 & 16 & C & pour & B & 16\tabularnewline
-		48 & 27 & 0 & A & pour & B & 45\tabularnewline
-		3 & 72 & 0 & B & empty & (A) & (0)\tabularnewline
-		3 & 0 & 0 & B & fill & (A) & (0)\tabularnewline
+		3 & 0 & 0 & B2 & fill & (B1) & (0)\tabularnewline
+		3 & 72 & 0 & B2 & pour & B1 & 72\tabularnewline
+		75 & 0 & 0 & B1 & pour & B3 & 16\tabularnewline
+		59 & 0 & 16 & B3 & pour & B2 & 16\tabularnewline
+		59 & 16 & 0 & B1 & pour & B3 & 16\tabularnewline
+		43 & 16 & 16 & B3 & pour & B2 & 16\tabularnewline
+		43 & 32 & 0 & B1 & pour & B3 & 16\tabularnewline
+		27 & 32 & 16 & B3 & pour & B2 & 16\tabularnewline
+		27 & 48 & 0 & B1 & pour & B3 & 16\tabularnewline
+		11 & 48 & 16 & B3 & pour & B2 & 16\tabularnewline
+		11 & 64 & 0 & B3 & fill & (B1) & (1)\tabularnewline
+		11 & 64 & 16 & B3 & pour & B2 & 8\tabularnewline
+		11 & 72 & 8 & B2 & empty & (B1) & (0)\tabularnewline
+		11 & 0 & 8 & B1 & pour & B2 & 11\tabularnewline
+		0 & 11 & 8 & B3 & pour & B1 & 8\tabularnewline
+		8 & 11 & 0 & B1 & fill & (B1) & (0)\tabularnewline
+		144 & 11 & 0 & B3 & fill & (B1) & (0)\tabularnewline
+		144 & 11 & 16 & B1 & empty & (B1) & (0)\tabularnewline
+		0 & 11 & 16 & B3 & pour & B1 & 16\tabularnewline
+		16 & 11 & 0 & B3 & fill & (B1) & (0)\tabularnewline
+		16 & 11 & 16 & B3 & pour & B1 & 16\tabularnewline
+		32 & 11 & 0 & B3 & fill & (B1) & (0)\tabularnewline
+		32 & 11 & 16 & B3 & pour & B1 & 16\tabularnewline
+		48 & 11 & 0 & B3 & fill & (B1) & (0)\tabularnewline
+		48 & 11 & 16 & B3 & pour & B2 & 16\tabularnewline
+		48 & 27 & 0 & B1 & pour & B2 & 45\tabularnewline
+		3 & 72 & 0 & B2 & empty & (B1) & (0)\tabularnewline
+		3 & 0 & 0 & B2 & fill & (B1) & (0)\tabularnewline
 		\bottomrule
 		\caption{assignment 2a}
 		\label{tab:2a}
@@ -372,61 +372,61 @@ As we generalized our approach for $n$ villages, $m$ steps, and a maximum truck 
 	
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
-		A & B & C & bottle\_option & action\_option & pour\_in &
+		B1 & B2 & B3 & bottle\_option & action\_option & pour\_in &
 		poured\tabularnewline
 		\midrule
 		\endhead
-		3 & 0 & 0 & B & fill & (A) & (0)\tabularnewline
-		3 & 72 & 0 & B & pour & C & 28\tabularnewline
-		3 & 44 & 28 & C & pour & A & 28\tabularnewline
-		31 & 44 & 0 & B & pour & C & 28\tabularnewline
-		31 & 16 & 28 & C & pour & A & 28\tabularnewline
-		59 & 16 & 0 & C & fill & (A) & (1)\tabularnewline
-		59 & 16 & 28 & C & pour & A & 28\tabularnewline
-		87 & 16 & 0 & B & pour & C & 16\tabularnewline
-		87 & 0 & 16 & A & pour & B & 72\tabularnewline
-		15 & 72 & 16 & B & pour & C & 12\tabularnewline
-		15 & 60 & 28 & C & pour & A & 28\tabularnewline
-		43 & 60 & 0 & B & pour & C & 28\tabularnewline
-		43 & 32 & 28 & C & pour & A & 28\tabularnewline
-		71 & 32 & 0 & B & pour & C & 28\tabularnewline
-		71 & 4 & 28 & C & pour & A & 28\tabularnewline
-		99 & 4 & 0 & B & pour & C & 4\tabularnewline
-		99 & 0 & 4 & B & fill & (A) & (0)\tabularnewline
-		99 & 72 & 4 & B & pour & A & 45\tabularnewline
-		144 & 27 & 4 & A & pour & C & 24\tabularnewline
-		120 & 27 & 28 & C & pour & B & 28\tabularnewline
-		120 & 55 & 0 & A & pour & C & 28\tabularnewline
-		92 & 55 & 28 & C & pour & B & 17\tabularnewline
-		92 & 72 & 11 & B & empty & (A) & (1)\tabularnewline
-		92 & 0 & 11 & C & pour & B & 11\tabularnewline
-		92 & 11 & 0 & A & pour & C & 28\tabularnewline
-		64 & 11 & 28 & C & empty & (A) & (1)\tabularnewline
-		64 & 11 & 0 & A & pour & C & 28\tabularnewline
-		36 & 11 & 28 & C & empty & (A) & (1)\tabularnewline
-		36 & 11 & 0 & A & pour & C & 28\tabularnewline
-		8 & 11 & 28 & A & fill & (A) & (0)\tabularnewline
-		144 & 11 & 28 & C & empty & (A) & (0)\tabularnewline
-		144 & 11 & 0 & A & pour & C & 28\tabularnewline
-		116 & 11 & 28 & B & pour & A & 11\tabularnewline
-		127 & 0 & 28 & C & pour & B & 28\tabularnewline
-		127 & 28 & 0 & A & pour & C & 28\tabularnewline
-		99 & 28 & 28 & C & empty & (A) & (1)\tabularnewline
-		99 & 28 & 0 & A & pour & C & 28\tabularnewline
-		71 & 28 & 28 & C & empty & (A) & (1)\tabularnewline
-		71 & 28 & 0 & A & pour & C & 28\tabularnewline
-		43 & 28 & 28 & C & empty & (A) & (1)\tabularnewline
-		43 & 28 & 0 & A & pour & C & 28\tabularnewline
-		15 & 28 & 28 & C & empty & (A) & (1)\tabularnewline
-		15 & 28 & 0 & B & fill & (A) & (0)\tabularnewline
-		15 & 72 & 0 & B & pour & C & 28\tabularnewline
-		15 & 44 & 28 & C & empty & (A) & (0)\tabularnewline
-		15 & 44 & 0 & B & pour & C & 28\tabularnewline
-		15 & 16 & 28 & B & pour & A & 16\tabularnewline
-		31 & 0 & 28 & C & empty & (A) & (1)\tabularnewline
-		31 & 0 & 0 & A & pour & C & 28\tabularnewline
-		3 & 0 & 28 & C & empty & (A) & (0)\tabularnewline
-		3 & 0 & 0 & B & fill & (A) & (0)\tabularnewline
+		3 & 0 & 0 & B2 & fill & (B1) & (0)\tabularnewline
+		3 & 72 & 0 & B2 & pour & B3 & 28\tabularnewline
+		3 & 44 & 28 & B3 & pour & B1 & 28\tabularnewline
+		31 & 44 & 0 & B2 & pour & B3 & 28\tabularnewline
+		31 & 16 & 28 & B3 & pour & B1 & 28\tabularnewline
+		59 & 16 & 0 & B3 & fill & (B1) & (1)\tabularnewline
+		59 & 16 & 28 & B3 & pour & B1 & 28\tabularnewline
+		87 & 16 & 0 & B2 & pour & B3 & 16\tabularnewline
+		87 & 0 & 16 & B1 & pour & B2 & 72\tabularnewline
+		15 & 72 & 16 & B2 & pour & B3 & 12\tabularnewline
+		15 & 60 & 28 & B3 & pour & B1 & 28\tabularnewline
+		43 & 60 & 0 & B2 & pour & B3 & 28\tabularnewline
+		43 & 32 & 28 & B3 & pour & B1 & 28\tabularnewline
+		71 & 32 & 0 & B2 & pour & B3 & 28\tabularnewline
+		71 & 4 & 28 & B3 & pour & B1 & 28\tabularnewline
+		99 & 4 & 0 & B2 & pour & B3 & 4\tabularnewline
+		99 & 0 & 4 & B2 & fill & (B1) & (0)\tabularnewline
+		99 & 72 & 4 & B2 & pour & B1 & 45\tabularnewline
+		144 & 27 & 4 & B1 & pour & B3 & 24\tabularnewline
+		120 & 27 & 28 & B3 & pour & B2 & 28\tabularnewline
+		120 & 55 & 0 & B1 & pour & B3 & 28\tabularnewline
+		92 & 55 & 28 & B3 & pour & B2 & 17\tabularnewline
+		92 & 72 & 11 & B2 & empty & (B1) & (1)\tabularnewline
+		92 & 0 & 11 & B3 & pour & B2 & 11\tabularnewline
+		92 & 11 & 0 & B1 & pour & B3 & 28\tabularnewline
+		64 & 11 & 28 & B3 & empty & (B1) & (1)\tabularnewline
+		64 & 11 & 0 & B1 & pour & B3 & 28\tabularnewline
+		36 & 11 & 28 & B3 & empty & (B1) & (1)\tabularnewline
+		36 & 11 & 0 & B1 & pour & B3 & 28\tabularnewline
+		8 & 11 & 28 & B1 & fill & (B1) & (0)\tabularnewline
+		144 & 11 & 28 & B3 & empty & (B1) & (0)\tabularnewline
+		144 & 11 & 0 & B1 & pour & B3 & 28\tabularnewline
+		116 & 11 & 28 & B2 & pour & B1 & 11\tabularnewline
+		127 & 0 & 28 & B3 & pour & B2 & 28\tabularnewline
+		127 & 28 & 0 & B1 & pour & B3 & 28\tabularnewline
+		99 & 28 & 28 & B3 & empty & (B1) & (1)\tabularnewline
+		99 & 28 & 0 & B1 & pour & B3 & 28\tabularnewline
+		71 & 28 & 28 & B3 & empty & (B1) & (1)\tabularnewline
+		71 & 28 & 0 & B1 & pour & B3 & 28\tabularnewline
+		43 & 28 & 28 & B3 & empty & (B1) & (1)\tabularnewline
+		43 & 28 & 0 & B1 & pour & B3 & 28\tabularnewline
+		15 & 28 & 28 & B3 & empty & (B1) & (1)\tabularnewline
+		15 & 28 & 0 & B2 & fill & (B1) & (0)\tabularnewline
+		15 & 72 & 0 & B2 & pour & B3 & 28\tabularnewline
+		15 & 44 & 28 & B3 & empty & (B1) & (0)\tabularnewline
+		15 & 44 & 0 & B2 & pour & B3 & 28\tabularnewline
+		15 & 16 & 28 & B2 & pour & B1 & 16\tabularnewline
+		31 & 0 & 28 & B3 & empty & (B1) & (1)\tabularnewline
+		31 & 0 & 0 & B1 & pour & B3 & 28\tabularnewline
+		3 & 0 & 28 & B3 & empty & (B1) & (0)\tabularnewline
+		3 & 0 & 0 & B2 & fill & (B1) & (0)\tabularnewline
 		\bottomrule
 		\caption{assignment 2c}
 		\label{tab:2c}
