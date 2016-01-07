@@ -171,7 +171,7 @@ $\cdots \cdots$
 	To solve problems \textbf{b} and \textbf{c}, we need to find a loop that includes a finite amount of legal states. Once we find such a loop, we can repeat it infinitely, and conclude that it is possible to deliver food packages in such a way that each of the villages consumes one food package per time unit forever.
 	
 	Take two states $i$ and $j$, and take $n$ as the number of villages. Then two states are similar if and only if:
-	$$similar(i, j) \Leftrightarrow p\_i = p\_j \wedge t\_i = t\_j \wedge \forall (k: 1 \leq k \leq n : vk\_i = vk\_j)$$
+	$$similar(i, j) \Leftrightarrow p_i = p_j \wedge t_i = t_j \wedge \forall (k: 1 \leq k \leq n : v_{k\_i} = v_{k\_j})$$
 	
 	A loop is defined as a set of succeeding states with a first state $S_i$ and last state $S_j$, where $S_i$ and $S_j$ are similar and $j > i$.
 	
