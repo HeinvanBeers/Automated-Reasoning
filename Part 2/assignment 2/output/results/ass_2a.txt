@@ -1,0 +1,165 @@
+*** This is NuSMV 2.6.0 (compiled on Wed Oct 14 15:36:56 2015)
+*** Enabled addons are: compass
+*** For more information on NuSMV see <http://nusmv.fbk.eu>
+*** or email to <nusmv-users@list.fbk.eu>.
+*** Please report bugs to <Please report bugs to <nusmv-users@fbk.eu>>
+
+*** Copyright (c) 2010-2014, Fondazione Bruno Kessler
+
+*** This version of NuSMV is linked to the CUDD library version 2.4.1
+*** Copyright (c) 1995-2004, Regents of the University of Colorado
+
+*** This version of NuSMV is linked to the MiniSat SAT solver. 
+*** See http://minisat.se/MiniSat.html
+*** Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson
+*** Copyright (c) 2007-2010, Niklas Sorensson
+
+-- specification  G !(a = 8 & b = 11)  is false
+-- as demonstrated by the following execution sequence
+Trace Description: LTL Counterexample 
+Trace Type: Counterexample 
+  -- Loop starts here
+  -> State: 1.1 <-
+    a = 3
+    b = 0
+    c = 0
+    bottle_option = 2
+    action_option = 1
+    pour_in = 1
+    poured = 0
+  -> State: 1.2 <-
+    b = 72
+    action_option = 3
+    poured = 72
+  -> State: 1.3 <-
+    a = 75
+    b = 0
+    bottle_option = 1
+    pour_in = 3
+    poured = 16
+  -> State: 1.4 <-
+    a = 59
+    c = 16
+    bottle_option = 3
+    pour_in = 2
+  -> State: 1.5 <-
+    b = 16
+    c = 0
+    bottle_option = 1
+    pour_in = 3
+  -> State: 1.6 <-
+    a = 43
+    c = 16
+    bottle_option = 3
+    pour_in = 2
+  -> State: 1.7 <-
+    b = 32
+    c = 0
+    bottle_option = 1
+    pour_in = 3
+  -> State: 1.8 <-
+    a = 27
+    c = 16
+    bottle_option = 3
+    pour_in = 2
+  -> State: 1.9 <-
+    b = 48
+    c = 0
+    bottle_option = 1
+    pour_in = 3
+  -> State: 1.10 <-
+    a = 11
+    c = 16
+    bottle_option = 3
+    pour_in = 2
+  -> State: 1.11 <-
+    b = 64
+    c = 0
+    action_option = 1
+    pour_in = 1
+    poured = 1
+  -> State: 1.12 <-
+    c = 16
+    action_option = 3
+    pour_in = 2
+    poured = 8
+  -> State: 1.13 <-
+    b = 72
+    c = 8
+    bottle_option = 2
+    action_option = 2
+    pour_in = 1
+    poured = 0
+  -> State: 1.14 <-
+    b = 0
+    bottle_option = 1
+    action_option = 3
+    pour_in = 2
+    poured = 11
+  -> State: 1.15 <-
+    a = 0
+    b = 11
+    bottle_option = 3
+    pour_in = 1
+    poured = 8
+  -> State: 1.16 <-
+    a = 8
+    c = 0
+    bottle_option = 1
+    action_option = 1
+    poured = 0
+  -> State: 1.17 <-
+    a = 144
+    bottle_option = 3
+  -> State: 1.18 <-
+    c = 16
+    bottle_option = 1
+    action_option = 2
+  -> State: 1.19 <-
+    a = 0
+    bottle_option = 3
+    action_option = 3
+    poured = 16
+  -> State: 1.20 <-
+    a = 16
+    c = 0
+    action_option = 1
+    poured = 0
+  -> State: 1.21 <-
+    c = 16
+    action_option = 3
+    poured = 16
+  -> State: 1.22 <-
+    a = 32
+    c = 0
+    action_option = 1
+    poured = 0
+  -> State: 1.23 <-
+    c = 16
+    action_option = 3
+    poured = 16
+  -> State: 1.24 <-
+    a = 48
+    c = 0
+    action_option = 1
+    poured = 0
+  -> State: 1.25 <-
+    c = 16
+    action_option = 3
+    pour_in = 2
+    poured = 16
+  -> State: 1.26 <-
+    b = 27
+    c = 0
+    bottle_option = 1
+    poured = 45
+  -> State: 1.27 <-
+    a = 3
+    b = 72
+    bottle_option = 2
+    action_option = 2
+    pour_in = 1
+    poured = 0
+  -> State: 1.28 <-
+    b = 0
+    action_option = 1
