@@ -343,6 +343,53 @@ is poured, otherwise the pouring stops when the other bottle is full.
 	\subsection*{Solution:}
 	We generalize this problem to $n$ bottles each having a maximum capacity of $max(i)$ for bottle $i$. For each bottle we then introduce one integer variables $b_i$ for $i=1,...,n$, where $i$ indicates the number of each bottle. So now we have a variable $b_i$ that represents the amount of water in bottle $i$. Next, we also introduce an integer variable $bottle\_option$ for indicating on which bottle we execute an action. $bottle\_option$ can take a value in the range [$1..n$], so if $bottle\_option$ has the value $i$, it means that we execute an action on bottle $i$. We then also have an integer variable $action\_option$ for indicating which action we execute. $action\_option$ can take a value in the range [$1..3$], since we only have three actions available. Next, we also introduce an integer variable $pour\_in$ for indication in which bottle we pour the water. Note that this variable is only used when we perform the pour-action (action 3). $pour\_in$ can also take a value in the range [$1..n$], since we can pour the water in any of the $n$ bottles. Finally, we also have an integer variable called $poured$ for keeping track of how much water we pour from one bottle in another during the pour-action. $poured$ can take on a value in the range [$0..max$], where $max$ is the capacity of the biggest bottle that we are using.
 	
+	\subsection*{Problem 2a}
+	For the first part of this assignment, we need to determine whether it is possible to arrive at a situation in which the first bottle contains 8 units and the second one contains 11 units. If this is possible, we also need to give a scenario reaching this situation.\\
+	
+	To check whether it is possible to reach a state in which the first bottle contains 8 units and the second one contains 11 units of water, we also add an LTL specification to the model described above that states the opposite of this requirement. So That it is not possible to reach a state in which the first bottle contains 8 units of water and the second one contains 11 units. This LTL specification is given below.\\
+
+{\tt LTLSPEC G !(b1 = 8 \& b2 = 11) }
+
+If we then run the program by executing {\tt nusmv Assignment2-a.smv}, we get the following output.
+
+{\tt -- specification  G !(b1 = 8 \& b2 = 11)  is false }
+
+{\tt -- as demonstrated by the following execution sequence }
+
+{\tt Trace Description: LTL Counterexample }
+
+{\tt Trace Type: Counterexample }
+
+{\tt   -- Loop starts here }
+
+{\tt   -> State: 1.1 <- }
+
+{\tt     b1 = 3 }
+
+{\tt     b2 = 0 }
+
+{\tt     b3 = 0 }
+
+{\tt     bottle\_option = 2 }
+
+{\tt     action\_option = 1 }
+
+{\tt     pour\_in = 1 }
+
+{\tt     poured = 0 }
+
+{\tt   -> State: 1.2 <- }
+
+{\tt     b2 = 72 }
+
+{\tt     action\_option = 3 }
+
+{\tt     poured = 72 }
+
+$\cdots \cdots$
+
+From this output, we can see that the specification we checkes is false, which means that it is possible to reach a state in which the first bottle contains 8 units and the second bottle contains 11 units of water. If we now look at the counterexample that NuSMV has given to is, we can easily see that it is indeed possible to reach such a state. The counterexample expressed in a table yields the result as displayed in Table \ref{tab:2a}, which is shown below. the highlighted row in the table indicates the step at which the first bottle contains 8 units and the second bottle contains 11 units of water.
+
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
 		B1 & B2 & B3 & bottle\_option & action\_option & pour\_in &
@@ -364,6 +411,7 @@ is poured, otherwise the pouring stops when the other bottle is full.
 		11 & 72 & 8 & B2 & empty & (B1) & (0)\tabularnewline
 		11 & 0 & 8 & B1 & pour & B2 & 11\tabularnewline
 		0 & 11 & 8 & B3 & pour & B1 & 8\tabularnewline
+		\rowcolor{Highlight}
 		8 & 11 & 0 & B1 & fill & (B1) & (0)\tabularnewline
 		144 & 11 & 0 & B3 & fill & (B1) & (0)\tabularnewline
 		144 & 11 & 16 & B1 & empty & (B1) & (0)\tabularnewline
@@ -382,6 +430,9 @@ is poured, otherwise the pouring stops when the other bottle is full.
 		\label{tab:2a}
 	\end{longtable}
 	
+	\subsection*{Problem 2b}
+	
+	\subsection*{Problem 2c}
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
 		B1 & B2 & B3 & bottle\_option & action\_option & pour\_in &
@@ -417,6 +468,7 @@ is poured, otherwise the pouring stops when the other bottle is full.
 		64 & 11 & 0 & B1 & pour & B3 & 28\tabularnewline
 		36 & 11 & 28 & B3 & empty & (B1) & (1)\tabularnewline
 		36 & 11 & 0 & B1 & pour & B3 & 28\tabularnewline
+		\rowcolor{Highlight}
 		8 & 11 & 28 & B1 & fill & (B1) & (0)\tabularnewline
 		144 & 11 & 28 & B3 & empty & (B1) & (0)\tabularnewline
 		144 & 11 & 0 & B1 & pour & B3 & 28\tabularnewline
@@ -443,8 +495,6 @@ is poured, otherwise the pouring stops when the other bottle is full.
 		\caption{assignment 2c}
 		\label{tab:2c}
 	\end{longtable}
-
-	\subsection*{Solution:}
 	
 	
 	\section*{Problem 3: Exploiting the tools}
