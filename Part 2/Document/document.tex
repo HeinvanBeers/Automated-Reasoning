@@ -614,6 +614,98 @@ From this output, we can see that the specification we checkes is false, which m
 	Since {\tt Mace4} increments the set by 1 each time, the smallest set for which\\ $x \** y = y \** x$ does not hold, is 6.
 	
 	\subsection*{Problem 3b}
+	To solve this problem, we must first define the rules of rewriting. Take $\rightarrow_R$ as the rewrite relation and let $\rightarrow_{RR}$ indicate zero or more rewrite steps.\\
+	\\
+	Then the rules that define rewriting are:
+	\begin{itemize}
+		\item $x \rightarrow_{RR} x$
+		\item $x \rightarrow_R y \Rightarrow a(x, z) \rightarrow_R a(y, z)$
+		\item $x \rightarrow_R y \Rightarrow a(z, x) \rightarrow_R a(z, y)$
+		\item $x \rightarrow_{RR} y \wedge y \rightarrow_{R} z \Rightarrow x \rightarrow_{RR} z$
+	\end{itemize}
+	We add the given rule to this:
+	\begin{itemize}
+		\item $a(x, a(y, a(z, u))) \rightarrow_{R} a(y, a(z, a(x, u)))$
+	\end{itemize}
+	And finally we define the goal as:
+	\begin{itemize}
+		\item $a(b, a(c, a(d, a(e, a(f, a(b, g)))))) \rightarrow_R a(b, a(d, a(c, a(e, a(f, a(b, g))))))$
+		    
+	\end{itemize}
+	
+	\noindent The input for {\tt Prover9} will then be:\\
+	
+	{\tt formulas(assumptions).}
+	
+	\indent \indent {\tt \% Definition}
+	
+	\indent \indent	{\tt RR(x, x).}
+	
+	\indent \indent	{\tt R(x, y) -> R(a(x, z), a(y, z)).}
+	
+	\indent \indent	{\tt R(x, y) -> R(a(z, x), a(z, y)).}
+	
+	\indent \indent	{\tt (RR(x, y) \& R(y,z)) -> RR(x, z).}\\
+	
+	\indent \indent	{\tt \% The given rule}
+	
+	\indent \indent	{\tt R(a(x, a(y, a(z, u))), a(y, a(z, a(x, u)))).}
+	
+	{\tt end\_of\_list.}
+	
+	{\tt formulas(goals).}
+	
+	\indent \indent {\tt RR(a(b, a(c, a(d, a(e, a(f, a(b, g)))))),}
+	
+	\indent \indent \indent {\tt a(b, a(d, a(c, a(e, a(f, a(b, g))))))).}
+	
+	{\tt end\_of\_list.}\\
+	\\
+	The proof:\\
+
+	{\tt 2 R(x,y) -> R(a(z,x),a(z,y)) \# label(non\_clause).  [assumption].}
+	
+	{\tt 3 RR(x,y) \& R(y,z) -> RR(x,z) \# label(non\_clause).  [assumption].}
+	
+	{\tt 4 RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))) \# label(non\_clause) \# label(goal).  [goal].}
+	
+	{\tt 5 R(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [assumption].}
+	
+	{\tt 6 RR(x,x).  [assumption].}
+	
+	{\tt 8 -R(x,y) | R(a(z,x),a(z,y)).  [clausify(2)].}
+	
+	{\tt 9 -RR(x,y) | -R(y,z) | RR(x,z).  [clausify(3)].}
+	
+	{\tt 10 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [deny(4)].}
+	
+	{\tt 12 R(a(x,a(y,a(z,a(u,w)))),a(x,a(z,a(u,a(y,w))))).  [ur(8,a,5,a)].}
+	
+	{\tt 13 RR(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [ur(9,a,6,a,b,5,a)].}
+	
+	{\tt 15 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,b,5,a,c,10,a)].}
+	
+	{\tt 21 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,b,5,a,c,15,a)].}
+	
+	{\tt 36 RR(a(x,a(y,a(z,a(u,w)))),a(y,a(x,a(u,a(z,w))))).  [ur(9,a,13,a,b,12,a)].}
+	
+	{\tt 38 R(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(y,a(u,a(w,a(z,v5)))))).  [ur(8,a,12,a)].}
+	
+	{\tt 40 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,b,12,a,c,21,a)].}
+	
+	{\tt 116 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(d,a(e,a(b,a(f,a(b,g))))))).  [ur(9,b,5,a,c,40,a)].}
+	
+	{\tt 164 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(x,a(z,a(w,a(u,v5)))))).  [ur(9,a,36,a,b,38,a)].}
+	
+	{\tt 170 R(a(x,a(y,a(z,a(u,a(w,a(v5,v6)))))),a(x,a(y,a(z,a(w,a(v5,a(u,v6))))))).  [ur(8,a,38,a)].}
+	
+	{\tt 319 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(z,a(w,a(x,a(u,v5)))))).  [ur(9,a,164,a,b,12,a)].}
+	
+	{\tt 800 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(d,a(f,a(e,a(b,a(b,g))))))).  [ur(9,b,38,a,c,116,a)].}
+	
+	{\tt 1604 RR(a(x,a(y,a(z,a(u,a(w,a(v5,v6)))))),a(y,a(z,a(w,a(u,a(v5,a(x,v6))))))).  [ur(9,a,319,a,b,170,a)].}
+	
+	{\tt 1605 \$F.  [resolve(1604,a,800,a)].}
 	
 	
 
