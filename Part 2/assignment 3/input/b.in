@@ -1,0 +1,27 @@
+formulas(assumptions).
+
+    % The single given rule.
+
+        % a(x, a(y, a(z, u))) can be rewritten to a(y, a(z, a(x, u))).
+        R(a(x, a(y, a(z, u))), a(y, a(z, a(x, u)))).
+
+    % Definition of rewriting:
+
+        % 1. x can be rewritten to x in any number of steps.
+        RR(x, x).
+
+        % 2. If x can be rewritten to y, then a(x, z) can be rewritten to a(y, z).
+        R(x, y) -> R(a(x, z), a(y, z)).
+
+        % 3. If x can be rewritten to y, then a(z, x) can be rewritten to a(z, y).
+        R(x, y) -> R(a(z, x), a(z, y)).
+
+        % 4. If x can be rewritten to y in zero or more rewrite steps,
+        % and y can be rewritten to z in one step, then x can be rewritten to z
+        % in zero or more rewrite steps.
+        (RR(x, y) & R(y,z)) -> RR(x, z).
+end_of_list.
+
+formulas(goals).
+    RR(a(b, a(c, a(d, a(e, a(f, a(b, g)))))), a(b, a(d, a(c, a(e, a(f, a(b, g))))))).
+end_of_list.

@@ -1,0 +1,558 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 23607 was started by jeroen on Jeroen-ThinkPad-W520,
+Sat Jan  9 22:08:16 2016
+The command was "prover9 -f input/b.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file input/b.in
+
+
+formulas(assumptions).
+R(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).
+RR(x,x).
+R(x,y) -> R(a(x,z),a(y,z)).
+R(x,y) -> R(a(z,x),a(z,y)).
+RR(x,y) & R(y,z) -> RR(x,z).
+end_of_list.
+
+formulas(goals).
+RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 R(x,y) -> R(a(x,z),a(y,z)) # label(non_clause).  [assumption].
+2 R(x,y) -> R(a(z,x),a(z,y)) # label(non_clause).  [assumption].
+3 RR(x,y) & R(y,z) -> RR(x,z) # label(non_clause).  [assumption].
+4 RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+R(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [assumption].
+RR(x,x).  [assumption].
+-R(x,y) | R(a(x,z),a(y,z)).  [clausify(1)].
+-R(x,y) | R(a(z,x),a(z,y)).  [clausify(2)].
+-RR(x,y) | -R(y,z) | RR(x,z).  [clausify(3)].
+-RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [deny(4)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+No predicates eliminated.
+
+============================== end predicate elimination =============
+
+Auto_denials:  (no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ R, RR ]).
+Function symbol precedence:  function_order([ b, c, d, e, f, g, a ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(neg_binary_resolution).  % (HNE depth_diff=-2)
+  % clear(ordered_res).  % (HNE depth_diff=-2)
+  % set(ur_resolution).  % (HNE depth_diff=-2)
+    % set(ur_resolution) -> set(pos_ur_resolution).
+    % set(ur_resolution) -> set(neg_ur_resolution).
+
+Auto_process settings:  (no changes).
+
+kept:      5 R(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [assumption].
+kept:      6 RR(x,x).  [assumption].
+kept:      7 -R(x,y) | R(a(x,z),a(y,z)).  [clausify(1)].
+kept:      8 -R(x,y) | R(a(z,x),a(z,y)).  [clausify(2)].
+kept:      9 -RR(x,y) | -R(y,z) | RR(x,z).  [clausify(3)].
+kept:      10 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [deny(4)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+5 R(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [assumption].
+6 RR(x,x).  [assumption].
+7 -R(x,y) | R(a(x,z),a(y,z)).  [clausify(1)].
+8 -R(x,y) | R(a(z,x),a(z,y)).  [clausify(2)].
+9 -RR(x,y) | -R(y,z) | RR(x,z).  [clausify(3)].
+10 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [deny(4)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.00 seconds.
+
+given #1 (I,wt=15): 5 R(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [assumption].
+
+given #2 (I,wt=3): 6 RR(x,x).  [assumption].
+
+given #3 (I,wt=10): 7 -R(x,y) | R(a(x,z),a(y,z)).  [clausify(1)].
+
+given #4 (I,wt=10): 8 -R(x,y) | R(a(z,x),a(z,y)).  [clausify(2)].
+
+given #5 (I,wt=9): 9 -RR(x,y) | -R(y,z) | RR(x,z).  [clausify(3)].
+
+given #6 (I,wt=27): 10 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [deny(4)].
+
+given #7 (A,wt=19): 11 R(a(a(x,a(y,a(z,u))),w),a(a(y,a(z,a(x,u))),w)).  [ur(7,a,5,a)].
+
+given #8 (F,wt=27): 15 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,b,5,a,c,10,a)].
+
+given #9 (F,wt=27): 16 -R(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [ur(9,a,6,a,c,10,a)].
+
+given #10 (F,wt=23): 23 -R(a(c,a(d,a(e,a(f,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(16,a,8,b)].
+
+given #11 (F,wt=27): 21 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,b,5,a,c,15,a)].
+
+given #12 (T,wt=15): 13 RR(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [ur(9,a,6,a,b,5,a)].
+
+given #13 (T,wt=15): 27 RR(a(x,a(y,a(z,u))),a(z,a(x,a(y,u)))).  [ur(9,a,13,a,b,5,a)].
+
+given #14 (T,wt=19): 12 R(a(x,a(y,a(z,a(u,w)))),a(x,a(z,a(u,a(y,w))))).  [ur(8,a,5,a)].
+
+given #15 (T,wt=19): 17 RR(a(a(x,a(y,a(z,u))),w),a(a(y,a(z,a(x,u))),w)).  [ur(9,a,6,a,b,11,a)].
+
+given #16 (A,wt=30): 14 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),x) | -R(x,a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(10,a,9,c)].
+
+given #17 (F,wt=27): 22 -R(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,6,a,c,15,a)].
+
+given #18 (F,wt=27): 25 -R(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,6,a,c,21,a)].
+
+given #19 (F,wt=27): 28 -R(a(c,a(d,a(b,a(e,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,13,a,c,21,a)].
+
+given #20 (F,wt=27): 29 -R(a(c,a(d,a(b,a(e,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,13,a,c,15,a)].
+
+given #21 (T,wt=19): 35 RR(a(x,a(y,a(z,a(u,w)))),a(z,a(y,a(u,a(x,w))))).  [ur(9,a,27,a,b,12,a)].
+
+given #22 (T,wt=19): 36 RR(a(x,a(y,a(z,a(u,w)))),a(y,a(x,a(u,a(z,w))))).  [ur(9,a,13,a,b,12,a)].
+
+given #23 (T,wt=19): 37 RR(a(x,a(y,a(z,a(u,w)))),a(x,a(z,a(u,a(y,w))))).  [ur(9,a,6,a,b,12,a)].
+
+given #24 (T,wt=19): 44 RR(a(a(x,a(y,a(z,u))),w),a(a(z,a(x,a(y,u))),w)).  [ur(9,a,17,a,b,11,a)].
+
+given #25 (A,wt=23): 18 R(a(x,a(a(y,a(z,a(u,w))),v5)),a(x,a(a(z,a(u,a(y,w))),v5))).  [ur(8,a,11,a)].
+
+given #26 (F,wt=23): 49 -R(a(d,a(b,a(e,a(f,a(b,g))))),a(b,a(d,a(e,a(f,a(b,g)))))).  [resolve(29,a,8,b)].
+
+given #27 (F,wt=27): 30 -R(a(c,a(d,a(b,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [ur(9,a,13,a,c,10,a)].
+
+given #28 (F,wt=27): 32 -R(a(d,a(b,a(c,a(e,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,27,a,c,21,a)].
+
+given #29 (F,wt=23): 76 -R(a(b,a(c,a(e,a(f,a(b,g))))),a(c,a(b,a(e,a(f,a(b,g)))))).  [resolve(32,a,8,b)].
+
+given #30 (T,wt=19): 51 RR(a(x,a(y,a(z,a(u,w)))),a(z,a(u,a(x,a(y,w))))).  [ur(9,a,35,a,b,12,a)].
+
+given #31 (T,wt=19): 53 RR(a(x,a(y,a(z,a(u,w)))),a(y,a(u,a(z,a(x,w))))).  [ur(9,a,35,a,b,5,a)].
+
+given #32 (T,wt=19): 58 RR(a(x,a(y,a(z,a(u,w)))),a(x,a(u,a(y,a(z,w))))).  [ur(9,a,36,a,b,5,a)].
+
+given #33 (T,wt=19): 80 RR(a(x,a(y,a(z,a(u,w)))),a(u,a(x,a(z,a(y,w))))).  [ur(9,a,51,a,b,5,a)].
+
+given #34 (A,wt=23): 19 R(a(a(a(x,a(y,a(z,u))),w),v5),a(a(a(y,a(z,a(x,u))),w),v5)).  [ur(7,a,11,a)].
+
+given #35 (F,wt=27): 33 -R(a(d,a(b,a(c,a(e,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,27,a,c,15,a)].
+
+given #36 (F,wt=27): 34 -R(a(d,a(b,a(c,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [ur(9,a,27,a,c,10,a)].
+
+given #37 (F,wt=27): 40 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,b,12,a,c,21,a)].
+
+given #38 (F,wt=27): 41 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(e,a(b,a(d,a(f,a(b,g))))))).  [ur(9,b,12,a,c,15,a)].
+
+given #39 (T,wt=19): 86 RR(a(x,a(y,a(z,a(u,w)))),a(u,a(z,a(y,a(x,w))))).  [ur(9,a,53,a,b,5,a)].
+
+given #40 (T,wt=19): 92 RR(a(x,a(y,a(z,a(u,w)))),a(u,a(y,a(x,a(z,w))))).  [ur(9,a,58,a,b,5,a)].
+
+given #41 (T,wt=23): 38 R(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(y,a(u,a(w,a(z,v5)))))).  [ur(8,a,12,a)].
+
+given #42 (T,wt=23): 39 R(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(x,a(z,a(u,a(y,w)))),v5)).  [ur(7,a,12,a)].
+
+given #43 (A,wt=30): 20 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),x) | -R(x,a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [resolve(15,a,9,c)].
+
+given #44 (F,wt=27): 42 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(e,a(d,a(c,a(f,a(b,g))))))).  [ur(9,b,12,a,c,10,a)].
+
+given #45 (F,wt=27): 50 -R(a(d,a(c,a(e,a(b,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(35,a,14,a)].
+
+given #46 (F,wt=27): 54 -R(a(d,a(c,a(e,a(b,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,35,a,c,21,a)].
+
+given #47 (F,wt=23): 209 -R(a(c,a(e,a(b,a(f,a(b,g))))),a(c,a(b,a(e,a(f,a(b,g)))))).  [resolve(54,a,8,b)].
+
+given #48 (T,wt=23): 73 RR(a(x,a(a(y,a(z,a(u,w))),v5)),a(x,a(a(z,a(u,a(y,w))),v5))).  [ur(9,a,6,a,b,18,a)].
+
+given #49 (T,wt=23): 111 RR(a(a(a(x,a(y,a(z,u))),w),v5),a(a(a(y,a(z,a(x,u))),w),v5)).  [ur(9,a,6,a,b,19,a)].
+
+given #50 (T,wt=23): 156 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(y,a(z,a(w,a(x,v5)))))).  [ur(9,a,92,a,b,38,a)].
+
+given #51 (T,wt=23): 157 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(z,a(x,a(w,a(y,v5)))))).  [ur(9,a,86,a,b,38,a)].
+
+given #52 (A,wt=30): 24 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),x) | -R(x,a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [resolve(21,a,9,c)].
+
+given #53 (F,wt=19): 210 -R(a(e,a(b,a(f,a(b,g)))),a(b,a(e,a(f,a(b,g))))).  [resolve(209,a,8,b)].
+
+given #54 (F,wt=27): 55 -R(a(d,a(c,a(e,a(b,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,35,a,c,15,a)].
+
+given #55 (F,wt=27): 56 -R(a(c,a(b,a(e,a(d,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(36,a,14,a)].
+
+given #56 (F,wt=27): 59 -R(a(c,a(b,a(e,a(d,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,36,a,c,21,a)].
+
+given #57 (T,wt=23): 158 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(x,a(y,a(w,a(z,v5)))))).  [ur(9,a,80,a,b,38,a)].
+
+given #58 (T,wt=23): 159 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(u,a(z,a(w,a(y,v5)))))).  [ur(9,a,58,a,b,38,a)].
+
+given #59 (T,wt=23): 160 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(u,a(x,a(w,a(z,v5)))))).  [ur(9,a,53,a,b,38,a)].
+
+given #60 (T,wt=23): 161 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(u,a(y,a(w,a(x,v5)))))).  [ur(9,a,51,a,b,38,a)].
+
+given #61 (A,wt=27): 26 RR(a(x,a(a(y,a(z,a(u,w))),a(v5,v6))),a(a(z,a(u,a(y,w))),a(v5,a(x,v6)))).  [ur(9,a,13,a,b,11,a)].
+
+given #62 (F,wt=27): 60 -R(a(c,a(b,a(e,a(d,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,36,a,c,15,a)].
+
+given #63 (F,wt=23): 299 -R(a(b,a(e,a(d,a(f,a(b,g))))),a(b,a(d,a(e,a(f,a(b,g)))))).  [resolve(60,a,8,b)].
+
+given #64 (F,wt=19): 300 -R(a(e,a(d,a(f,a(b,g)))),a(d,a(e,a(f,a(b,g))))).  [resolve(299,a,8,b)].
+
+given #65 (F,wt=27): 61 -R(a(b,a(d,a(e,a(c,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(37,a,14,a)].
+
+given #66 (T,wt=23): 163 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(z,a(y,a(w,a(u,v5)))))).  [ur(9,a,37,a,b,38,a)].
+
+given #67 (T,wt=23): 164 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(x,a(z,a(w,a(u,v5)))))).  [ur(9,a,36,a,b,38,a)].
+
+given #68 (T,wt=23): 165 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(y,a(x,a(w,a(u,v5)))))).  [ur(9,a,35,a,b,38,a)].
+
+given #69 (T,wt=23): 166 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(x,a(u,a(w,a(y,v5)))))).  [ur(9,a,27,a,b,38,a)].
+
+given #70 (A,wt=27): 31 RR(a(x,a(y,a(a(z,a(u,a(w,v5))),v6))),a(a(u,a(w,a(z,v5))),a(x,a(y,v6)))).  [ur(9,a,27,a,b,11,a)].
+
+given #71 (F,wt=23): 301 -R(a(d,a(e,a(c,a(f,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(61,a,8,b)].
+
+given #72 (F,wt=19): 350 -R(a(e,a(c,a(f,a(b,g)))),a(c,a(e,a(f,a(b,g))))).  [resolve(301,a,8,b)].
+
+given #73 (F,wt=27): 62 -R(a(b,a(d,a(e,a(c,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,37,a,c,21,a)].
+
+given #74 (F,wt=27): 63 -R(a(b,a(d,a(e,a(c,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,37,a,c,15,a)].
+
+given #75 (T,wt=23): 168 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(z,a(u,a(w,a(x,v5)))))).  [ur(9,a,13,a,b,38,a)].
+
+given #76 (T,wt=23): 169 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(y,a(u,a(w,a(z,v5)))))).  [ur(9,a,6,a,b,38,a)].
+
+given #77 (T,wt=23): 182 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(z,a(y,a(u,a(x,w)))),v5)).  [ur(9,a,44,a,b,39,a)].
+
+given #78 (T,wt=23): 187 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(y,a(x,a(u,a(z,w)))),v5)).  [ur(9,a,17,a,b,39,a)].
+
+given #79 (A,wt=31): 43 RR(a(a(x,a(y,a(z,u))),a(w,a(v5,a(v6,v7)))),a(a(y,a(z,a(x,u))),a(v5,a(v6,a(w,v7))))).  [ur(9,a,17,a,b,12,a)].
+
+given #80 (F,wt=27): 77 -R(a(d,a(e,a(b,a(c,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(51,a,14,a)].
+
+given #81 (F,wt=27): 81 -R(a(d,a(e,a(b,a(c,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,51,a,c,21,a)].
+
+given #82 (F,wt=23): 383 -R(a(e,a(b,a(c,a(f,a(b,g))))),a(c,a(b,a(e,a(f,a(b,g)))))).  [resolve(81,a,8,b)].
+
+given #83 (F,wt=27): 82 -R(a(d,a(e,a(b,a(c,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,51,a,c,15,a)].
+
+given #84 (T,wt=23): 189 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(x,a(z,a(u,a(y,w)))),v5)).  [ur(9,a,6,a,b,39,a)].
+
+given #85 (T,wt=23): 214 RR(a(x,a(a(y,a(z,a(u,w))),v5)),a(x,a(a(u,a(y,a(z,w))),v5))).  [ur(9,a,73,a,b,18,a)].
+
+given #86 (T,wt=23): 218 RR(a(a(a(x,a(y,a(z,u))),w),v5),a(a(a(z,a(x,a(y,u))),w),v5)).  [ur(9,a,111,a,b,19,a)].
+
+given #87 (T,wt=23): 224 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(y,a(w,a(x,a(z,v5)))))).  [ur(9,a,156,a,b,38,a)].
+
+given #88 (A,wt=27): 45 RR(a(a(x,a(y,a(z,u))),a(w,a(v5,v6))),a(w,a(v5,a(a(y,a(z,a(x,u))),v6)))).  [ur(9,a,17,a,b,5,a)].
+
+given #89 (F,wt=27): 83 -R(a(c,a(e,a(d,a(b,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(53,a,14,a)].
+
+given #90 (F,wt=27): 87 -R(a(c,a(e,a(d,a(b,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,53,a,c,21,a)].
+
+given #91 (F,wt=27): 88 -R(a(c,a(e,a(d,a(b,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,53,a,c,15,a)].
+
+given #92 (F,wt=23): 413 -R(a(e,a(d,a(b,a(f,a(b,g))))),a(b,a(d,a(e,a(f,a(b,g)))))).  [resolve(88,a,8,b)].
+
+given #93 (T,wt=23): 227 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(z,a(w,a(y,a(x,v5)))))).  [ur(9,a,156,a,b,12,a)].
+
+given #94 (T,wt=23): 238 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(x,a(w,a(z,a(y,v5)))))).  [ur(9,a,157,a,b,12,a)].
+
+given #95 (T,wt=23): 261 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(u,a(w,a(y,a(z,v5)))))).  [ur(9,a,159,a,b,38,a)].
+
+given #96 (T,wt=23): 264 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(z,a(w,a(u,a(y,v5)))))).  [ur(9,a,159,a,b,12,a)].
+
+given #97 (A,wt=33): 46 -R(x,a(b,a(d,a(c,a(e,a(f,a(b,g))))))) | -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),y) | -R(y,x).  [resolve(14,a,9,c)].
+
+given #98 (F,wt=27): 89 -R(a(b,a(e,a(c,a(d,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(58,a,14,a)].
+
+given #99 (F,wt=23): 549 -R(a(e,a(c,a(d,a(f,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(89,a,8,b)].
+
+given #100 (F,wt=27): 93 -R(a(b,a(e,a(c,a(d,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,58,a,c,21,a)].
+
+given #101 (F,wt=27): 94 -R(a(b,a(e,a(c,a(d,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,58,a,c,15,a)].
+
+given #102 (T,wt=23): 273 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(u,a(w,a(z,a(x,v5)))))).  [ur(9,a,160,a,b,38,a)].
+
+given #103 (T,wt=23): 276 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(x,a(w,a(u,a(z,v5)))))).  [ur(9,a,160,a,b,12,a)].
+
+given #104 (T,wt=23): 285 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(u,a(w,a(x,a(y,v5)))))).  [ur(9,a,161,a,b,38,a)].
+
+given #105 (T,wt=23): 288 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(y,a(w,a(u,a(x,v5)))))).  [ur(9,a,161,a,b,12,a)].
+
+given #106 (A,wt=30): 47 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,x)) | -R(x,a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(14,b,8,b)].
+
+given #107 (F,wt=23): 596 -R(a(d,a(f,a(e,a(c,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(47,a,264,a)].
+
+given #108 (F,wt=19): 604 -R(a(f,a(e,a(c,a(b,g)))),a(c,a(e,a(f,a(b,g))))).  [resolve(596,a,8,b)].
+
+given #109 (F,wt=23): 597 -R(a(e,a(f,a(c,a(d,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(47,a,261,a)].
+
+given #110 (F,wt=23): 598 -R(a(c,a(e,a(f,a(d,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(47,a,169,a)].
+
+given #111 (T,wt=23): 308 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(y,a(w,a(z,a(u,v5)))))).  [ur(9,a,163,a,b,12,a)].
+
+given #112 (T,wt=23): 319 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(z,a(w,a(x,a(u,v5)))))).  [ur(9,a,164,a,b,12,a)].
+
+given #113 (T,wt=23): 330 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(x,a(w,a(y,a(u,v5)))))).  [ur(9,a,165,a,b,12,a)].
+
+given #114 (T,wt=23): 367 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(z,a(u,a(x,a(y,w)))),v5)).  [ur(9,a,182,a,b,39,a)].
+
+given #115 (A,wt=30): 48 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(x,a(d,a(c,a(e,a(f,a(b,g))))))) | -R(x,b).  [resolve(14,b,7,b)].
+
+given #116 (F,wt=23): 599 -R(a(d,a(c,a(f,a(e,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(47,a,163,a)].
+
+given #117 (F,wt=19): 651 -R(a(c,a(f,a(e,a(b,g)))),a(c,a(e,a(f,a(b,g))))).  [resolve(599,a,8,b)].
+
+given #118 (F,wt=15): 652 -R(a(f,a(e,a(b,g))),a(e,a(f,a(b,g)))).  [resolve(651,a,8,b)].
+
+given #119 (F,wt=23): 600 -R(a(e,a(d,a(f,a(c,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(47,a,159,a)].
+
+given #120 (T,wt=23): 372 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(y,a(u,a(z,a(x,w)))),v5)).  [ur(9,a,182,a,b,11,a)].
+
+given #121 (T,wt=23): 378 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(x,a(u,a(y,a(z,w)))),v5)).  [ur(9,a,187,a,b,11,a)].
+
+given #122 (T,wt=23): 402 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(w,a(x,a(y,a(z,v5)))))).  [ur(9,a,224,a,b,12,a)].
+
+given #123 (T,wt=23): 404 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(w,a(u,a(x,a(z,v5)))))).  [ur(9,a,224,a,b,5,a)].
+
+given #124 (A,wt=31): 52 RR(a(x,a(y,a(a(z,a(u,a(w,v5))),a(v6,v7)))),a(a(u,a(w,a(z,v5))),a(y,a(v6,a(x,v7))))).  [ur(9,a,35,a,b,11,a)].
+
+given #125 (F,wt=23): 605 -R(a(c,a(f,a(d,a(e,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(308,a,47,a)].
+
+given #126 (F,wt=27): 95 -R(a(e,a(b,a(d,a(c,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [resolve(80,a,14,a)].
+
+given #127 (F,wt=27): 98 -R(a(e,a(b,a(d,a(c,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,a,80,a,c,21,a)].
+
+given #128 (F,wt=27): 99 -R(a(e,a(b,a(d,a(c,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,a,80,a,c,15,a)].
+
+given #129 (T,wt=23): 420 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(w,a(y,a(z,a(x,v5)))))).  [ur(9,a,227,a,b,12,a)].
+
+given #130 (T,wt=23): 422 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(w,a(u,a(y,a(x,v5)))))).  [ur(9,a,227,a,b,5,a)].
+
+given #131 (T,wt=23): 432 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(u,a(w,a(z,a(x,a(y,v5)))))).  [ur(9,a,238,a,b,12,a)].
+
+given #132 (T,wt=23): 434 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(w,a(u,a(z,a(y,v5)))))).  [ur(9,a,238,a,b,5,a)].
+
+given #133 (A,wt=31): 57 RR(a(x,a(a(y,a(z,a(u,w))),a(v5,a(v6,v7)))),a(a(z,a(u,a(y,w))),a(x,a(v6,a(v5,v7))))).  [ur(9,a,36,a,b,11,a)].
+
+given #134 (F,wt=23): 735 -R(a(f,a(e,a(d,a(c,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(434,a,47,a)].
+
+given #135 (F,wt=27): 115 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(b,a(e,a(c,a(f,a(b,g))))))).  [ur(9,b,12,a,c,40,a)].
+
+given #136 (F,wt=27): 116 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(d,a(e,a(b,a(f,a(b,g))))))).  [ur(9,b,5,a,c,40,a)].
+
+given #137 (F,wt=27): 117 -R(a(e,a(b,a(d,a(c,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,80,a,c,40,a)].
+
+given #138 (T,wt=23): 444 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(w,a(y,a(u,a(z,v5)))))).  [ur(9,a,261,a,b,12,a)].
+
+given #139 (T,wt=23): 456 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(w,a(x,a(u,a(y,v5)))))).  [ur(9,a,264,a,b,5,a)].
+
+given #140 (T,wt=23): 556 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(w,a(z,a(u,a(x,v5)))))).  [ur(9,a,273,a,b,12,a)].
+
+given #141 (T,wt=23): 612 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(w,a(z,a(y,a(u,v5)))))).  [ur(9,a,308,a,b,12,a)].
+
+given #142 (A,wt=31): 64 RR(a(a(x,a(y,a(z,u))),a(w,a(v5,a(v6,v7)))),a(a(z,a(x,a(y,u))),a(v5,a(v6,a(w,v7))))).  [ur(9,a,44,a,b,12,a)].
+
+given #143 (F,wt=23): 844 -R(a(f,a(c,a(e,a(d,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(444,a,47,a)].
+
+given #144 (F,wt=23): 890 -R(a(f,a(d,a(c,a(e,a(b,g))))),a(d,a(c,a(e,a(f,a(b,g)))))).  [resolve(612,a,47,a)].
+
+given #145 (F,wt=27): 118 -R(a(b,a(e,a(c,a(d,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,58,a,c,40,a)].
+
+given #146 (F,wt=27): 119 -R(a(c,a(e,a(d,a(b,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,53,a,c,40,a)].
+
+given #147 (T,wt=23): 614 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(w,a(x,a(z,a(u,v5)))))).  [ur(9,a,308,a,b,5,a)].
+
+given #148 (T,wt=23): 628 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(z,a(w,a(y,a(x,a(u,v5)))))).  [ur(9,a,319,a,b,5,a)].
+
+given #149 (T,wt=23): 649 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(u,a(x,a(z,a(y,w)))),v5)).  [ur(9,a,367,a,b,11,a)].
+
+given #150 (T,wt=23): 657 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(u,a(z,a(y,a(x,w)))),v5)).  [ur(9,a,372,a,b,11,a)].
+
+given #151 (A,wt=27): 65 RR(a(a(x,a(y,a(z,u))),a(w,a(v5,v6))),a(w,a(v5,a(a(z,a(x,a(y,u))),v6)))).  [ur(9,a,44,a,b,5,a)].
+
+given #152 (F,wt=27): 120 -R(a(d,a(e,a(b,a(c,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,51,a,c,40,a)].
+
+given #153 (F,wt=23): 958 -R(a(e,a(b,a(c,a(f,a(b,g))))),a(e,a(c,a(b,a(f,a(b,g)))))).  [resolve(120,a,8,b)].
+
+given #154 (F,wt=19): 959 -R(a(b,a(c,a(f,a(b,g)))),a(c,a(b,a(f,a(b,g))))).  [resolve(958,a,8,b)].
+
+given #155 (F,wt=27): 121 -R(a(b,a(d,a(e,a(c,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,37,a,c,40,a)].
+
+given #156 (T,wt=23): 663 RR(a(a(x,a(y,a(z,a(u,w)))),v5),a(a(u,a(y,a(x,a(z,w)))),v5)).  [ur(9,a,378,a,b,11,a)].
+
+given #157 (T,wt=23): 672 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(x,a(u,a(y,a(z,v5)))))).  [ur(9,a,402,a,b,5,a)].
+
+given #158 (T,wt=23): 685 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(u,a(y,a(x,a(z,v5)))))).  [ur(9,a,404,a,b,5,a)].
+
+given #159 (T,wt=23): 703 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(y,a(u,a(z,a(x,v5)))))).  [ur(9,a,420,a,b,5,a)].
+
+given #160 (A,wt=35): 66 RR(a(a(x,a(y,a(z,u))),a(a(w,a(v5,a(v6,v7))),v8)),a(a(z,a(x,a(y,u))),a(a(v5,a(v6,a(w,v7))),v8))).  [ur(9,a,44,a,b,18,a)].
+
+given #161 (F,wt=27): 122 -R(a(c,a(b,a(e,a(d,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,36,a,c,40,a)].
+
+given #162 (F,wt=27): 123 -R(a(d,a(c,a(e,a(b,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,35,a,c,40,a)].
+
+given #163 (F,wt=23): 1008 -R(a(c,a(e,a(b,a(f,a(b,g))))),a(e,a(c,a(b,a(f,a(b,g)))))).  [resolve(123,a,8,b)].
+
+given #164 (F,wt=27): 124 -R(a(d,a(b,a(c,a(e,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,27,a,c,40,a)].
+
+given #165 (T,wt=23): 716 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(u,a(z,a(y,a(x,v5)))))).  [ur(9,a,422,a,b,5,a)].
+
+given #166 (T,wt=23): 729 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(z,a(u,a(x,a(y,v5)))))).  [ur(9,a,432,a,b,5,a)].
+
+given #167 (T,wt=23): 743 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(u,a(x,a(z,a(y,v5)))))).  [ur(9,a,434,a,b,5,a)].
+
+given #168 (T,wt=23): 852 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(y,a(x,a(u,a(z,v5)))))).  [ur(9,a,444,a,b,5,a)].
+
+given #169 (A,wt=31): 67 RR(a(x,a(y,a(a(z,a(u,a(w,v5))),a(v6,v7)))),a(x,a(a(u,a(w,a(z,v5))),a(v6,a(y,v7))))).  [ur(9,a,37,a,b,18,a)].
+
+given #170 (F,wt=23): 1009 -R(a(b,a(c,a(e,a(f,a(b,g))))),a(e,a(c,a(b,a(f,a(b,g)))))).  [resolve(124,a,8,b)].
+
+given #171 (F,wt=27): 125 -R(a(c,a(d,a(b,a(e,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,13,a,c,40,a)].
+
+given #172 (F,wt=27): 126 -R(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,a,6,a,c,40,a)].
+
+given #173 (F,wt=27): 128 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(c,a(e,a(d,a(f,a(b,g))))))).  [ur(9,b,5,a,c,41,a)].
+
+given #174 (T,wt=23): 867 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(x,a(z,a(u,a(y,v5)))))).  [ur(9,a,456,a,b,5,a)].
+
+given #175 (T,wt=23): 882 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(z,a(y,a(u,a(x,v5)))))).  [ur(9,a,556,a,b,5,a)].
+
+given #176 (T,wt=23): 898 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(z,a(x,a(y,a(u,v5)))))).  [ur(9,a,612,a,b,5,a)].
+
+given #177 (T,wt=23): 918 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(x,a(y,a(z,a(u,v5)))))).  [ur(9,a,614,a,b,5,a)].
+
+given #178 (A,wt=31): 68 RR(a(a(x,a(y,a(z,u))),a(w,a(v5,a(v6,v7)))),a(w,a(a(y,a(z,a(x,u))),a(v6,a(v5,v7))))).  [ur(9,a,36,a,b,18,a)].
+
+given #179 (F,wt=27): 129 -R(a(e,a(b,a(d,a(c,a(f,a(b,g)))))),a(c,a(e,a(b,a(d,a(f,a(b,g))))))).  [ur(9,a,80,a,c,41,a)].
+
+given #180 (F,wt=27): 130 -R(a(b,a(e,a(c,a(d,a(f,a(b,g)))))),a(c,a(e,a(b,a(d,a(f,a(b,g))))))).  [ur(9,a,58,a,c,41,a)].
+
+given #181 (F,wt=27): 131 -R(a(c,a(e,a(d,a(b,a(f,a(b,g)))))),a(c,a(e,a(b,a(d,a(f,a(b,g))))))).  [ur(9,a,53,a,c,41,a)].
+
+given #182 (F,wt=23): 1183 -R(a(e,a(d,a(b,a(f,a(b,g))))),a(e,a(b,a(d,a(f,a(b,g)))))).  [resolve(131,a,8,b)].
+
+given #183 (T,wt=23): 933 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(w,a(y,a(z,a(x,a(u,v5)))))).  [ur(9,a,628,a,b,5,a)].
+
+given #184 (T,wt=27): 70 RR(a(a(x,a(y,a(z,u))),a(w,a(v5,v6))),a(v5,a(a(y,a(z,a(x,u))),a(w,v6)))).  [ur(9,a,27,a,b,18,a)].
+
+given #185 (T,wt=27): 72 RR(a(x,a(y,a(a(z,a(u,a(w,v5))),v6))),a(y,a(a(u,a(w,a(z,v5))),a(x,v6)))).  [ur(9,a,13,a,b,18,a)].
+
+given #186 (T,wt=27): 74 R(a(x,a(y,a(a(z,a(u,a(w,v5))),v6))),a(x,a(y,a(a(u,a(w,a(z,v5))),v6)))).  [ur(8,a,18,a)].
+
+given #187 (A,wt=31): 69 RR(a(x,a(a(y,a(z,a(u,w))),a(v5,a(v6,v7)))),a(v5,a(a(z,a(u,a(y,w))),a(v6,a(x,v7))))).  [ur(9,a,35,a,b,18,a)].
+
+given #188 (F,wt=19): 1184 -R(a(d,a(b,a(f,a(b,g)))),a(b,a(d,a(f,a(b,g))))).  [resolve(1183,a,8,b)].
+
+given #189 (F,wt=27): 132 -R(a(d,a(e,a(b,a(c,a(f,a(b,g)))))),a(c,a(e,a(b,a(d,a(f,a(b,g))))))).  [ur(9,a,51,a,c,41,a)].
+
+given #190 (F,wt=27): 133 -R(a(b,a(d,a(e,a(c,a(f,a(b,g)))))),a(c,a(e,a(b,a(d,a(f,a(b,g))))))).  [ur(9,a,37,a,c,41,a)].
+
+given #191 (F,wt=27): 134 -R(a(c,a(b,a(e,a(d,a(f,a(b,g)))))),a(c,a(e,a(b,a(d,a(f,a(b,g))))))).  [ur(9,a,36,a,c,41,a)].
+
+given #192 (T,wt=27): 75 R(a(a(x,a(a(y,a(z,a(u,w))),v5)),v6),a(a(x,a(a(z,a(u,a(y,w))),v5)),v6)).  [ur(7,a,18,a)].
+
+given #193 (T,wt=27): 112 R(a(x,a(a(a(y,a(z,a(u,w))),v5),v6)),a(x,a(a(a(z,a(u,a(y,w))),v5),v6))).  [ur(8,a,19,a)].
+
+given #194 (T,wt=27): 113 R(a(a(a(a(x,a(y,a(z,u))),w),v5),v6),a(a(a(a(y,a(z,a(x,u))),w),v5),v6)).  [ur(7,a,19,a)].
+
+given #195 (T,wt=27): 170 R(a(x,a(y,a(z,a(u,a(w,a(v5,v6)))))),a(x,a(y,a(z,a(w,a(v5,a(u,v6))))))).  [ur(8,a,38,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.09 (+ 0.01) seconds.
+% Length of proof is 22.
+% Level of proof is 7.
+% Maximum clause weight is 27.000.
+% Given clauses 195.
+
+2 R(x,y) -> R(a(z,x),a(z,y)) # label(non_clause).  [assumption].
+3 RR(x,y) & R(y,z) -> RR(x,z) # label(non_clause).  [assumption].
+4 RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))) # label(non_clause) # label(goal).  [goal].
+5 R(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [assumption].
+6 RR(x,x).  [assumption].
+8 -R(x,y) | R(a(z,x),a(z,y)).  [clausify(2)].
+9 -RR(x,y) | -R(y,z) | RR(x,z).  [clausify(3)].
+10 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(b,a(d,a(c,a(e,a(f,a(b,g))))))).  [deny(4)].
+12 R(a(x,a(y,a(z,a(u,w)))),a(x,a(z,a(u,a(y,w))))).  [ur(8,a,5,a)].
+13 RR(a(x,a(y,a(z,u))),a(y,a(z,a(x,u)))).  [ur(9,a,6,a,b,5,a)].
+15 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(b,a(d,a(e,a(f,a(b,g))))))).  [ur(9,b,5,a,c,10,a)].
+21 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(c,a(b,a(e,a(f,a(b,g))))))).  [ur(9,b,5,a,c,15,a)].
+36 RR(a(x,a(y,a(z,a(u,w)))),a(y,a(x,a(u,a(z,w))))).  [ur(9,a,13,a,b,12,a)].
+38 R(a(x,a(y,a(z,a(u,a(w,v5))))),a(x,a(y,a(u,a(w,a(z,v5)))))).  [ur(8,a,12,a)].
+40 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(d,a(e,a(c,a(b,a(f,a(b,g))))))).  [ur(9,b,12,a,c,21,a)].
+116 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(d,a(e,a(b,a(f,a(b,g))))))).  [ur(9,b,5,a,c,40,a)].
+164 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(x,a(z,a(w,a(u,v5)))))).  [ur(9,a,36,a,b,38,a)].
+170 R(a(x,a(y,a(z,a(u,a(w,a(v5,v6)))))),a(x,a(y,a(z,a(w,a(v5,a(u,v6))))))).  [ur(8,a,38,a)].
+319 RR(a(x,a(y,a(z,a(u,a(w,v5))))),a(y,a(z,a(w,a(x,a(u,v5)))))).  [ur(9,a,164,a,b,12,a)].
+800 -RR(a(b,a(c,a(d,a(e,a(f,a(b,g)))))),a(c,a(d,a(f,a(e,a(b,a(b,g))))))).  [ur(9,b,38,a,c,116,a)].
+1604 RR(a(x,a(y,a(z,a(u,a(w,a(v5,v6)))))),a(y,a(z,a(w,a(u,a(v5,a(x,v6))))))).  [ur(9,a,319,a,b,170,a)].
+1605 $F.  [resolve(1604,a,800,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=195. Generated=2533. Kept=1600. proofs=1.
+Usable=195. Sos=1369. Demods=0. Limbo=35, Disabled=6. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=933. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=1096. Nonunit_bsub_feature_tests=6332.
+Megabytes=4.21.
+User_CPU=0.09, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 23607 exit (max_proofs) Sat Jan  9 22:08:16 2016
