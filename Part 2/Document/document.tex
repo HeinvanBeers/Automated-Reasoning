@@ -348,9 +348,9 @@ is poured, otherwise the pouring stops when the other bottle is full.
 	
 	To check whether it is possible to reach a state in which the first bottle contains 8 units and the second one contains 11 units of water, we also add an LTL specification to the model described above that states the opposite of this requirement. So That it is not possible to reach a state in which the first bottle contains 8 units of water and the second one contains 11 units. This LTL specification is given below.\\
 
-{\tt LTLSPEC G !(b1 = 8 \& b2 = 11) }
+{\tt LTLSPEC G !(b1 = 8 \& b2 = 11) }\\
 
-If we then run the program by executing {\tt nusmv Assignment2-a.smv}, we get the following output.
+If we then run the program by executing {\tt nusmv Assignment2-a.smv}, we get the following output.\\
 
 {\tt -- specification  G !(b1 = 8 \& b2 = 11)  is false }
 
@@ -388,7 +388,7 @@ If we then run the program by executing {\tt nusmv Assignment2-a.smv}, we get th
 
 $\cdots \cdots$
 
-From this output, we can see that the specification we checkes is false, which means that it is possible to reach a state in which the first bottle contains 8 units and the second bottle contains 11 units of water. If we now look at the counterexample that NuSMV has given to is, we can easily see that it is indeed possible to reach such a state. The counterexample expressed in a table yields the result as displayed in Table \ref{tab:2a}, which is shown below. the highlighted row in the table indicates the step at which the first bottle contains 8 units and the second bottle contains 11 units of water.
+From this output, we can see that the specification we checked is false, which means that it is possible to reach a state in which the first bottle contains 8 units and the second bottle contains 11 units of water. If we now look at the counterexample that NuSMV has given to us, we can easily see that it is indeed possible to reach such a state. The counterexample expressed in a table yields the result as displayed in Table \ref{tab:2a}, which is shown below. The highlighted row in the table indicates the step at which the first bottle contains 8 units and the second bottle contains 11 units of water. Note that the values of the variables $pour\_in$ and $poured$ are only used if $action\_option$ is equal to $pour$ (the second action). So for this reason, we have put brackets around the values of those variables, when they are not of importance in that step.
 
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
@@ -426,13 +426,64 @@ From this output, we can see that the specification we checkes is false, which m
 		3 & 72 & 0 & B2 & empty & (B1) & (0)\tabularnewline
 		3 & 0 & 0 & B2 & fill & (B1) & (0)\tabularnewline
 		\bottomrule
-		\caption{assignment 2a}
+		\caption{Assignment 2a}
 		\label{tab:2a}
 	\end{longtable}
 	
 	\subsection*{Problem 2b}
+	For this part of the assignment we again need to check whether it is possible to arrive at a situation in which the first bottle contains 8 units and the second one contains 11 units. If this is possible, we also need to give a scenario reaching this situation. But this time the second bottle is replaced by a bottle that can hold 80 units, and all the rest remains the same. So we again use the same model as for the first part of this assignment. But now the only thing that is different is that the maximum capacity of the second bottle is 80 units, instead of 72.\\
 	
+	If we then run the program by executing {\tt nusmv Assignment2-b.smv}, we get the following output.\\
+	
+{\tt -- specification  G !(b1 = 8 \& b2 = 11)  is true}\\
+
+Since the specification is true, it means that it is not possible to reach a state in which the first bottle holds 8 units and the second bottle holds 11 units of water.
+
 	\subsection*{Problem 2c}
+	For this last part of the assignment we again need to check whether it is possible to arrive at a situation in which the first bottle contains 8 units and the second one contains 11 units. If this is possible, we also need to give a scenario reaching this situation. But this time the third bottle is replaced by a bottle that can hold 28 units, and all the rest remains the same. So we again use the same model as for the first part of this assignment. But now the only thing that is different is that the maximum capacity of the third bottle is 28 units, instead of 16.\\
+	
+	If we then run the program by executing {\tt nusmv Assignment2-c.smv}, we get the following output.\\
+
+{\tt -- specification  G !(b1 = 8 \& b2 = 11)  is false }
+
+{\tt -- as demonstrated by the following execution sequence }
+
+{\tt Trace Description: LTL Counterexample }
+
+{\tt Trace Type: Counterexample }
+
+{\tt   -- Loop starts here }
+
+{\tt   -> State: 1.1 <- }
+
+{\tt     b1 = 3 }
+
+{\tt     b2 = 0 }
+
+{\tt     b3 = 0 }
+
+{\tt     bottle\_option = 2 }
+
+{\tt     action\_option = 1 }
+
+{\tt     pour\_in = 1 }
+
+{\tt     poured = 0 }
+
+{\tt   -> State: 1.2 <- }
+
+{\tt     b2 = 72 }
+
+{\tt     action\_option = 3 }
+
+{\tt     pour\_in = 3 }
+
+{\tt     poured = 28 }
+
+$\cdots \cdots$
+
+From this output, we can see that the specification we checked is false, which means that it is possible to reach a state in which the first bottle contains 8 units and the second bottle contains 11 units of water. If we now look at the counterexample that NuSMV has given to us, we can easily see that it is indeed possible to reach such a state. The counterexample expressed in a table yields the result as displayed in Table \ref{tab:2c}, which is shown below. The highlighted row in the table indicates the step at which the first bottle contains 8 units and the second bottle contains 11 units of water. Note that the values of the variables $pour\_in$ and $poured$ are only used if $action\_option$ is equal to $pour$ (the second action). So for this reason, we have put brackets around the values of those variables, when they are not of importance in that step.
+
 	\begin{longtable}[c]{@{}lllllll@{}}
 		\toprule
 		B1 & B2 & B3 & bottle\_option & action\_option & pour\_in &
@@ -492,9 +543,12 @@ From this output, we can see that the specification we checkes is false, which m
 		3 & 0 & 28 & B3 & empty & (B1) & (0)\tabularnewline
 		3 & 0 & 0 & B2 & fill & (B1) & (0)\tabularnewline
 		\bottomrule
-		\caption{assignment 2c}
+		\caption{Assignment 2c}
 		\label{tab:2c}
 	\end{longtable}
+
+	{\bf Generalization:} 
+As we generalized our approach for $n$ bottles and a maximum bottle capacity of $max(i)$ for each bottle $i$, it is interesting to see what happens for other values of $n$. For $n > 10$ we can still represent clearly with our use of variables what bottle we want to indicate. So if we keep the notation then it is still clear that \texttt{b1111} represents bottle 1111. We have also shown in the exercises that it is easy to change the maximum capacity of a bottle, since it is simply replacing the capacity of the bottle you want to change with a new value.
 	
 	
 	\section*{Problem 3: Exploiting the tools}
