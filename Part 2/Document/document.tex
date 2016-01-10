@@ -346,7 +346,7 @@ is poured, otherwise the pouring stops when the other bottle is full.
 	\subsection*{Problem 2a}
 	For the first part of this assignment, we need to determine whether it is possible to arrive at a situation in which the first bottle contains 8 units and the second one contains 11 units. If this is possible, we also need to give a scenario reaching this situation.\\
 	
-	So if we take $n=3$, since we have three bottles and let $max(1)=144$, $max(2)=72$ and $max(3)=16$ be the corresponding maximum capacities of the three bottles, we can run the program. To check whether it is possible to reach a state in which the first bottle contains 8 units and the second one contains 11 units of water, we also add an LTL specification to the model described above that states the opposite of this requirement. So That it is not possible to reach a state in which the first bottle contains 8 units of water and the second one contains 11 units. This LTL specification is given below.\\
+	So if we take $n=3$, since we have three bottles and let $max(1)=144$, $max(2)=72$ and $max(3)=16$ be the corresponding maximum capacities of the three bottles, and we set the initial value of the first bottle to 3 units and of the other two bottles to zero, we can run the program. To check whether it is possible to reach a state in which the first bottle contains 8 units and the second one contains 11 units of water, we also add an LTL specification to the model described above that states the opposite of this requirement. So That it is not possible to reach a state in which the first bottle contains 8 units of water and the second one contains 11 units. This LTL specification is given below.\\
 
 {\tt LTLSPEC G !(b1 = 8 \& b2 = 11) }\\
 
