@@ -341,7 +341,97 @@ is poured, otherwise the pouring stops when the other bottle is full.
 \end{itemize}
 
 	\subsection*{Solution:}
-	We generalize this problem to $n$ bottles each having a maximum capacity of $max(i)$ for bottle $i$. For each bottle we then introduce one integer variables $b_i$ for $i=1,...,n$, where $i$ indicates the number of each bottle. So now we have a variable $b_i$ that represents the amount of water in bottle $i$. Next, we also introduce an integer variable $bottle\_option$ for indicating on which bottle we execute an action. $bottle\_option$ can take a value in the range [$1..n$], so if $bottle\_option$ has the value $i$, it means that we execute an action on bottle $i$. We then also have an integer variable $action\_option$ for indicating which action we execute. $action\_option$ can take a value in the range [$1..3$], since we only have three actions available. Next, we also introduce an integer variable $pour\_in$ for indication in which bottle we pour the water. Note that this variable is only used when we perform the pour-action (action 3). $pour\_in$ can also take a value in the range [$1..n$], since we can pour the water in any of the $n$ bottles. Finally, we also have an integer variable called $poured$ for keeping track of how much water we pour from one bottle in another during the pour-action. $poured$ can take on a value in the range [$0..max$], where $max$ is the capacity of the biggest bottle that we are using.
+	We generalize this problem to $n$ bottles each having a maximum capacity of $max(i)$ for bottle $i$. For each bottle we then introduce one integer variables $b_i$ for $i=1,...,n$, where $i$ indicates the number of each bottle. So now we have a variable $b_i$ that represents the amount of water in bottle $i$. Next, we also introduce an integer variable $bottle\_option$ for indicating on which bottle we execute an action. $bottle\_option$ can take a value in the range [$1..n$], so if $bottle\_option$ has the value $i$, it means that we execute an action on bottle $i$. We then also have an integer variable $action\_option$ for indicating which action we execute. $action\_option$ can take a value in the range [$1..3$], since we only have three actions available. Next, we also introduce an integer variable $pour\_in$ for indication in which bottle we pour the water. Note that this variable is only used when we perform the pour-action (action 3). $pour\_in$ can also take a value in the range [$1..n$], since we can pour the water in any of the $n$ bottles. Finally, we also have an integer variable called $poured$ for keeping track of how much water we pour from one bottle in another during the pour-action. $poured$ can take on a value in the range [$0..max$], where $max$ is the capacity of the biggest bottle that we are using.\\
+	
+	Since for each bottle $b_i$ we need to define its next state, we have a case distinction on each bottle. In each case we give the next value for the bottle depending on the action taken. When we are looking at the case for bottle $b_i$ and $bottle\_option = i$ and $action\_option = 1$ we fill bottle $b_i$ entirely, for this we introduce the following formula for bottle $b_i$
+\[ bottle\_option = i\ \&\ action\_option = 1 : max(i).\]
+Where $max(i)$ is the maximum capacity of bottle $b_i$ in units.\\
+
+	When we are looking at the case for bottle $b_i$ and $bottle\_option = i$ and $action\_option = 2$ we empty bottle $b_i$ entirely, for this we introduce the following formula for bottle $b_i$
+\[ bottle\_option = i\ \&\ action\_option = 2 : 0.\]
+
+	We now have described the possible values for bottle $b_i$ in the next step for the first two actions. When now $action\_option = 3$ we have several different possibilities. We either empty bottle $b_i$ in one of the other bottles, so in that case $bottle\_option = i$, or we empty one of the other bottles in bottle $b_i$ ($bottle\_option \neq i$).\\
+	
+	When we are looking at bottle $b_i$ and $bottle\_option = i$ and $action\_option = 3$, we can pour bottle $b_i$ in any of the other bottles. So we have $n-1$ cases, one for each combination with bottle $b_i$. We then still have two possibilities: Either bottle $b_i$ is only partly emptied in bottle $b_j$, since bottle $b_j$ is already full ($b_j + poured = max(j)$), or bottle $b_i$ is entirely emptied in bottle $b_j$. This can easily be described by the following formula
+\[ bottle\_option = i\ \&\ action\_option = 3\ \&\ pour\_in = j\ \& \]
+\[ ((b_j + poured = max(j)\ \&\ b_i - poured >= 0)\ | \]
+\[ (b_j + poured < max(j)\ \&\ b_i - poured = 0)) : b_i - poured;.\]
+Where $max(j)$ is the maximum capacity of bottle $b_j$ in units.\\
+
+	Now the remaining case, when we are looking at bottle $b_i$ and $bottle\_option = j$, for any $j \neq i$, and $action\_option = 3$, we pour bottle $b_j$ in bottle $b_i$. So we have $n-1$ cases, one for each combination with bottle $b_i$. We then still have two possibilities: Either bottle $b_j$ is only partly emptied in bottle $b_i$, since bottle $b_i$ is already full ($b_i + poured = max(i)$), or bottle $b_j$ is entirely emptied in bottle $b_i$. This can easily be described by the following formula
+\[ bottle\_option = j\ \&\ action\_option = 3\ \&\ pour\_in = i\ \& \]
+\[ ((b_i + poured = max(i)\ \&\ b_j - poured >= 0)\ | \]
+\[ (b_i + poured < max(i)\ \&\ b_j - poured = 0)) : b_i + poured;.\]
+Where $j \neq i$ and $max(i)$ is the maximum capacity of bottle $b_i$ in units.\\
+
+	For any other combination of variables, the capacity of bottle $b_i$ does not changes, so it remains the same. This can be described with the default case
+	\[ {\tt TRUE} : b_i \]
+	
+	The entire formula can easily be expressed in SMV syntax, for instance, for $n=3$ and the capacities of the bottles are as described in the assignment, one can generate the following SMV code\\
+
+{\footnotesize
+
+{\tt MODULE main }
+
+{\tt VAR }
+
+{\tt b1 : 0..144; }
+
+{\tt b2 : 0..72; }
+
+{\tt b3 : 0..16; }
+
+{\tt bottle\_option : 1..3; }
+
+{\tt action\_option : 1..3; }
+
+{\tt pour\_in : 1..3; }
+
+{\tt poured : 0..144; }
+
+\vspace{1em}
+
+{\tt INIT }
+
+{\tt b1 = 3\ \&\ b2 = 0\ \&\ b3 = 0 }
+
+\vspace{1em}
+
+{\tt ASSIGN }
+
+{\tt next(b1) := }
+
+{\tt 	case }
+
+
+{\tt 		bottle\_option = 1\ \&\ action\_option = 1 : 144; }
+
+{\tt 		bottle\_option = 1\ \&\ action\_option = 2 : 0; }
+
+\vspace{1em}
+
+{\tt 		bottle\_option = 1\ \&\ action\_option = 3\ \&\ pour\_in = 2\ \&\ ((b2 + poured = 72\ \&\ b1 - poured >= 0)\ |\ (b2 + poured < 72\ \&\ b1 - poured = 0)) : b1 - poured; }
+
+{\tt 		bottle\_option = 1\ \&\ action\_option = 3\ \&\ pour\_in = 3\ \&\ ((b3 + poured = 16\ \&\ b1 - poured >= 0)\ |\ (b3 + poured < 16\ \&\ b1 - poured = 0)) : b1 - poured; }
+
+\vspace{1em}
+
+{\tt 		bottle\_option = 2\ \&\ action\_option = 3\ \&\ pour\_in = 1\ \&\ ((b1 + poured = 144\ \&\ b2 - poured >= 0)\ |\ (b1 + poured < 144\ \&\ b2 - poured = 0)) : b1 + poured; }
+
+{\tt 		bottle\_option = 3\ \&\ action\_option = 3\ \&\ pour\_in = 1\ \&\ ((b1 + poured = 144\ \&\ b3 - poured >= 0)\ |\ (b1 + poured < 144\ \&\ b3 - poured = 0)) : b1 + poured; }
+
+{\tt 		TRUE : b1; }
+
+{\tt 	esac; }
+
+\vspace{1em}
+
+{\tt next(b2) := }
+
+{\tt 	case }
+
+$\cdots \cdots$
+
 	
 	\subsection*{Problem 2a}
 	For the first part of this assignment, we need to determine whether it is possible to arrive at a situation in which the first bottle contains 8 units and the second one contains 11 units. If this is possible, we also need to give a scenario reaching this situation.\\
